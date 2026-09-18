@@ -84,11 +84,11 @@ export default function DashboardSidebar({ open, setOpen, role }) {
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed md:sticky top-0 left-0 z-50
-          h-screen w-72 md:w-64
+          fixed inset-y-0 left-0 z-50
+          w-72 md:w-64 md:sticky md:top-[72px] md:h-[calc(100vh-72px)] md:shrink-0
+          flex flex-col overflow-y-auto
           bg-panel/95 backdrop-blur-xl border-r border-line
           shadow-xl md:shadow-none
-          flex flex-col
           transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
@@ -96,14 +96,14 @@ export default function DashboardSidebar({ open, setOpen, role }) {
         {/* decorative top glow */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-indigo-600/15 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-indigo-500/15 to-transparent"
         />
 
         {/* CLOSE BUTTON */}
         <div className="md:hidden flex justify-end p-3 relative">
           <button
             onClick={() => setOpen(false)}
-            className="p-2 rounded-lg hover:bg-soft text-muted transition"
+            className="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-600/15 text-muted transition"
             aria-label="Close menu"
           >
             <X size={20} />
@@ -111,7 +111,7 @@ export default function DashboardSidebar({ open, setOpen, role }) {
         </div>
 
         {/* LOGO */}
-        <div className="px-6 py-5 border-b border-line flex items-center gap-3 relative">
+        <div className="px-6 py-5 border-b border-line flex items-center gap-3 relative sticky top-0 bg-panel/95 backdrop-blur-xl">
           <div className="relative">
             <img
               src="/images/logo.png"
@@ -150,7 +150,7 @@ export default function DashboardSidebar({ open, setOpen, role }) {
         </div>
 
         {/* LINKS */}
-        <nav className="flex-1 overflow-y-auto px-4 py-2 space-y-1.5">
+        <nav className="flex-1 min-h-0 px-4 py-2 space-y-1.5">
           {links.map((item) => {
             const active = pathname === item.href;
 
@@ -164,7 +164,7 @@ export default function DashboardSidebar({ open, setOpen, role }) {
                   ${
                     active
                       ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-600/40"
-                      : "text-muted hover:bg-soft hover:text-ink hover:translate-x-0.5"
+                      : "text-muted hover:bg-indigo-50 dark:hover:bg-indigo-600/15 hover:text-ink hover:translate-x-0.5"
                   }
                 `}
               >
@@ -190,8 +190,8 @@ export default function DashboardSidebar({ open, setOpen, role }) {
         </nav>
 
         {/* FOOTER — USER + COPYRIGHT */}
-        <div className="p-4 border-t border-line space-y-3">
-          <div className="flex items-center gap-3 rounded-xl bg-soft/60 p-3">
+        <div className="p-4 border-t border-line space-y-3 mt-auto">
+          <div className="flex items-center gap-3 rounded-xl border border-line bg-gradient-to-br from-indigo-500/10 to-violet-500/5 p-3">
             {session?.user?.image ? (
               <img
                 src={session.user.image}
