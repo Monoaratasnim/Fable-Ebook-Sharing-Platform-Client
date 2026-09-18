@@ -2,18 +2,10 @@
 
 import Image from "next/image";
 import { FaAward, FaBookOpen, FaMedal } from "react-icons/fa";
+import { authorAvatar } from "@/lib/authorAvatar";
 
 export default function TopWriterCard({ writer, index }) {
-  const defaultAvatars = [
-    "/images/writer1.jpg",
-    "/images/writer3.jpg",
-    "/images/writer2.jpg",
-  ];
-
-  const avatar =
-    writer.avatar ||
-    defaultAvatars[index] ||
-    defaultAvatars[0];
+  const avatar = authorAvatar(writer.writerName, writer.avatar);
 
   const rankInfo = [
     {
@@ -36,7 +28,7 @@ export default function TopWriterCard({ writer, index }) {
   const rank = rankInfo[index] || rankInfo[2];
 
   return (
-    <div className="group relative overflow-hidden rounded-3xl border border-slate-800/80 bg-slate-900/50 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-600/20">
+    <div className="group relative overflow-hidden rounded-3xl border border-line bg-glass backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40 hover:shadow-[var(--shadow-hover)]">
 
       {/* Hover sheen */}
       <div
@@ -56,24 +48,25 @@ export default function TopWriterCard({ writer, index }) {
             alt={writer.writerName}
             width={128}
             height={128}
-            className="h-28 w-28 rounded-full border-4 border-slate-900 object-cover object-top shadow-[0_8px_30px_rgba(0,0,0,0.5)] drop-shadow-[0_0_18px_rgba(129,140,248,0.4)] md:h-32 md:w-32"
+            unoptimized
+            className="h-28 w-28 rounded-full border-4 border-page object-cover object-top shadow-[0_8px_30px_rgba(0,0,0,0.5)] drop-shadow-[0_0_18px_rgba(129,140,248,0.4)] md:h-32 md:w-32"
           />
         </div>
       </div>
 
       {/* Body */}
       <div className="relative px-6 pb-8 pt-20 text-center">
-        <h3 className="text-xl font-bold text-white md:text-2xl">
+        <h3 className="text-xl font-bold text-ink md:text-2xl">
           {writer.writerName}
         </h3>
 
-        <p className="mt-2 break-all text-sm text-slate-400">
+        <p className="mt-2 break-all text-sm text-muted">
           {writer.writerEmail}
         </p>
 
         {/* Rank */}
         <div
-          className={`mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/60 px-4 py-2 backdrop-blur ${rank.text}`}
+          className={`mt-5 inline-flex items-center gap-2 rounded-full border border-line-soft bg-soft/70 px-4 py-2 backdrop-blur ${rank.text}`}
         >
           <FaAward />
 
@@ -84,17 +77,17 @@ export default function TopWriterCard({ writer, index }) {
 
         {/* Sales */}
         <div className="mt-8 flex justify-center">
-          <div className="flex items-center gap-4 rounded-2xl border border-slate-800/80 bg-slate-950/50 px-6 py-4 backdrop-blur">
+          <div className="flex items-center gap-4 rounded-2xl border border-line bg-soft/60 px-6 py-4 backdrop-blur">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500/30 to-fuchsia-500/30 text-indigo-300 ring-1 ring-indigo-500/30">
               <FaBookOpen className="text-xl" />
             </div>
 
             <div className="text-left">
-              <h4 className="text-2xl font-bold text-white">
+              <h4 className="text-2xl font-bold text-ink">
                 {writer.totalSales}
               </h4>
 
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-muted">
                 Ebook Sales
               </p>
             </div>

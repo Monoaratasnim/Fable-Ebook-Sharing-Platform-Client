@@ -6,6 +6,16 @@ import { motion } from "framer-motion";
 import EbookCard from "@/components/EbookCard";
 import EbookSkeleton from "@/components/EbookSkeleton";
 
+import {
+  Search,
+  SlidersHorizontal,
+  ChevronDown,
+  ArrowDownWideNarrow,
+  BookOpen,
+  DollarSign,
+  ShieldCheck,
+} from "lucide-react";
+
 export default function BrowsePage() {
   const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -64,121 +74,170 @@ export default function BrowsePage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <h1 className="text-3xl font-bold text-white">
+        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-indigo-400 backdrop-blur">
+          <BookOpen className="h-3.5 w-3.5" />
+          Library
+        </div>
+
+        <h1 className="mt-4 text-3xl font-bold text-ink sm:text-4xl">
           Browse Ebooks
         </h1>
 
-        <p className="mt-2 text-slate-400">
+        <p className="mt-2 text-muted">
           Discover and explore amazing ebooks.
         </p>
       </motion.div>
 
+      {/* FILTER BAR */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+        className="mt-8 rounded-2xl border border-line bg-glass p-4 backdrop-blur-xl sm:p-5"
+      >
+        <div className="mb-3 hidden items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted sm:flex">
+          <SlidersHorizontal className="h-3.5 w-3.5" />
+          Refine Your Search
+        </div>
 
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-6">
+          {/* SEARCH */}
+          <div className="relative lg:col-span-2">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
 
-      <div className="mt-8 grid gap-3 md:grid-cols-3 lg:grid-cols-6">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={search}
-          onChange={(e) => {
-            setPage(1);
-            setSearch(e.target.value);
-          }}
-          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        />
+            <input
+              type="text"
+              placeholder="Search by title or author..."
+              value={search}
+              onChange={(e) => {
+                setPage(1);
+                setSearch(e.target.value);
+              }}
+              className="input pl-10"
+            />
+          </div>
 
-        <select
-          value={genre}
-          onChange={(e) => {
-            setPage(1);
-            setGenre(e.target.value);
-          }}
-          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        >
-          <option value="all">All Genres</option>
-          <option value="Fiction">Fiction</option>
-          <option value="Mystery">Mystery</option>
-          <option value="Horror">Horror</option>
-          <option value="Fantasy">Fantasy</option>
-           <option value="Romance">Romance</option>
-          <option value="Sci-Fi">Sci-Fi</option>
-          <option value="Thriller">Thriller</option>
-          <option value="Biography">Biography</option>
-          <option value="Self Development">Self Development</option>
-          <option value="Poetry">Poetry</option>
-        </select>
+          {/* GENRE */}
+          <div className="relative">
+            <BookOpen className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
 
-  
+            <select
+              value={genre}
+              onChange={(e) => {
+                setPage(1);
+                setGenre(e.target.value);
+              }}
+              className="input appearance-none pl-10 pr-9"
+            >
+              <option value="all">All Genres</option>
+              <option value="Fiction">Fiction</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Horror">Horror</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Romance">Romance</option>
+              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Biography">Biography</option>
+              <option value="Self Development">Self Development</option>
+              <option value="Poetry">Poetry</option>
+            </select>
 
-        <select
-          value={sort}
-          onChange={(e) => {
-            setPage(1);
-            setSort(e.target.value);
-          }}
-          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        >
-          <option value="">Sort By</option>
-          <option value="new">Newest</option>
-          <option value="low">Price Low → High</option>
-          <option value="high">Price High → Low</option>
-        </select>
+            <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+          </div>
 
-        <input
-          type="number"
-          placeholder="Min Price"
-          value={minPrice}
-          onChange={(e) => {
-            setPage(1);
-            setMinPrice(e.target.value);
-          }}
-          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        />
+          {/* SORT */}
+          <div className="relative">
+            <ArrowDownWideNarrow className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
 
-        <input
-          type="number"
-          placeholder="Max Price"
-          value={maxPrice}
-          onChange={(e) => {
-            setPage(1);
-            setMaxPrice(e.target.value);
-          }}
-          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        />
+            <select
+              value={sort}
+              onChange={(e) => {
+                setPage(1);
+                setSort(e.target.value);
+              }}
+              className="input appearance-none pl-10 pr-9"
+            >
+              <option value="">Sort By</option>
+              <option value="new">Newest</option>
+              <option value="low">Price Low → High</option>
+              <option value="high">Price High → Low</option>
+            </select>
 
-        <select
-          value={availability}
-          onChange={(e) => {
-            setPage(1);
-            setAvailability(e.target.value);
-          }}
-          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-        >
-          <option value="all">All Status</option>
-          <option value="available">Available</option>
-          <option value="sold">Sold</option>
-        </select>
-      </div>
+            <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+          </div>
+
+          {/* MIN PRICE */}
+          <div className="relative">
+            <DollarSign className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+
+            <input
+              type="number"
+              placeholder="Min Price"
+              value={minPrice}
+              onChange={(e) => {
+                setPage(1);
+                setMinPrice(e.target.value);
+              }}
+              className="input pl-10"
+            />
+          </div>
+
+          {/* MAX PRICE */}
+          <div className="relative">
+            <DollarSign className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+
+            <input
+              type="number"
+              placeholder="Max Price"
+              value={maxPrice}
+              onChange={(e) => {
+                setPage(1);
+                setMaxPrice(e.target.value);
+              }}
+              className="input pl-10"
+            />
+          </div>
+
+          {/* AVAILABILITY */}
+          <div className="relative">
+            <ShieldCheck className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+
+            <select
+              value={availability}
+              onChange={(e) => {
+                setPage(1);
+                setAvailability(e.target.value);
+              }}
+              className="input appearance-none pl-10 pr-9"
+            >
+              <option value="all">All Status</option>
+              <option value="available">Available</option>
+              <option value="sold">Sold</option>
+            </select>
+
+            <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+          </div>
+        </div>
+      </motion.div>
 
       {error && (
-        <div className="mt-6 rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-rose-300">
+        <div className="mt-6 rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-rose-400">
           {error}
         </div>
       )}
 
       {/* RESULTS */}
-
       {!loading && (
-        <p className="mt-6 text-sm text-slate-400">
+        <p className="mt-6 text-sm text-muted">
           {ebooks.length} ebooks found
         </p>
       )}
 
       {/* GRID */}
-
       <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {loading &&
           Array.from({ length: 8 }).map((_, i) => (
@@ -195,21 +254,19 @@ export default function BrowsePage() {
       </div>
 
       {/* EMPTY */}
-
       {!loading && ebooks.length === 0 && (
-        <div className="mt-16 text-center text-slate-400">
+        <div className="mt-16 text-center text-muted">
           No ebooks found.
         </div>
       )}
 
       {/* PAGINATION */}
-
       {!loading && totalPages > 1 && (
         <div className="mt-10 flex flex-wrap justify-center gap-2">
           <button
             disabled={page === 1}
             onClick={() => setPage(page - 1)}
-            className="rounded-lg border border-slate-800/80 bg-white/5 px-4 py-2 text-slate-200 backdrop-blur transition hover:bg-white/10 disabled:opacity-40"
+            className="btn btn-outline btn-sm disabled:opacity-40"
           >
             Prev
           </button>
@@ -218,10 +275,10 @@ export default function BrowsePage() {
             <button
               key={n}
               onClick={() => setPage(n + 1)}
-              className={`rounded-lg border px-4 py-2 backdrop-blur transition ${
+              className={`btn btn-sm px-4 ${
                 page === n + 1
-                  ? "border-transparent bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-[0_0_18px_rgba(129,140,248,0.4)]"
-                  : "border-slate-800/80 bg-white/5 text-slate-200 hover:bg-white/10"
+                  ? "btn-primary"
+                  : "btn-outline"
               }`}
             >
               {n + 1}
@@ -231,7 +288,7 @@ export default function BrowsePage() {
           <button
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
-            className="rounded-lg border border-slate-800/80 bg-white/5 px-4 py-2 text-slate-200 backdrop-blur transition hover:bg-white/10 disabled:opacity-40"
+            className="btn btn-outline btn-sm disabled:opacity-40"
           >
             Next
           </button>

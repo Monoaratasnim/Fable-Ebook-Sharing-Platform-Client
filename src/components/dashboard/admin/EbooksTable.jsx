@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import TableSkeleton from "@/components/TableSkeleton";
+import { Trash2, Eye, EyeOff } from "lucide-react";
 
 export default function EbooksTable() {
   const [ebooks, setEbooks] = useState([]);
@@ -127,28 +128,28 @@ if (loading) {
 
   return (
     <>
-      <div className="hidden lg:block bg-white rounded-2xl shadow overflow-hidden">
+      <div className="card hidden lg:block overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-100">
+            <thead className="bg-soft">
               <tr>
-                <th className="px-6 py-4 text-left">
+                <th className="px-6 py-4 text-left font-semibold text-muted">
                   Title
                 </th>
 
-                <th className="px-6 py-4 text-left">
+                <th className="px-6 py-4 text-left font-semibold text-muted">
                   Writer
                 </th>
 
-                <th className="px-6 py-4 text-left">
+                <th className="px-6 py-4 text-left font-semibold text-muted">
                   Price
                 </th>
 
-                <th className="px-6 py-4 text-left">
+                <th className="px-6 py-4 text-left font-semibold text-muted">
                   Status
                 </th>
 
-                <th className="px-6 py-4 text-left">
+                <th className="px-6 py-4 text-left font-semibold text-muted">
                   Actions
                 </th>
               </tr>
@@ -158,26 +159,26 @@ if (loading) {
               {ebooks.map((ebook) => (
                 <tr
                   key={ebook._id}
-                  className="border-t"
+                  className="border-t border-line hover:bg-soft/60 transition"
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-ink">
                     {ebook.title}
                   </td>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-body">
                     {ebook.writerName}
                   </td>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-ink">
                     ${ebook.price}
                   </td>
 
                   <td className="px-6 py-4">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs ${
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ring-1 ${
                         ebook.published
-                          ? "bg-green-100 text-green-600"
-                          : "bg-red-100 text-red-600"
+                          ? "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
+                          : "bg-rose-500/10 text-rose-400 ring-rose-500/30"
                       }`}
                     >
                       {ebook.published
@@ -195,8 +196,17 @@ if (loading) {
                             ebook.published
                           )
                         }
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg transition"
+                        className={`btn btn-sm ${
+                          ebook.published
+                            ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_8px_20px_-10px_rgba(245,158,11,0.6)]"
+                            : "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-[0_8px_20px_-10px_rgba(34,197,94,0.6)]"
+                        }`}
                       >
+                        {ebook.published ? (
+                          <EyeOff className="h-3.5 w-3.5" />
+                        ) : (
+                          <Eye className="h-3.5 w-3.5" />
+                        )}
                         {ebook.published
                           ? "Unpublish"
                           : "Publish"}
@@ -208,8 +218,9 @@ if (loading) {
                             ebook._id
                           )
                         }
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg transition"
+                        className="btn btn-danger btn-sm"
                       >
+                        <Trash2 className="h-3.5 w-3.5" />
                         Delete
                       </button>
                     </div>
@@ -226,21 +237,27 @@ if (loading) {
         {ebooks.map((ebook) => (
           <div
             key={ebook._id}
-            className="bg-white p-5 rounded-2xl shadow"
+            className="card p-5"
           >
-            <h3 className="font-bold">
+            <h3 className="font-bold text-ink">
               {ebook.title}
             </h3>
 
-            <p>{ebook.writerName}</p>
+            <p className="text-muted mt-1">{ebook.writerName}</p>
 
-            <p>${ebook.price}</p>
+            <p className="text-ink mt-1">${ebook.price}</p>
 
-            <p className="mt-2">
+            <span
+              className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-semibold ring-1 ${
+                ebook.published
+                  ? "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
+                  : "bg-rose-500/10 text-rose-400 ring-rose-500/30"
+              }`}
+            >
               {ebook.published
                 ? "Published"
                 : "Unpublished"}
-            </p>
+            </span>
 
             <div className="flex gap-2 mt-4">
               <button
@@ -250,7 +267,11 @@ if (loading) {
                     ebook.published
                   )
                 }
-                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition"
+                className={`btn btn-sm flex-1 ${
+                  ebook.published
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                    : "bg-gradient-to-r from-emerald-500 to-green-500 text-white"
+                }`}
               >
                 {ebook.published
                   ? "Unpublish"
@@ -263,7 +284,7 @@ if (loading) {
                     ebook._id
                   )
                 }
-                className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition"
+                className="btn btn-danger btn-sm flex-1"
               >
                 Delete
               </button>

@@ -64,10 +64,10 @@ export default function AdminDashboardPage() {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-2xl shadow-md p-10 text-center">
-        <p className="text-gray-500">
-          Loading dashboard...
-        </p>
+      <div className="card p-10">
+        <div className="flex justify-center py-12">
+          <div className="h-12 w-12 border-[5px] border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+        </div>
       </div>
     );
   }
@@ -77,11 +77,11 @@ export default function AdminDashboardPage() {
 
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-ink">
           Admin Dashboard
         </h1>
 
-        <p className="text-gray-500 mt-2">
+        <p className="text-muted mt-2">
           Overview of users, writers, ebooks,
           sales and revenue.
         </p>

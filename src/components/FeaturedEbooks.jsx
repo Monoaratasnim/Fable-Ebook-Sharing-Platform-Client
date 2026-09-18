@@ -42,20 +42,17 @@ export default function FeaturedEbooks() {
               Featured Collection
             </span>
 
-            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
+            <h2 className="mt-3 text-3xl font-bold text-ink md:text-4xl">
               Featured Ebooks
             </h2>
 
-            <p className="mt-3 max-w-2xl text-slate-400">
+            <p className="mt-3 max-w-2xl text-muted">
               Explore some of the most popular and recently published
               ebooks from talented writers around the world.
             </p>
           </div>
 
-          <Link
-            href="/browse"
-            className="group inline-flex items-center gap-2 rounded-xl border border-slate-700/70 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition-all duration-300 hover:border-indigo-400/60 hover:bg-indigo-500/10 hover:shadow-[0_0_20px_rgba(129,140,248,0.2)]"
-          >
+          <Link href="/browse" className="btn btn-outline btn-md">
             View All Ebooks
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               →
@@ -74,7 +71,7 @@ export default function FeaturedEbooks() {
 
         {/* Books */}
         {!loading && (
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
             {ebooks.map((ebook) => (
               <EbookCard key={ebook._id} ebook={ebook} />
             ))}
@@ -83,7 +80,7 @@ export default function FeaturedEbooks() {
 
         {/* Empty State */}
         {!loading && ebooks.length === 0 && (
-          <div className="py-12 text-center text-slate-400">
+          <div className="py-12 text-center text-muted">
             No featured ebooks found.
           </div>
         )}

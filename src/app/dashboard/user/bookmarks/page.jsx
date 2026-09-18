@@ -42,33 +42,33 @@ export default function BookmarkPage() {
   }, [session?.user?.email]);
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-10">
+    <div className="px-4 py-10">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="text-3xl font-bold text-ink mb-6">
           My Bookmarked Ebooks
         </h1>
 
         {loading && (
           <div className="text-center py-10">
-            <p className="text-gray-500">
-              Loading bookmarks...
-            </p>
+            <div className="flex justify-center">
+              <div className="h-10 w-10 border-[4px] border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+            </div>
           </div>
         )}
 
         {!loading && ebooks.length === 0 && (
-          <div className="text-center py-16">
-            <h2 className="text-xl font-semibold text-gray-700">
+          <div className="card p-10 text-center">
+            <h2 className="text-xl font-semibold text-ink">
               No bookmarks found
             </h2>
 
-            <p className="text-gray-500 mt-2">
+            <p className="text-muted mt-2">
               Start bookmarking your favorite ebooks.
             </p>
 
             <Link
               href="/ebooks"
-              className="inline-block mt-5 px-5 py-3 rounded-lg bg-black text-white"
+              className="btn btn-primary mt-5"
             >
               Browse Ebooks
             </Link>
@@ -82,7 +82,7 @@ export default function BookmarkPage() {
                 key={ebook._id}
                 href={`/ebooks/${ebook._id}`}
               >
-                <div className="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer">
+                <div className="card overflow-hidden hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] transition">
                   <img
                     src={
                       ebook.coverImage ||
@@ -93,23 +93,23 @@ export default function BookmarkPage() {
                   />
 
                   <div className="p-4">
-                    <h2 className="font-semibold line-clamp-2">
+                    <h2 className="font-semibold text-ink line-clamp-2">
                       {ebook.title}
                     </h2>
 
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-muted mt-1">
                       {ebook.author}
                     </p>
 
-                    <p className="mt-2 font-medium">
+                    <p className="mt-2 font-medium text-ink">
                       ${ebook.price}
                     </p>
 
                     <span
-                      className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ${
+                      className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ring-1 ${
                         ebook.sold
-                          ? "bg-red-100 text-red-600"
-                          : "bg-green-100 text-green-600"
+                          ? "bg-rose-500/10 text-rose-400 ring-rose-500/30"
+                          : "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
                       }`}
                     >
                       {ebook.sold

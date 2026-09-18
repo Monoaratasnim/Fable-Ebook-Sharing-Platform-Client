@@ -3,6 +3,7 @@
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { Pencil, Eye, EyeOff, Trash2 } from "lucide-react";
 
 export default function EbookManageTable({
   ebooks,
@@ -105,19 +106,26 @@ export default function EbookManageTable({
     }
   };
 
+  const statusBadge = (published) =>
+    `rounded-full px-3 py-1 text-xs font-medium ring-1 ${
+      published
+        ? "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
+        : "bg-rose-500/10 text-rose-400 ring-rose-500/30"
+    }`;
+
   return (
-  <div className="bg-white rounded-2xl shadow overflow-hidden">
+  <div className="card overflow-hidden">
     {/* ---------------- Desktop Table ---------------- */}
     <div className="hidden lg:block overflow-x-auto">
       <table className="w-full">
-        <thead className="bg-gray-50 border-b">
+        <thead className="bg-soft border-b border-line">
           <tr>
-            <th className="p-4 text-left">Cover</th>
-            <th className="p-4 text-left">Title</th>
-            <th className="p-4 text-left">Price</th>
-            <th className="p-4 text-left">Genre</th>
-            <th className="p-4 text-left">Status</th>
-            <th className="p-4 text-left">Actions</th>
+            <th className="p-4 text-left font-semibold text-muted">Cover</th>
+            <th className="p-4 text-left font-semibold text-muted">Title</th>
+            <th className="p-4 text-left font-semibold text-muted">Price</th>
+            <th className="p-4 text-left font-semibold text-muted">Genre</th>
+            <th className="p-4 text-left font-semibold text-muted">Status</th>
+            <th className="p-4 text-left font-semibold text-muted">Actions</th>
           </tr>
         </thead>
 
@@ -125,7 +133,7 @@ export default function EbookManageTable({
           {ebooks.map((book) => (
             <tr
               key={book._id}
-              className="border-b hover:bg-gray-50 transition"
+              className="border-b border-line hover:bg-soft/60 transition"
             >
               <td className="p-4">
                 <img
@@ -135,24 +143,18 @@ export default function EbookManageTable({
                 />
               </td>
 
-              <td className="p-4 font-semibold">
+              <td className="p-4 font-semibold text-ink">
                 {book.title}
               </td>
 
-              <td className="p-4 font-medium text-green-600">
+              <td className="p-4 font-medium text-emerald-400">
                 ${book.price}
               </td>
 
-              <td className="p-4">{book.genre}</td>
+              <td className="p-4 text-body">{book.genre}</td>
 
               <td className="p-4">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    book.published
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
-                >
+                <span className={statusBadge(book.published)}>
                   {book.published
                     ? "Published"
                     : "Unpublished"}
@@ -163,8 +165,9 @@ export default function EbookManageTable({
                 <div className="flex gap-2">
                   <Link
                     href={`/dashboard/writer/edit/${book._id}`}
-                    className="px-3 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white text-sm transition"
+                    className="btn btn-sm bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-[0_8px_20px_-10px_rgba(59,130,246,0.6)]"
                   >
+                    <Pencil className="h-3.5 w-3.5" />
                     Edit
                   </Link>
 
@@ -175,8 +178,17 @@ export default function EbookManageTable({
                         book.published
                       )
                     }
-                    className="px-3 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white text-sm transition"
+                    className={`btn btn-sm ${
+                      book.published
+                        ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_8px_20px_-10px_rgba(245,158,11,0.55)]"
+                        : "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-[0_8px_20px_-10px_rgba(34,197,94,0.55)]"
+                    }`}
                   >
+                    {book.published ? (
+                      <EyeOff className="h-3.5 w-3.5" />
+                    ) : (
+                      <Eye className="h-3.5 w-3.5" />
+                    )}
                     {book.published
                       ? "Unpublish"
                       : "Publish"}
@@ -186,8 +198,9 @@ export default function EbookManageTable({
                     onClick={() =>
                       handleDelete(book._id)
                     }
-                    className="px-3 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm transition"
+                    className="btn btn-danger btn-sm"
                   >
+                    <Trash2 className="h-3.5 w-3.5" />
                     Delete
                   </button>
                 </div>
@@ -198,7 +211,7 @@ export default function EbookManageTable({
       </table>
 
       {ebooks.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-muted">
           No ebooks found
         </div>
       )}
@@ -208,14 +221,14 @@ export default function EbookManageTable({
 
     <div className="lg:hidden p-4 space-y-5">
       {ebooks.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
+        <div className="text-center py-12 text-muted">
           No ebooks found
         </div>
       ) : (
         ebooks.map((book) => (
           <div
             key={book._id}
-            className="border rounded-2xl shadow-sm p-4 bg-white"
+            className="card rounded-2xl p-4"
           >
             <div className="flex gap-4">
               <img
@@ -225,24 +238,20 @@ export default function EbookManageTable({
               />
 
               <div className="flex-1">
-                <h3 className="font-bold text-lg text-gray-900">
+                <h3 className="font-bold text-lg text-ink">
                   {book.title}
                 </h3>
 
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-muted mt-2">
                   Genre: {book.genre}
                 </p>
 
-                <p className="text-green-600 font-semibold mt-2">
+                <p className="text-emerald-400 font-semibold mt-2">
                   ${book.price}
                 </p>
 
                 <span
-                  className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium ${
-                    book.published
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
+                  className={`inline-block mt-3 ${statusBadge(book.published)}`}
                 >
                   {book.published
                     ? "Published"
@@ -254,7 +263,7 @@ export default function EbookManageTable({
             <div className="grid grid-cols-3 gap-2 mt-5">
               <Link
                 href={`/dashboard/writer/edit/${book._id}`}
-                className="text-center px-3 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white text-sm transition"
+                className="btn btn-sm bg-gradient-to-r from-blue-500 to-indigo-500 text-white"
               >
                 Edit
               </Link>
@@ -266,7 +275,11 @@ export default function EbookManageTable({
                     book.published
                   )
                 }
-                className="px-3 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white text-sm transition"
+                className={`btn btn-sm ${
+                  book.published
+                    ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white"
+                    : "bg-gradient-to-r from-emerald-500 to-green-500 text-white"
+                }`}
               >
                 {book.published
                   ? "Unpublish"
@@ -277,7 +290,7 @@ export default function EbookManageTable({
                 onClick={() =>
                   handleDelete(book._id)
                 }
-                className="px-3 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm transition"
+                className="btn btn-danger btn-sm"
               >
                 Delete
               </button>

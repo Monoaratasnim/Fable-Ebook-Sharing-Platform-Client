@@ -42,9 +42,9 @@ export default function ManageEbooksPage() {
   if (loading) {
     return (
       <div className="space-y-3">
-        <div className="h-12 bg-gray-200 rounded animate-pulse" />
-        <div className="h-12 bg-gray-200 rounded animate-pulse" />
-        <div className="h-12 bg-gray-200 rounded animate-pulse" />
+        <div className="h-12 bg-soft rounded animate-pulse" />
+        <div className="h-12 bg-soft rounded animate-pulse" />
+        <div className="h-12 bg-soft rounded animate-pulse" />
       </div>
     );
   }
@@ -52,11 +52,11 @@ export default function ManageEbooksPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-2xl font-bold text-ink">
           Manage Ebooks
         </h1>
 
-        <p className="text-gray-500">
+        <p className="text-muted">
           Manage all your uploaded ebooks
         </p>
       </div>

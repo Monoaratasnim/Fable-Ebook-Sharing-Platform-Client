@@ -14,17 +14,20 @@ const slides = [
   {
     title: "Discover & Read Original Ebooks",
     desc: "Explore thousands of digital stories from creators around the world.",
-    image: "/images/hero3.jpg",
+    image:
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2400&auto=format&fit=crop",
   },
   {
     title: "Become a Published Writer",
     desc: "Publish your ebooks and reach global readers instantly.",
-    image: "/images/hero2.jpg",
+    image:
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2400&auto=format&fit=crop",
   },
   {
     title: "Read Anytime, Anywhere",
     desc: "Enjoy seamless reading experience across all your devices.",
-    image: "/images/hero4.jpg",
+    image:
+      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2400&auto=format&fit=crop",
   },
 ];
 
@@ -51,15 +54,17 @@ export default function HeroSwiper() {
                 alt={slide.title}
                 fill
                 priority={index === 0}
+                sizes="100vw"
+                quality={85}
                 className="object-cover"
               />
 
               {/* Layered gradient overlays */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-slate-950/25" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/50" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(129,140,248,0.30),transparent_55%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(192,38,211,0.18),transparent_50%)]" />
-              <div className="absolute inset-0 bg-grid-slate opacity-70" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-slate-950/40" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(129,140,248,0.28),transparent_55%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(192,38,211,0.16),transparent_50%)]" />
+              <div className="absolute inset-0 bg-grid-slate opacity-60" />
 
               {/* Content */}
               <div className="relative z-10 flex h-full items-center justify-center px-4 sm:px-8 lg:justify-start lg:px-16">

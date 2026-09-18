@@ -7,39 +7,43 @@ export default function AdminStatsCard({
   color = "blue",
 }) {
   const colors = {
-    blue: "bg-blue-50 border-blue-100",
-    green: "bg-green-50 border-green-100",
-    purple: "bg-purple-50 border-purple-100",
-    orange: "bg-orange-50 border-orange-100",
-    pink: "bg-pink-50 border-pink-100",
-    red: "bg-red-50 border-red-100",
+    blue: {
+      icon: "from-blue-500/20 to-indigo-500/10 text-blue-400 ring-blue-500/30",
+    },
+    green: {
+      icon: "from-emerald-500/20 to-green-500/10 text-emerald-400 ring-emerald-500/30",
+    },
+    purple: {
+      icon: "from-purple-500/20 to-violet-500/10 text-purple-400 ring-purple-500/30",
+    },
+    orange: {
+      icon: "from-orange-500/20 to-amber-500/10 text-orange-400 ring-orange-500/30",
+    },
+    pink: {
+      icon: "from-pink-500/20 to-rose-500/10 text-pink-400 ring-pink-500/30",
+    },
+    red: {
+      icon: "from-red-500/20 to-rose-500/10 text-red-400 ring-red-500/30",
+    },
   };
 
+  const tint = colors[color] || colors.blue;
+
   return (
-    <div
-      className={`
-        p-5 sm:p-6
-        rounded-2xl
-        border
-        shadow-sm
-        hover:shadow-lg
-        hover:-translate-y-1
-        transition-all
-        duration-300
-        ${colors[color] || colors.blue}
-      `}
-    >
+    <div className="card p-5 sm:p-6 hover:-translate-y-1">
       <div className="flex items-center justify-between">
-        <p className="text-gray-500 text-sm font-medium">
+        <p className="text-muted text-sm font-medium">
           {title}
         </p>
 
-        <span className="text-2xl sm:text-3xl">
-          {icon}
+        <span
+          className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tint.icon} text-xl ring-1`}
+        >
+          <span>{icon}</span>
         </span>
       </div>
 
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mt-4 break-words">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-ink mt-4 break-words">
         {value}
       </h2>
     </div>

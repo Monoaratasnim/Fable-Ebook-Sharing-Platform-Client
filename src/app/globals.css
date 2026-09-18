@@ -1,10 +1,27 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+/* ============================================================
+   FABLE DESIGN SYSTEM — SEMANTIC THEME TOKENS
+   Rich dark navy (default) <-> calm paper-cream light mode.
+   ============================================================ */
 @theme {
+  --color-page: var(--bg-page);
+  --color-panel: var(--bg-panel);
+  --color-glass: var(--bg-glass);
+  --color-soft: var(--bg-soft);
+  --color-ink: var(--text-ink);
+  --color-body: var(--text-body);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-line: var(--border-strong);
+  --color-line-soft: var(--border-soft);
+
   --animate-glow: glow 9s ease-in-out infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-rise: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-pop: pop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 
   @keyframes glow {
     0%,
@@ -36,33 +53,91 @@
       background-position: 200% 0;
     }
   }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 @utility bg-grid-slate {
   background-image: linear-gradient(
       to right,
-      rgb(148 163 184 / 0.06) 1px,
+      rgb(148 163 184 / 0.07) 1px,
       transparent 1px
     ),
-    linear-gradient(to bottom, rgb(148 163 184 / 0.06) 1px, transparent 1px);
+    linear-gradient(to bottom, rgb(148 163 184 / 0.07) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
 }
 
-html {
-  color-scheme: dark;
-}
-
+/* ---------- Themed CSS variables ---------- */
 :root {
   --font-body: var(--font-poppins);
   --font-heading: var(--font-merriweather);
+
+  /* Dark (default) — rich navy, never pitch black */
+  --bg-page: #0b1120;
+  --bg-panel: #131c36;
+  --bg-glass: rgba(19, 28, 54, 0.62);
+  --bg-soft: #0e1629;
+  --text-ink: #eef2ff;
+  --text-body: #c6d0e0;
+  --text-muted: #8f9db8;
+  --text-faint: #65728c;
+  --border-strong: rgba(148, 163, 184, 0.16);
+  --border-soft: rgba(148, 163, 184, 0.08);
+  --glow: rgba(99, 102, 241, 0.4);
+  --shadow-card: 0 18px 50px -26px rgba(2, 6, 23, 0.75);
+  --shadow-hover: 0 26px 60px -28px rgba(67, 56, 202, 0.55);
+  color-scheme: dark;
+}
+
+html.light {
+  --bg-page: #f6f3ee;
+  --bg-panel: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.64);
+  --bg-soft: #eee8dd;
+  --text-ink: #0f172a;
+  --text-body: #3d475c;
+  --text-muted: #65718a;
+  --text-faint: #97a2ba;
+  --border-strong: rgba(15, 23, 42, 0.12);
+  --border-soft: rgba(15, 23, 42, 0.06);
+  --glow: rgba(99, 102, 241, 0.28);
+  --shadow-card: 0 18px 50px -38px rgba(67, 56, 202, 0.45);
+  --shadow-hover: 0 26px 60px -32px rgba(109, 40, 217, 0.4);
+  color-scheme: light;
+}
+
+/* ---------- Base ---------- */
+html {
+  background-color: var(--bg-page);
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-slate-950);
-  color: var(--color-slate-300);
+  background-color: var(--bg-page);
+  color: var(--text-body);
   min-height: 100vh;
+  transition: background-color 0.45s ease, color 0.45s ease;
 }
 
 h1,
@@ -75,7 +150,7 @@ h6 {
 }
 
 ::selection {
-  background-color: rgb(129 140 248 / 0.35);
+  background-color: rgb(99 102 241 / 0.4);
   color: #fff;
 }
 
@@ -83,17 +158,193 @@ h6 {
   width: 10px;
   height: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: var(--bg-page);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--bg-panel);
   border-radius: 999px;
-  border: 2px solid #020617;
+  border: 2px solid var(--bg-page);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-faint);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+/* ============================================================
+   COMPONENT CLASSES — advanced, animated, theme-aware
+   ============================================================ */
+@layer components {
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    filter: none !important;
+  }
+  .btn:active {
+    transform: scale(0.96);
+  }
+
+  .btn-primary {
+    background-image: linear-gradient(135deg, #6366f1, #8b5cf6 55%, #c026d3);
+    color: #fff;
+    box-shadow: 0 10px 30px -12px rgba(99, 102, 241, 0.65);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 44px -14px rgba(99, 102, 241, 0.85);
+    filter: brightness(1.07);
+  }
+
+  .btn-outline {
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-strong);
+    color: var(--text-ink);
+  }
+  .btn-outline:hover {
+    border-color: rgb(99 102 241 / 0.55);
+    box-shadow:
+      0 0 0 3px rgb(99 102 241 / 0.12),
+      0 12px 28px -14px rgb(99 102 241 / 0.6);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-body);
+  }
+  .btn-ghost:hover {
+    background: var(--bg-soft);
+    color: var(--text-ink);
+  }
+
+  .btn-danger {
+    background-image: linear-gradient(135deg, #f43f5e, #e11d48);
+    color: #fff;
+    box-shadow: 0 10px 26px -12px rgba(244, 63, 94, 0.6);
+  }
+  .btn-danger:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.07);
+  }
+
+  .btn-success {
+    background-image: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    box-shadow: 0 10px 26px -12px rgba(34, 197, 94, 0.55);
+  }
+  .btn-success:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.07);
+  }
+
+  .btn-warning {
+    background-image: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    box-shadow: 0 10px 26px -12px rgba(245, 158, 11, 0.55);
+  }
+  .btn-warning:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.07);
+  }
+
+  .btn-sm {
+    padding: 0.55rem 1rem;
+    font-size: 0.84rem;
+    border-radius: 0.75rem;
+  }
+  .btn-md {
+    padding: 0.78rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  .btn-lg {
+    padding: 1rem 2.1rem;
+    font-size: 1.02rem;
+  }
+
+  /* ---------- Inputs ---------- */
+  .input {
+    width: 100%;
+    border-radius: 0.9rem;
+    border: 1px solid var(--border-strong);
+    background-color: var(--bg-soft);
+    color: var(--text-ink);
+    padding: 0.72rem 1rem;
+    font-size: 0.92rem;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+  }
+  .input::placeholder {
+    color: var(--text-faint);
+  }
+  .input:focus {
+    outline: none;
+    border-color: rgb(99 102 241 / 0.65);
+    box-shadow: 0 0 0 4px rgb(99 102 241 / 0.16);
+    background-color: var(--bg-panel);
+  }
+  .input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-strong);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-card);
+    transition:
+      box-shadow 0.35s ease,
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.35s ease;
+  }
+  .card-hover:hover {
+    border-color: rgb(99 102 241 / 0.4);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* ---------- Brand gradient text ---------- */
+  .brand-text {
+    background-image: linear-gradient(120deg, #60a5fa, #a78bfa 42%, #e879f9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  html.light .brand-text {
+    background-image: linear-gradient(120deg, #4f46e5, #7c3aed 45%, #c026d3);
+  }
+
+  /* ---------- Glass pill ---------- */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.32rem 0.85rem;
+    white-space: nowrap;
+  }
 }

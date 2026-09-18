@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
-import { Card, Button } from "@heroui/react";
+import { Button } from "@heroui/react";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
@@ -83,25 +83,37 @@ export default function LoginPage() {
   };
 
   return (
-  <div className="bg-[#FFF9F5] min-h-screen px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
-  <Card className="w-full max-w-md mx-auto bg-white border border-rose-100 rounded-3xl shadow-xl p-6 sm:p-8">
+  <div className="bg-page relative min-h-screen px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-indigo-600/15 blur-[130px]"
+    />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-fuchsia-600/15 blur-[110px]"
+    />
+
+  <div className="card relative w-full max-w-md mx-auto p-6 sm:p-8 overflow-hidden">
+    <div
+      aria-hidden
+      className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
+    />
 
         {/* HEADER */}
         <div className="text-center mb-8">
 
-      
-          <h1 className="mt-4 text-3xl font-bold text-stone-800">
+          <h1 className="text-3xl font-bold text-ink">
             Welcome Back
           </h1>
 
-          <p className="mt-2 text-stone-500 text-sm">
+          <p className="mt-2 text-muted text-sm">
             Login to continue your journey
           </p>
         </div>
 
         {/* ERROR */}
         {error && (
-          <div className="mb-5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+          <div className="mb-5 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-sm text-rose-400">
             {error}
           </div>
         )}
@@ -111,7 +123,7 @@ export default function LoginPage() {
 
           {/* EMAIL */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-stone-700">
+            <label className="block mb-2 text-sm font-medium text-ink">
               Email Address
             </label>
 
@@ -123,13 +135,13 @@ export default function LoginPage() {
                 setForm({ ...form, email: e.target.value })
               }
               placeholder="example@gmail.com"
-              className="w-full h-14 px-4 rounded-xl border border-rose-200 bg-white outline-none focus:border-rose-400 focus:ring-4 focus:ring-rose-100"
+              className="input h-14"
             />
           </div>
 
           {/* PASSWORD */}
           <div>
-            <label className="block mb-2 text-sm font-medium text-stone-700">
+            <label className="block mb-2 text-sm font-medium text-ink">
               Password
             </label>
 
@@ -141,7 +153,7 @@ export default function LoginPage() {
                 setForm({ ...form, password: e.target.value })
               }
               placeholder="••••••••"
-              className="w-full h-14 px-4 rounded-xl border border-rose-200 bg-white outline-none focus:border-rose-400 focus:ring-4 focus:ring-rose-100"
+              className="input h-14"
             />
           </div>
 
@@ -149,7 +161,7 @@ export default function LoginPage() {
           <Button
             type="submit"
             isLoading={loading}
-            className="w-full h-14 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold"
+            className="w-full h-14 rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-white font-semibold"
           >
             Login
           </Button>
@@ -157,9 +169,9 @@ export default function LoginPage() {
 
         {/* DIVIDER */}
         <div className="my-6 flex items-center gap-3">
-          <div className="h-px bg-rose-100 flex-1"></div>
-          <span className="text-xs text-stone-400 uppercase">OR</span>
-          <div className="h-px bg-rose-100 flex-1"></div>
+          <div className="h-px bg-line flex-1"></div>
+          <span className="text-xs text-faint uppercase">OR</span>
+          <div className="h-px bg-line flex-1"></div>
         </div>
 
         {/* GOOGLE LOGIN */}
@@ -167,23 +179,23 @@ export default function LoginPage() {
           variant="bordered"
           isLoading={googleLoading}
           onClick={handleGoogleLogin}
-          className="w-full h-14 rounded-xl border-rose-200 text-stone-700"
+          className="w-full h-14 rounded-xl border-line text-ink bg-glass"
         >
           Continue with Google
         </Button>
 
         {/* FOOTER */}
-        <p className="mt-6 text-center text-sm text-stone-500">
+        <p className="mt-6 text-center text-sm text-muted">
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="font-semibold text-rose-600 hover:text-rose-700"
+            className="font-semibold text-indigo-400 hover:text-indigo-300"
           >
             Sign Up
           </Link>
         </p>
 
-      </Card>
+      </div>
     </div>
   );
 }

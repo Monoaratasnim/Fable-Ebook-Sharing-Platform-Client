@@ -43,7 +43,7 @@ export default function PurchasedEbooksPage() {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="h-72 rounded-xl bg-gray-200 animate-pulse"
+            className="h-72 rounded-xl bg-soft animate-pulse"
           />
         ))}
       </div>
@@ -52,7 +52,7 @@ export default function PurchasedEbooksPage() {
 
   return (
     <div className="p-4 md:p-6 space-y-5">
-      <h1 className="text-2xl font-bold">
+      <h1 className="text-2xl font-bold text-ink">
         My Purchased Ebooks
       </h1>
 

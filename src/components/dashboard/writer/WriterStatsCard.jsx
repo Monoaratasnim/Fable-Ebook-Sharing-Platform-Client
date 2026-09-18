@@ -7,34 +7,28 @@ export default function WriterStatsCard({
   color,
 }) {
   const colors = {
-    blue: "bg-blue-50 border-blue-100",
-    green: "bg-green-50 border-green-100",
-    purple: "bg-purple-50 border-purple-100",
+    blue: "from-blue-500/20 to-indigo-500/10 text-blue-400 ring-blue-500/30",
+    green: "from-emerald-500/20 to-green-500/10 text-emerald-400 ring-emerald-500/30",
+    purple: "from-purple-500/20 to-violet-500/10 text-purple-400 ring-purple-500/30",
   };
 
+  const tint = colors[color] || colors.blue;
+
   return (
-    <div
-      className={`
-        border
-        rounded-2xl
-        p-5
-        shadow-sm
-        hover:shadow-md
-        transition
-        ${colors[color]}
-      `}
-    >
+    <div className="card p-5 hover:-translate-y-1 transition-all duration-300">
       <div className="flex items-center justify-between">
-        <p className="text-gray-500 text-sm">
+        <p className="text-muted text-sm">
           {title}
         </p>
 
-        <span className="text-3xl">
-          {icon}
+        <span
+          className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${tint} text-xl ring-1`}
+        >
+          <span>{icon}</span>
         </span>
       </div>
 
-      <h2 className="text-3xl font-bold mt-3">
+      <h2 className="text-3xl font-bold text-ink mt-3">
         {value}
       </h2>
     </div>

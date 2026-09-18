@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function EbookCard({ ebook }) {
   return (
     <Link href={`/ebooks/${ebook._id}`}>
-      <div className="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/60 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-600/20">
+      <div className="group relative overflow-hidden rounded-2xl border border-line bg-glass backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40 hover:shadow-[var(--shadow-hover)]">
 
         {/* IMAGE */}
         <div className="relative h-52 overflow-hidden sm:h-60">
@@ -36,11 +36,11 @@ export default function EbookCard({ ebook }) {
 
         {/* CONTENT */}
         <div className="p-4">
-          <h3 className="line-clamp-1 text-sm font-bold text-white sm:text-base">
+          <h3 className="line-clamp-1 text-sm font-bold text-ink sm:text-base">
             {ebook.title}
           </h3>
 
-          <p className="mt-1 line-clamp-1 text-sm text-slate-400">
+          <p className="mt-1 line-clamp-1 text-sm text-muted">
             By {ebook.writerName}
           </p>
 
@@ -49,7 +49,7 @@ export default function EbookCard({ ebook }) {
               ${ebook.price}
             </span>
 
-            <span className="rounded-lg bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-2 text-sm font-semibold text-white opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:shadow-[0_0_18px_rgba(129,140,248,0.55)]">
+            <span className="btn btn-primary btn-sm rounded-lg px-4 py-2">
               View
             </span>
           </div>

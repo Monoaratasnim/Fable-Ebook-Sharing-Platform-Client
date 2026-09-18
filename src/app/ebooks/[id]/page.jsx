@@ -20,8 +20,8 @@ export default async function Page({ params }) {
 
   if (!ebook) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <h1 className="text-2xl font-bold">📕 Ebook Not Found</h1>
+      <div className="flex items-center justify-center min-h-screen bg-page text-muted">
+        <h1 className="text-2xl font-bold text-ink">📕 Ebook Not Found</h1>
       </div>
     );
   }

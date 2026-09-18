@@ -53,12 +53,12 @@ export default function WriterDashboard() {
   if (loading) {
     return (
       <div className="p-4 md:p-6 space-y-6">
-        <div className="h-24 bg-gray-200 animate-pulse rounded-xl" />
+        <div className="h-24 bg-soft animate-pulse rounded-xl" />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="h-28 bg-gray-200 rounded-xl animate-pulse" />
-          <div className="h-28 bg-gray-200 rounded-xl animate-pulse" />
-          <div className="h-28 bg-gray-200 rounded-xl animate-pulse" />
+          <div className="h-28 bg-soft rounded-xl animate-pulse" />
+          <div className="h-28 bg-soft rounded-xl animate-pulse" />
+          <div className="h-28 bg-soft rounded-xl animate-pulse" />
         </div>
       </div>
     );
@@ -67,12 +67,12 @@ export default function WriterDashboard() {
   return (
     <div className="p-4 md:p-6 space-y-6">
       {/* HEADER */}
-      <div className="bg-white p-6 rounded-xl shadow">
-        <h1 className="text-2xl md:text-3xl font-bold">
+      <div className="card p-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-ink">
           Welcome Writer 👋 {session?.user?.name}
         </h1>
 
-        <p className="text-gray-500 text-sm mt-2">
+        <p className="text-muted text-sm mt-2">
           Manage your ebooks, sales & revenue
         </p>
       </div>

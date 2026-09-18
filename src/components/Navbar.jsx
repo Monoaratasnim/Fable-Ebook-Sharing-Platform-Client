@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -44,15 +45,15 @@ export default function Navbar() {
   const navLinkClass = (path) =>
     `rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
       isActive(path)
-        ? "bg-indigo-500/15 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(129,140,248,0.28)]"
-        : "text-slate-300 hover:bg-white/5 hover:text-white"
+        ? "bg-indigo-500/15 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(129,140,248,0.28)]"
+        : "text-muted hover:bg-glass hover:text-ink"
     }`;
 
   const mobileNavLinkClass = (path) =>
     `rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 ${
       isActive(path)
-        ? "bg-indigo-500/15 text-white"
-        : "text-slate-300 hover:bg-white/5 hover:text-white"
+        ? "bg-indigo-500/15 text-ink"
+        : "text-muted hover:bg-glass hover:text-ink"
     }`;
 
   const getDashboardLink = () => {
@@ -80,8 +81,8 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-slate-800/80 bg-slate-950/80 shadow-lg shadow-indigo-950/30 backdrop-blur-2xl"
-          : "border-b border-transparent bg-slate-950/40 backdrop-blur-md"
+          ? "border-b border-line bg-page/80 shadow-lg shadow-indigo-950/30 backdrop-blur-2xl"
+          : "border-b border-transparent bg-page/40 backdrop-blur-md"
       }`}
     >
       <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -100,10 +101,10 @@ export default function Navbar() {
 
             {/* Brand Text */}
             <div className="flex flex-col justify-center leading-none">
-              <span className="bg-gradient-to-r from-white via-indigo-200 to-fuchsia-300 bg-clip-text text-lg font-semibold text-transparent sm:text-xl">
+              <span className="brand-text text-lg font-semibold sm:text-xl">
                 Fable
               </span>
-              <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-slate-400 sm:text-xs">
+              <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-faint sm:text-xs">
                 Discover Stories
               </span>
             </div>
@@ -131,19 +132,21 @@ export default function Navbar() {
 
           {/* RIGHT SIDE */}
           <div className="hidden items-center gap-4 md:flex">
+            <ThemeToggle />
+
             {/* HIDE ONLY DURING GOOGLE SIGNUP ROLE SETUP */}
             {!isLoggedIn ? (
               <>
                 <Link
                   href="/login"
-                  className="rounded-full px-4 py-2 text-sm font-medium text-slate-200 transition-all duration-300 hover:bg-white/5 hover:text-white"
+                  className="rounded-full px-4 py-2 text-sm font-medium text-body transition-all duration-300 hover:bg-glass hover:text-ink"
                 >
                   Login
                 </Link>
 
                 <Link
                   href="/register"
-                  className="rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_24px_rgba(129,140,248,0.45)] transition-all duration-300 hover:shadow-[0_0_34px_rgba(129,140,248,0.7)] hover:brightness-110"
+                  className="btn btn-primary btn-sm"
                 >
                   Sign Up
                 </Link>
@@ -155,7 +158,7 @@ export default function Navbar() {
                   {user?.image ? (
                     <img
                       src={user.image}
-                      className="h-11 w-11 rounded-full border border-slate-700/80 object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
+                      className="h-11 w-11 rounded-full border border-line object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
                       alt="user"
                     />
                   ) : (
@@ -165,11 +168,11 @@ export default function Navbar() {
                   )}
 
                   <div className="hidden lg:block">
-                    <p className="text-sm font-semibold text-white">
+                    <p className="text-sm font-semibold text-ink">
                       {user?.name}
                     </p>
 
-                    <p className="text-xs capitalize text-slate-400">
+                    <p className="text-xs capitalize text-muted">
                       {user?.role || ""}
                     </p>
                   </div>
@@ -177,7 +180,7 @@ export default function Navbar() {
 
                 <button
                   onClick={handleLogout}
-                  className="rounded-full border border-slate-700/80 px-4 py-2 text-sm font-medium text-slate-200 transition-all duration-300 hover:border-rose-500/60 hover:bg-rose-500/10 hover:text-rose-300"
+                  className="btn btn-ghost btn-sm border border-line text-rose-400 hover:border-rose-500/60 hover:bg-rose-500/10"
                 >
                   Logout
                 </button>
@@ -186,17 +189,21 @@ export default function Navbar() {
           </div>
 
           {/* MOBILE MENU BUTTON */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-800/80 bg-white/5 text-slate-200 backdrop-blur transition-all duration-300 hover:bg-white/10 md:hidden"
-            aria-label="Toggle Menu"
-          >
-            {mobileOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle />
+
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-glass text-ink backdrop-blur transition-all duration-300 hover:bg-soft"
+              aria-label="Toggle Menu"
+            >
+              {mobileOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* MOBILE MENU DRAWER */}
@@ -207,15 +214,15 @@ export default function Navbar() {
               : "pointer-events-none max-h-0 opacity-0"
           }`}
         >
-          <div className="mx-4 mb-4 rounded-2xl border border-slate-800/80 bg-slate-950/95 p-5 shadow-2xl shadow-black/60 backdrop-blur-2xl sm:mx-6">
+          <div className="mx-4 mb-4 rounded-2xl border border-line bg-panel/95 p-5 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:mx-6">
             {/* User Info */}
             {isLoggedIn && (
-              <div className="mb-5 flex items-center gap-3 border-b border-slate-800/80 pb-5">
+              <div className="mb-5 flex items-center gap-3 border-b border-line pb-5">
                 {user?.image ? (
                   <img
                     src={user.image}
                     alt={user.name}
-                    className="h-12 w-12 rounded-full border border-slate-700/80 object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
+                    className="h-12 w-12 rounded-full border border-line object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
                   />
                 ) : (
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 font-bold text-white">
@@ -224,9 +231,9 @@ export default function Navbar() {
                 )}
 
                 <div>
-                  <p className="font-semibold text-white">{user?.name}</p>
+                  <p className="font-semibold text-ink">{user?.name}</p>
 
-                  <p className="text-sm capitalize text-slate-400">
+                  <p className="text-sm capitalize text-muted">
                     {user?.role}
                   </p>
                 </div>
@@ -265,7 +272,7 @@ export default function Navbar() {
                       setMobileOpen(false);
                       handleLogout();
                     }}
-                    className="mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-left font-medium text-rose-300 transition-all duration-300 hover:bg-rose-500/20"
+                    className="mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-left font-medium text-rose-400 transition-all duration-300 hover:bg-rose-500/20"
                   >
                     Logout
                   </button>
@@ -275,7 +282,7 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={() => setMobileOpen(false)}
-                    className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 transition-all duration-300 hover:bg-white/5 hover:text-white"
+                    className="rounded-xl px-4 py-3 text-sm font-medium text-muted transition-all duration-300 hover:bg-glass hover:text-ink"
                   >
                     Login
                   </Link>
@@ -283,7 +290,7 @@ export default function Navbar() {
                   <Link
                     href="/register"
                     onClick={() => setMobileOpen(false)}
-                    className="mt-2 rounded-xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-4 py-3 text-center font-semibold text-white shadow-[0_0_20px_rgba(129,140,248,0.4)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(129,140,248,0.6)] hover:brightness-110"
+                    className="btn btn-primary mt-2 w-full rounded-xl"
                   >
                     Sign Up
                   </Link>

@@ -35,9 +35,9 @@ export default function UserDashboardPage() {
   if (loading) {
     return (
       <div className="grid md:grid-cols-3 gap-4 p-4">
-        <div className="h-28 bg-gray-200 animate-pulse rounded-xl" />
-        <div className="h-28 bg-gray-200 animate-pulse rounded-xl" />
-        <div className="h-28 bg-gray-200 animate-pulse rounded-xl" />
+        <div className="h-28 bg-soft animate-pulse rounded-xl" />
+        <div className="h-28 bg-soft animate-pulse rounded-xl" />
+        <div className="h-28 bg-soft animate-pulse rounded-xl" />
       </div>
     );
   }
@@ -46,11 +46,11 @@ export default function UserDashboardPage() {
     <div className="p-4 md:p-6 space-y-6">
 
       {/* HEADER */}
-      <div className="bg-white p-5 rounded-xl shadow">
-        <h1 className="text-2xl font-bold">
+      <div className="card p-5">
+        <h1 className="text-2xl font-bold text-ink">
           Welcome {session?.user?.name}
         </h1>
-        <p className="text-gray-500 text-sm">
+        <p className="text-muted text-sm">
           User Dashboard Overview
         </p>
       </div>

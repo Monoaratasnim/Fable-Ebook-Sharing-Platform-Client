@@ -213,21 +213,21 @@ export default function EbookDetails({ ebook }) {
   };
 
   return (
-  <div className="min-h-screen bg-slate-50 py-6 md:py-10 px-4">
+  <div className="min-h-screen bg-page py-6 md:py-10 px-4">
     <div className="max-w-7xl mx-auto">
 
-      <div className="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-100">
+      <div className="card overflow-hidden rounded-3xl">
 
         <div className="grid lg:grid-cols-2 gap-0">
 
        {/* IMAGE SECTION */}
 
-<div className="bg-gradient-to-br from-slate-50 via-white to-slate-100 p-6 md:p-10 lg:p-14 flex justify-center">
+<div className="bg-gradient-to-br from-soft via-panel to-soft p-6 md:p-10 lg:p-14 flex justify-center">
 
   <div className="w-full lg:sticky lg:top-8 flex justify-center">
 
     {!imgLoaded && (
-      <div className="w-full max-w-lg h-[620px] rounded-3xl bg-gray-200 animate-pulse" />
+      <div className="w-full max-w-lg h-[620px] rounded-3xl bg-soft animate-pulse" />
     )}
 
     <motion.img
@@ -246,8 +246,8 @@ export default function EbookDetails({ ebook }) {
         rounded-3xl
         shadow-[0_30px_80px_rgba(0,0,0,0.18)]
         border
-        border-gray-200
-        bg-white
+        border-line
+        bg-panel
         p-3
       "
     />
@@ -265,13 +265,13 @@ export default function EbookDetails({ ebook }) {
           >
 
             {/* TITLE */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-ink leading-tight">
               {ebook.title}
             </h1>
 
-            <p className="mt-3 text-gray-500 text-sm md:text-base">
+            <p className="mt-3 text-muted text-sm md:text-base">
               Written by{" "}
-              <span className="font-semibold text-gray-700">
+              <span className="font-semibold text-ink">
                 {ebook.writerName}
               </span>
             </p>
@@ -279,36 +279,36 @@ export default function EbookDetails({ ebook }) {
             {/* INFO CARDS */}
             <div className="grid grid-cols-2 gap-4 mt-8">
 
-              <div className="bg-slate-50 border rounded-xl p-4">
-                <p className="text-xs text-gray-500">
+              <div className="bg-soft/60 border border-line rounded-xl p-4">
+                <p className="text-xs text-muted">
                   Genre
                 </p>
-                <h4 className="font-semibold mt-1">
+                <h4 className="font-semibold text-ink mt-1">
                   {ebook.genre}
                 </h4>
               </div>
 
-              <div className="bg-slate-50 border rounded-xl p-4">
-                <p className="text-xs text-gray-500">
+              <div className="bg-soft/60 border border-line rounded-xl p-4">
+                <p className="text-xs text-muted">
                   Price
                 </p>
-                <h4 className="font-semibold mt-1">
+                <h4 className="font-semibold text-ink mt-1">
                   ${ebook.price}
                 </h4>
               </div>
 
-              <div className="bg-slate-50 border rounded-xl p-4">
-                <p className="text-xs text-gray-500">
+              <div className="bg-soft/60 border border-line rounded-xl p-4">
+                <p className="text-xs text-muted">
                   Status
                 </p>
 
                 <h4
                   className={`font-semibold mt-1 ${
                     alreadyPurchased
-                      ? "text-blue-600"
+                      ? "text-blue-500"
                       : ebook.sold
-                      ? "text-red-500"
-                      : "text-green-600"
+                      ? "text-rose-400"
+                      : "text-emerald-400"
                   }`}
                 >
                   {alreadyPurchased
@@ -319,12 +319,12 @@ export default function EbookDetails({ ebook }) {
                 </h4>
               </div>
 
-              <div className="bg-slate-50 border rounded-xl p-4">
-                <p className="text-xs text-gray-500">
+              <div className="bg-soft/60 border border-line rounded-xl p-4">
+                <p className="text-xs text-muted">
                   Uploaded
                 </p>
 
-                <h4 className="font-semibold mt-1">
+                <h4 className="font-semibold text-ink mt-1">
                   {new Date(
                     ebook.createdAt
                   ).toLocaleDateString()}
@@ -336,35 +336,36 @@ export default function EbookDetails({ ebook }) {
             {/* DESCRIPTION */}
             <div className="mt-8">
 
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="text-xl font-bold text-ink mb-4">
                 Description
               </h3>
 
               <div
                 className="
-                  bg-gray-50
+                  bg-soft/60
                   border
+                  border-line
                   rounded-2xl
                   p-5
                   max-h-[350px]
                   overflow-y-auto
                 "
               >
-                <p className="text-gray-700 whitespace-pre-line leading-8 text-sm md:text-base break-words">
+                <p className="text-body whitespace-pre-line leading-8 text-sm md:text-base break-words">
   {alreadyPurchased || isWriter || isAdmin
     ? ebook.description
     : `${(ebook.description || "").slice(0, 200)}...`}
 </p>
 {!alreadyPurchased && !isWriter && !isAdmin && (
-  <div className="mt-6 border-t pt-5">
+  <div className="mt-6 border-t border-line pt-5">
 
-    <div className="rounded-xl bg-blue-50 border border-blue-200 p-4">
+    <div className="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4">
 
-      <h4 className="font-semibold text-blue-700">
+      <h4 className="font-semibold text-blue-500">
         🔒 Continue Reading
       </h4>
 
-      <p className="text-sm text-gray-600 mt-2">
+      <p className="text-sm text-muted mt-2">
         Purchase this ebook to unlock the complete description
         and read the full story.
       </p>
@@ -389,21 +390,18 @@ export default function EbookDetails({ ebook }) {
     ebook.sold
   }
   className={`
+    btn
+    btn-md
     w-full
     sm:w-auto
-    px-6
-    py-3
-    rounded-xl
     border
-    font-medium
-    transition
 
     ${
       alreadyPurchased || ebook.sold
-        ? "bg-gray-300 text-gray-600 cursor-not-allowed border-gray-300"
+        ? "bg-soft text-faint cursor-not-allowed border-line"
         : bookmarked
-        ? "bg-black text-white border-black"
-        : "bg-white hover:bg-gray-100 border-gray-300"
+        ? "bg-indigo-600 border-transparent text-white"
+        : "btn-outline hover:bg-soft"
     }
   `}
 >
@@ -427,19 +425,16 @@ export default function EbookDetails({ ebook }) {
     ebook.sold
   }
   className={`
+    btn
+    btn-md
     w-full
     sm:w-auto
-    px-6
-    py-3
-    rounded-xl
-    font-medium
-    transition
     disabled:cursor-not-allowed
     disabled:opacity-60
     ${
       ebook.sold
-        ? "bg-gray-400"
-        : "bg-rose-500 hover:bg-rose-600 text-white"
+        ? "bg-soft text-faint"
+        : "bg-gradient-to-r from-rose-500 to-pink-600 hover:brightness-110 text-white shadow-[0_10px_26px_-12px_rgba(244,63,94,0.6)]"
     }
   `}
 >
@@ -458,8 +453,8 @@ export default function EbookDetails({ ebook }) {
 
             {/* ADMIN MESSAGE */}
             {isAdmin && (
-              <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-2xl p-5">
-                <p className="text-yellow-700 font-medium">
+              <div className="mt-8 bg-amber-500/10 border border-amber-500/30 rounded-2xl p-5">
+                <p className="text-amber-500 font-medium">
                   Admin accounts can manage ebooks but cannot purchase or bookmark ebooks.
                 </p>
               </div>
@@ -472,4 +467,4 @@ export default function EbookDetails({ ebook }) {
     </div>
   </div>
 );
-}                      
+}

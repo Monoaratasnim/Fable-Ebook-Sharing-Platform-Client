@@ -24,9 +24,17 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${merriweather.variable}`}
+      className={`dark ${poppins.variable} ${merriweather.variable}`}
+      suppressHydrationWarning
     >
-      <body className="bg-slate-950 text-slate-300 antialiased">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("fable-theme")||"dark";var el=document.documentElement;el.classList.remove("dark","light");el.classList.add(t);el.setAttribute("data-theme",t);}catch(e){}}());`,
+          }}
+        />
+      </head>
+      <body className="bg-page text-body antialiased">
         {/* Ambient gradient lighting */}
         <div
           aria-hidden

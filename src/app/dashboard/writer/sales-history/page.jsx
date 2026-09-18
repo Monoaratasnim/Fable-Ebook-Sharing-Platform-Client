@@ -45,8 +45,8 @@ export default function SalesHistoryPage() {
   if (loading) {
     return (
       <div className="space-y-4">
-        <div className="h-16 bg-gray-200 animate-pulse rounded-xl" />
-        <div className="h-80 bg-gray-200 animate-pulse rounded-xl" />
+        <div className="h-16 bg-soft animate-pulse rounded-xl" />
+        <div className="h-80 bg-soft animate-pulse rounded-xl" />
       </div>
     );
   }
@@ -54,11 +54,11 @@ export default function SalesHistoryPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-ink">
           Sales History
         </h1>
 
-        <p className="text-gray-500 mt-1">
+        <p className="text-muted mt-1">
           View all ebook sales and revenue records
         </p>
       </div>

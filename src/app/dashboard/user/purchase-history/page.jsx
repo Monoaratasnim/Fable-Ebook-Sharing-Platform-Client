@@ -31,16 +31,16 @@ export default function PurchaseHistoryPage() {
   if (loading) {
     return (
       <div className="p-6 space-y-3">
-        <div className="h-10 bg-gray-200 animate-pulse rounded" />
-        <div className="h-10 bg-gray-200 animate-pulse rounded" />
-        <div className="h-10 bg-gray-200 animate-pulse rounded" />
+        <div className="h-10 bg-soft animate-pulse rounded" />
+        <div className="h-10 bg-soft animate-pulse rounded" />
+        <div className="h-10 bg-soft animate-pulse rounded" />
       </div>
     );
   }
 
   return (
     <div className="p-4 md:p-6">
-      <h1 className="text-2xl font-bold mb-4">
+      <h1 className="text-2xl font-bold text-ink mb-4">
         Purchase History
       </h1>
 

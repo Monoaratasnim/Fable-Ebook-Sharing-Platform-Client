@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import TableSkeleton from "@/components/TableSkeleton";
+import { Trash2, RotateCcw } from "lucide-react";
 
 export default function UsersTable() {
 const [users, setUsers] = useState([]);
@@ -115,6 +116,16 @@ try {
 
 };
 
+const roleBadge = (role) => {
+  const map = {
+    admin: "bg-rose-500/10 text-rose-400 ring-rose-500/30",
+    writer: "bg-indigo-500/10 text-indigo-300 ring-indigo-500/30",
+    user: "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30",
+  };
+
+  return `rounded-full px-3 py-1 text-xs font-semibold ring-1 ${map[role] || map.user}`;
+};
+
 
 
 if (loading) {
@@ -124,24 +135,24 @@ if (loading) {
 return (
   <>
     {/* Desktop Table */}
-    <div className="hidden lg:block bg-white rounded-2xl shadow-md overflow-hidden">
+    <div className="card hidden lg:block overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-100">
+          <thead className="bg-soft">
             <tr>
-              <th className="px-6 py-4 text-left font-semibold">
+              <th className="px-6 py-4 text-left font-semibold text-muted">
                 Name
               </th>
 
-              <th className="px-6 py-4 text-left font-semibold">
+              <th className="px-6 py-4 text-left font-semibold text-muted">
                 Email
               </th>
 
-              <th className="px-6 py-4 text-left font-semibold">
+              <th className="px-6 py-4 text-left font-semibold text-muted">
                 Role
               </th>
 
-              <th className="px-6 py-4 text-left font-semibold">
+              <th className="px-6 py-4 text-left font-semibold text-muted">
                 Actions
               </th>
             </tr>
@@ -151,26 +162,18 @@ return (
             {users.map((user) => (
               <tr
                 key={user._id}
-                className="border-t hover:bg-gray-50"
+                className="border-t border-line hover:bg-soft/60 transition"
               >
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-ink">
                   {user.name || "N/A"}
                 </td>
 
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-body">
                   {user.email}
                 </td>
 
                 <td className="px-6 py-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      user.role === "admin"
-                        ? "bg-red-100 text-red-600"
-                        : user.role === "writer"
-                        ? "bg-blue-100 text-blue-600"
-                        : "bg-green-100 text-green-600"
-                    }`}
-                  >
+                  <span className={roleBadge(user.role)}>
                     {user.role || "user"}
                   </span>
                 </td>
@@ -185,7 +188,7 @@ return (
                           e.target.value
                         )
                       }
-                      className="border rounded-lg px-3 py-2"
+                      className="input w-auto py-2"
                     >
                       <option value="user">User</option>
                       <option value="writer">Writer</option>
@@ -196,8 +199,9 @@ return (
                       onClick={() =>
                         handleDelete(user._id)
                       }
-                      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition"
+                      className="btn btn-danger btn-sm"
                     >
+                      <Trash2 className="h-3.5 w-3.5" />
                       Delete
                     </button>
                   </div>
@@ -214,40 +218,34 @@ return (
       {users.map((user) => (
         <div
           key={user._id}
-          className="bg-white rounded-2xl shadow-md p-5"
+          className="card p-5"
         >
           <div className="space-y-4">
             <div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted">
                 Name
               </p>
-              <h3 className="font-semibold">
+              <h3 className="font-semibold text-ink">
                 {user.name || "N/A"}
               </h3>
             </div>
 
             <div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted">
                 Email
               </p>
-              <p className="text-sm break-all">
+              <p className="text-sm text-body break-all">
                 {user.email}
               </p>
             </div>
 
             <div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted">
                 Role
               </p>
 
               <span
-                className={`inline-block mt-1 px-3 py-1 rounded-full text-xs font-semibold ${
-                  user.role === "admin"
-                    ? "bg-red-100 text-red-600"
-                    : user.role === "writer"
-                    ? "bg-blue-100 text-blue-600"
-                    : "bg-green-100 text-green-600"
-                }`}
+                className={`inline-block mt-1 ${roleBadge(user.role)}`}
               >
                 {user.role || "user"}
               </span>
@@ -262,7 +260,7 @@ return (
                     e.target.value
                   )
                 }
-                className="border rounded-lg px-3 py-2 w-full"
+                className="input w-full"
               >
                 <option value="user">User</option>
                 <option value="writer">Writer</option>
@@ -273,8 +271,9 @@ return (
                 onClick={() =>
                   handleDelete(user._id)
                 }
-                className="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition"
+                className="btn btn-danger w-full"
               >
+                <RotateCcw className="h-4 w-4" />
                 Delete User
               </button>
             </div>
@@ -284,7 +283,7 @@ return (
     </div>
 
     {users.length === 0 && !loading && (
-      <div className="bg-white rounded-2xl shadow-md p-10 text-center text-gray-500">
+      <div className="card p-10 text-center text-muted">
         No users found
       </div>
     )}

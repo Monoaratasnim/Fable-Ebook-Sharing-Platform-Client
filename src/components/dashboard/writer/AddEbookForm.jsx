@@ -121,12 +121,12 @@ export default function AddEbookForm() {
   return (
     <div className="max-w-5xl mx-auto">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm border p-6 mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">
+      <div className="card p-6 mb-6">
+        <h1 className="text-3xl font-bold text-ink">
           Add New Ebook
         </h1>
 
-        <p className="text-gray-500 mt-2">
+        <p className="text-muted mt-2">
           Upload and publish your ebook for readers around the world.
         </p>
       </div>
@@ -134,11 +134,11 @@ export default function AddEbookForm() {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white border rounded-2xl shadow-sm p-6 md:p-8 space-y-6"
+        className="card p-6 md:p-8 space-y-6"
       >
         {/* Title */}
         <div>
-          <label className="block text-sm font-semibold mb-2">
+          <label className="block text-sm font-semibold text-ink mb-2">
             Ebook Title
           </label>
 
@@ -147,21 +147,21 @@ export default function AddEbookForm() {
             name="title"
             required
             placeholder="Atomic Habits"
-            className="w-full border rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-rose-500"
+            className="input"
           />
         </div>
 
         {/* Genre + Price */}
         <div className="grid md:grid-cols-2 gap-5">
           <div>
-            <label className="block text-sm font-semibold mb-2">
+            <label className="block text-sm font-semibold text-ink mb-2">
               Genre
             </label>
 
             <select
               name="genre"
               required
-              className="w-full border rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-rose-500"
+              className="input"
             >
               <option value="">Select Genre</option>
 
@@ -174,7 +174,7 @@ export default function AddEbookForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold mb-2">
+            <label className="block text-sm font-semibold text-ink mb-2">
               Price ($)
             </label>
 
@@ -184,14 +184,14 @@ export default function AddEbookForm() {
               required
               min="1"
               placeholder="10"
-              className="w-full border rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-rose-500"
+              className="input"
             />
           </div>
         </div>
 
         {/* Cover */}
         <div>
-          <label className="block text-sm font-semibold mb-2">
+          <label className="block text-sm font-semibold text-ink mb-2">
             Cover Image
           </label>
 
@@ -200,13 +200,13 @@ export default function AddEbookForm() {
             name="cover"
             required
             accept="image/*"
-            className="w-full border rounded-xl px-4 py-3"
+            className="input file:mr-3 file:rounded-lg file:border-0 file:bg-blue-500/10 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-blue-400"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-semibold mb-2">
+          <label className="block text-sm font-semibold text-ink mb-2">
             Ebook Content / Full Description
           </label>
 
@@ -215,28 +215,28 @@ export default function AddEbookForm() {
             required
             rows={12}
             placeholder="Write your ebook content here..."
-            className="w-full border rounded-xl px-4 py-3 resize-none outline-none focus:ring-2 focus:ring-rose-500"
+            className="input resize-none"
           />
         </div>
 
         {/* Writer Info */}
         <div className="grid md:grid-cols-2 gap-5">
-          <div className="bg-gray-50 border rounded-xl p-4">
-            <p className="text-sm text-gray-500">
+          <div className="rounded-xl border border-line bg-soft/60 p-4">
+            <p className="text-sm text-muted">
               Writer Name
             </p>
 
-            <p className="font-semibold">
+            <p className="font-semibold text-ink">
               {session?.user?.name}
             </p>
           </div>
 
-          <div className="bg-gray-50 border rounded-xl p-4">
-            <p className="text-sm text-gray-500">
+          <div className="rounded-xl border border-line bg-soft/60 p-4">
+            <p className="text-sm text-muted">
               Writer Email
             </p>
 
-            <p className="font-semibold break-all">
+            <p className="font-semibold text-ink break-all">
               {session?.user?.email}
             </p>
           </div>
@@ -246,7 +246,7 @@ export default function AddEbookForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full md:w-auto bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-xl font-semibold transition disabled:opacity-50"
+          className="btn btn-primary w-full md:w-auto"
         >
           {loading ? "Uploading..." : "Publish Ebook"}
         </button>

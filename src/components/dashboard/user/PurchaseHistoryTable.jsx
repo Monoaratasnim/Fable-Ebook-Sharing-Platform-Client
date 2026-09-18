@@ -3,7 +3,7 @@
 export default function PurchaseHistoryTable({ data = [] }) {
   if (!data.length) {
     return (
-      <div className="bg-white rounded-2xl shadow p-10 text-center text-gray-500">
+      <div className="card p-10 text-center text-muted">
         No purchase history found.
       </div>
     );
@@ -12,12 +12,12 @@ export default function PurchaseHistoryTable({ data = [] }) {
   return (
     <>
       {/* ================= Desktop Table ================= */}
-      <div className="hidden md:block bg-white rounded-2xl shadow overflow-hidden">
+      <div className="hidden md:block card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full">
 
-            <thead className="bg-gray-50 border-b">
-              <tr className="text-left text-sm font-semibold text-gray-700">
+            <thead className="bg-soft border-b border-line">
+              <tr className="text-left text-sm font-semibold text-muted">
                 <th className="px-6 py-4">Ebook</th>
                 <th className="px-6 py-4">Writer</th>
                 <th className="px-6 py-4">Price</th>
@@ -31,33 +31,33 @@ export default function PurchaseHistoryTable({ data = [] }) {
               {data.map((item) => (
                 <tr
                   key={item._id}
-                  className="border-b last:border-none hover:bg-gray-50 transition"
+                  className="border-b border-line last:border-none hover:bg-soft/60 transition"
                 >
                   <td
-                    className="px-6 py-4 font-medium max-w-[220px] truncate"
+                    className="px-6 py-4 font-medium text-ink max-w-[220px] truncate"
                     title={item.ebookTitle}
                   >
                     {item.ebookTitle}
                   </td>
 
-                  <td className="px-6 py-4 text-gray-600">
+                  <td className="px-6 py-4 text-body">
                     {item.writer}
                   </td>
 
-                  <td className="px-6 py-4 font-medium">
+                  <td className="px-6 py-4 font-medium text-ink">
                     ${Number(item.price).toFixed(2)}
                   </td>
 
-                  <td className="px-6 py-4 font-semibold text-green-600">
+                  <td className="px-6 py-4 font-semibold text-emerald-400">
                     ${Number(item.amount).toFixed(2)}
                   </td>
 
-                  <td className="px-6 py-4 text-gray-500">
+                  <td className="px-6 py-4 text-muted">
                     {new Date(item.createdAt).toLocaleDateString()}
                   </td>
 
                   <td className="px-6 py-4">
-                    <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
                       Paid
                     </span>
                   </td>
@@ -74,46 +74,46 @@ export default function PurchaseHistoryTable({ data = [] }) {
         {data.map((item) => (
           <div
             key={item._id}
-            className="bg-white rounded-xl shadow p-4"
+            className="card p-4"
           >
             <h3
-              className="font-semibold text-gray-900 truncate"
+              className="font-semibold text-ink truncate"
               title={item.ebookTitle}
             >
               {item.ebookTitle}
             </h3>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted mt-1">
               {item.writer}
             </p>
 
             <div className="grid grid-cols-2 gap-3 mt-4 text-sm">
 
               <div>
-                <p className="text-gray-500">Price</p>
-                <p className="font-semibold">
+                <p className="text-muted">Price</p>
+                <p className="font-semibold text-ink">
                   ${Number(item.price).toFixed(2)}
                 </p>
               </div>
 
               <div>
-                <p className="text-gray-500">Paid</p>
-                <p className="font-semibold text-green-600">
+                <p className="text-muted">Paid</p>
+                <p className="font-semibold text-emerald-400">
                   ${Number(item.amount).toFixed(2)}
                 </p>
               </div>
 
               <div>
-                <p className="text-gray-500">Date</p>
-                <p>
+                <p className="text-muted">Date</p>
+                <p className="text-body">
                   {new Date(item.createdAt).toLocaleDateString()}
                 </p>
               </div>
 
               <div>
-                <p className="text-gray-500">Status</p>
+                <p className="text-muted">Status</p>
 
-                <span className="inline-flex mt-1 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                <span className="inline-flex mt-1 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
                   Paid
                 </span>
               </div>

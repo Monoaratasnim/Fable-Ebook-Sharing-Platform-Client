@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signUp, signIn, signOut, useSession } from "@/lib/auth-client";
-import { Card, Button } from "@heroui/react";
+import { Button } from "@heroui/react";
 import toast from "react-hot-toast";
 
 export default function SignUpPage() {
@@ -101,10 +101,23 @@ export default function SignUpPage() {
   };
 
   return (
-  <div className="bg-[#FFF9F5] min-h-screen px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
-  <Card className="w-full max-w-md mx-auto bg-white border border-rose-100 rounded-3xl shadow-xl p-6 sm:p-8">
+  <div className="bg-page relative min-h-screen px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-fuchsia-600/15 blur-[130px]"
+    />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-indigo-600/15 blur-[110px]"
+    />
 
-        <h1 className="text-2xl font-bold text-center">
+  <div className="card relative w-full max-w-md mx-auto p-6 sm:p-8 overflow-hidden">
+    <div
+      aria-hidden
+      className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
+    />
+
+        <h1 className="text-2xl font-bold text-center text-ink">
           Create Account
         </h1>
 
@@ -112,12 +125,12 @@ export default function SignUpPage() {
         {googleMode && session?.user ? (
           <div className="space-y-4">
 
-            <p className="text-center">
-              Welcome <b>{session.user.name}</b>
+            <p className="text-center text-muted">
+              Welcome <b className="text-ink">{session.user.name}</b>
             </p>
 
             <select
-              className="w-full p-3 border rounded-xl"
+              className="input"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
@@ -127,7 +140,7 @@ export default function SignUpPage() {
 
             <Button
               onPress={saveGoogleRole}
-              className="w-full bg-rose-500 text-white"
+              className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-white font-semibold h-14"
             >
               Complete Signup
             </Button>
@@ -141,7 +154,7 @@ export default function SignUpPage() {
               <input
                 type="text"
                 placeholder="Full Name"
-                className="w-full p-3 border rounded-xl"
+                className="input"
                 value={form.name}
                 onChange={(e) =>
                   setForm({ ...form, name: e.target.value })
@@ -151,7 +164,7 @@ export default function SignUpPage() {
               <input
                 type="email"
                 placeholder="abc@gmail.com"
-                className="w-full p-3 border rounded-xl"
+                className="input"
                 value={form.email}
                 onChange={(e) =>
                   setForm({ ...form, email: e.target.value })
@@ -162,7 +175,7 @@ export default function SignUpPage() {
               <input
                 type="password"
                 placeholder="Password"
-                className="w-full p-3 border rounded-xl"
+                className="input"
                 value={form.password}
                 onChange={(e) =>
                   setForm({ ...form, password: e.target.value })
@@ -172,7 +185,7 @@ export default function SignUpPage() {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                className="w-full p-3 border rounded-xl"
+                className="input"
                 value={form.confirmPassword}
                 onChange={(e) =>
                   setForm({ ...form, confirmPassword: e.target.value })
@@ -180,7 +193,7 @@ export default function SignUpPage() {
               />
 
               <select
-                className="w-full p-3 border rounded-xl"
+                className="input"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
               >
@@ -191,7 +204,7 @@ export default function SignUpPage() {
               <Button
                 type="submit"
                 isLoading={loading}
-                className="w-full bg-rose-500 text-white"
+                className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-white font-semibold h-14"
               >
                 Create Account
               </Button>
@@ -202,14 +215,14 @@ export default function SignUpPage() {
               onPress={handleGoogleSignup}
               isLoading={googleLoading}
               variant="bordered"
-              className="w-full mt-3"
+              className="w-full mt-3 h-14 rounded-xl border-line text-ink bg-glass"
             >
               Continue with Google
             </Button>
           </>
         )}
 
-      </Card>
+      </div>
     </div>
   );
 }

@@ -80,14 +80,14 @@ export default function EditEbookForm({ ebook }) {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg border p-4 md:p-6 lg:p-8">
+      <div className="card p-4 md:p-6 lg:p-8">
         <form
           onSubmit={handleSubmit}
           className="space-y-6"
         >
           {/* TITLE */}
           <div>
-            <label className="block font-medium text-gray-700 mb-2">
+            <label className="block font-medium text-ink mb-2">
               Ebook Title
             </label>
 
@@ -98,25 +98,14 @@ export default function EditEbookForm({ ebook }) {
               onChange={(e) =>
                 setTitle(e.target.value)
               }
-              className="
-                w-full
-                border
-                rounded-xl
-                px-4
-                py-3
-                text-sm
-                md:text-base
-                focus:outline-none
-                focus:ring-2
-                focus:ring-rose-500
-              "
+              className="input"
               placeholder="Atomic Habits"
             />
           </div>
 
           {/* COVER IMAGE */}
           <div>
-            <label className="block font-medium text-gray-700 mb-2">
+            <label className="block font-medium text-ink mb-2">
               Cover Image URL
             </label>
 
@@ -127,18 +116,7 @@ export default function EditEbookForm({ ebook }) {
               onChange={(e) =>
                 setCoverImage(e.target.value)
               }
-              className="
-                w-full
-                border
-                rounded-xl
-                px-4
-                py-3
-                text-sm
-                md:text-base
-                focus:outline-none
-                focus:ring-2
-                focus:ring-rose-500
-              "
+              className="input"
               placeholder="https://i.ibb.co/..."
             />
           </div>
@@ -146,7 +124,7 @@ export default function EditEbookForm({ ebook }) {
           {/* PREVIEW */}
           {coverImage && (
             <div>
-              <p className="font-medium text-gray-700 mb-3">
+              <p className="font-medium text-ink mb-3">
                 Cover Preview
               </p>
 
@@ -157,8 +135,8 @@ export default function EditEbookForm({ ebook }) {
                   w-full
                   max-w-xs
                   rounded-xl
-                  border
-                  shadow-sm
+                  border border-line
+                  shadow
                   object-cover
                 "
               />
@@ -168,7 +146,7 @@ export default function EditEbookForm({ ebook }) {
           {/* GENRE + PRICE */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block font-medium text-gray-700 mb-2">
+              <label className="block font-medium text-ink mb-2">
                 Genre
               </label>
 
@@ -177,18 +155,7 @@ export default function EditEbookForm({ ebook }) {
                 onChange={(e) =>
                   setGenre(e.target.value)
                 }
-                className="
-                  w-full
-                  border
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-sm
-                  md:text-base
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-rose-500
-                "
+                className="input"
               >
                 <option value="">
                   Select Genre
@@ -237,7 +204,7 @@ export default function EditEbookForm({ ebook }) {
             </div>
 
             <div>
-              <label className="block font-medium text-gray-700 mb-2">
+              <label className="block font-medium text-ink mb-2">
                 Price ($)
               </label>
 
@@ -249,18 +216,7 @@ export default function EditEbookForm({ ebook }) {
                 onChange={(e) =>
                   setPrice(e.target.value)
                 }
-                className="
-                  w-full
-                  border
-                  rounded-xl
-                  px-4
-                  py-3
-                  text-sm
-                  md:text-base
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-rose-500
-                "
+                className="input"
                 placeholder="9.99"
               />
             </div>
@@ -268,7 +224,7 @@ export default function EditEbookForm({ ebook }) {
 
           {/* DESCRIPTION */}
           <div>
-            <label className="block font-medium text-gray-700 mb-2">
+            <label className="block font-medium text-ink mb-2">
               Description / Full Content
             </label>
 
@@ -279,20 +235,7 @@ export default function EditEbookForm({ ebook }) {
               onChange={(e) =>
                 setDescription(e.target.value)
               }
-              className="
-                w-full
-                border
-                rounded-xl
-                px-4
-                py-3
-                text-sm
-                md:text-base
-                min-h-[250px]
-                resize-none
-                focus:outline-none
-                focus:ring-2
-                focus:ring-rose-500
-              "
+              className="input min-h-[250px] resize-none"
               placeholder="Write your ebook description..."
             />
           </div>
@@ -301,18 +244,7 @@ export default function EditEbookForm({ ebook }) {
           <button
             type="submit"
             disabled={loading}
-            className="
-              w-full
-              bg-black
-              text-white
-              py-3
-              rounded-xl
-              font-medium
-              transition
-              hover:bg-gray-800
-              disabled:opacity-50
-              disabled:cursor-not-allowed
-            "
+            className="btn btn-primary w-full"
           >
             {loading
               ? "Updating Ebook..."

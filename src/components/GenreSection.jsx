@@ -78,16 +78,16 @@ export default function GenreSection() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="mb-14 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-indigo-300 backdrop-blur">
+          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-indigo-400 backdrop-blur">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400" />
             Find Your Favorite
           </span>
 
-          <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">
+          <h2 className="mt-4 text-3xl font-bold text-ink md:text-4xl">
             Explore Ebook Genres
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-muted">
             Browse ebooks by category and discover stories,
             knowledge, and adventures you&apos;ll love.
           </p>
@@ -99,7 +99,7 @@ export default function GenreSection() {
             <Link
               key={genre.name}
               href={`/browse?genre=${encodeURIComponent(genre.name)}`}
-              className="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/50 p-6 text-center backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-500/50 hover:bg-slate-900/90 hover:shadow-2xl hover:shadow-indigo-600/20"
+              className="group relative overflow-hidden rounded-2xl border border-line bg-glass p-6 text-center backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-500/50 hover:bg-panel/90 hover:shadow-[var(--shadow-hover)]"
             >
               {/* Hover glow */}
               <div
@@ -114,9 +114,9 @@ export default function GenreSection() {
                 {genre.icon}
               </div>
 
-              <h3 className="relative font-bold text-white">{genre.name}</h3>
+              <h3 className="relative font-bold text-ink">{genre.name}</h3>
 
-              <p className="relative mt-2 text-sm font-medium text-slate-400 transition-colors duration-300 group-hover:text-indigo-300">
+              <p className="relative mt-2 text-sm font-medium text-muted transition-colors duration-300 group-hover:text-indigo-400">
                 Explore →
               </p>
             </Link>
