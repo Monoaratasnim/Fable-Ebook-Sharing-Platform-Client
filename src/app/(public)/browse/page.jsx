@@ -9,7 +9,6 @@ import EbookSkeleton from "@/components/EbookSkeleton";
 import {
   Search,
   SlidersHorizontal,
-  ChevronDown,
   ArrowDownWideNarrow,
   BookOpen,
   DollarSign,
@@ -147,8 +146,8 @@ export default function BrowsePage() {
                 setPage(1);
                 setGenre(e.target.value);
               }}
-              className={`input appearance-none pl-10 pr-9 ${FILTER_TRANSITION} ${
-                genre !== "all" ? FILTER_ACTIVE : FILTER_HOVER_SELECT
+              className={`input pl-10 ${FILTER_TRANSITION} ${
+                genre !== "all" ? "filter-active" : FILTER_HOVER_SELECT
               }`}
             >
               <option value="all">All Genres</option>
@@ -163,12 +162,6 @@ export default function BrowsePage() {
               <option value="Self Development">Self Development</option>
               <option value="Poetry">Poetry</option>
             </select>
-
-            <ChevronDown
-              className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
-                genre !== "all" ? "text-white" : "text-faint"
-              }`}
-            />
           </div>
 
           {/* SORT */}
@@ -185,8 +178,8 @@ export default function BrowsePage() {
                 setPage(1);
                 setSort(e.target.value);
               }}
-              className={`input appearance-none pl-10 pr-9 ${FILTER_TRANSITION} ${
-                sort !== "" ? FILTER_ACTIVE : FILTER_HOVER_SELECT
+              className={`input pl-10 ${FILTER_TRANSITION} ${
+                sort !== "" ? "filter-active" : FILTER_HOVER_SELECT
               }`}
             >
               <option value="">Sort By</option>
@@ -194,12 +187,6 @@ export default function BrowsePage() {
               <option value="low">Price Low → High</option>
               <option value="high">Price High → Low</option>
             </select>
-
-            <ChevronDown
-              className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
-                sort !== "" ? "text-white" : "text-faint"
-              }`}
-            />
           </div>
 
           {/* MIN PRICE */}
@@ -252,20 +239,14 @@ export default function BrowsePage() {
                 setPage(1);
                 setAvailability(e.target.value);
               }}
-              className={`input appearance-none pl-10 pr-9 ${FILTER_TRANSITION} ${
-                availability !== "all" ? FILTER_ACTIVE : FILTER_HOVER_SELECT
+              className={`input pl-10 ${FILTER_TRANSITION} ${
+                availability !== "all" ? "filter-active" : FILTER_HOVER_SELECT
               }`}
             >
               <option value="all">All Status</option>
               <option value="available">Available</option>
               <option value="sold">Sold</option>
             </select>
-
-            <ChevronDown
-              className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
-                availability !== "all" ? "text-white" : "text-faint"
-              }`}
-            />
           </div>
         </div>
       </motion.div>
