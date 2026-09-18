@@ -2,9 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { signUp, signIn, signOut, useSession } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
 import toast from "react-hot-toast";
+import { BookOpen, Lock, Mail, Sparkles, User, Users } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
+import SelectDropdown from "@/components/SelectDropdown";
+
+const ROLE_OPTIONS = [
+  { value: "user", label: "User" },
+  { value: "writer", label: "Writer" },
+];
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -101,127 +110,248 @@ export default function SignUpPage() {
   };
 
   return (
-  <div className="bg-page relative min-h-screen overflow-x-clip px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
-    <div
-      aria-hidden
-      className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-fuchsia-600/15 blur-[130px]"
-    />
-    <div
-      aria-hidden
-      className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-indigo-600/15 blur-[110px]"
-    />
+    <div className="bg-page relative min-h-screen overflow-x-clip px-4 py-10 md:flex md:items-center md:justify-center md:py-16">
+      {/* ================= IMMERSIVE BACKGROUND ================= */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        {/* mesh gradient */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 20% 20%, rgba(99,102,241,0.35), transparent 60%), radial-gradient(50% 40% at 80% 0%, rgba(168,85,247,0.30), transparent 60%), radial-gradient(50% 45% at 50% 100%, rgba(217,70,239,0.22), transparent 60%)",
+          }}
+        />
 
-  <div className="card relative w-full max-w-md mx-auto p-6 sm:p-8 overflow-hidden">
-    <div
-      aria-hidden
-      className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
-    />
+        {/* soft grid texture */}
+        <div className="bg-grid-slate absolute inset-0 opacity-70" />
 
-        <h1 className="text-2xl font-bold text-center text-ink">
-          Create Account
-        </h1>
+        {/* ambient glowing orbs */}
+        <div className="animate-glow absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-fuchsia-600/25 blur-[130px]" />
+        <div className="animate-float absolute -left-24 top-0 h-80 w-80 rounded-full bg-indigo-600/20 blur-[110px]" />
+        <div className="animate-glow absolute -bottom-24 right-1/4 h-96 w-96 rounded-full bg-violet-600/20 blur-[140px]" />
+
+        {/* floating bookstore glyphs */}
+        <div className="animate-float absolute bottom-[18%] right-[10%] hidden h-24 w-24 items-center justify-center rounded-3xl border border-fuchsia-500/15 bg-glass/50 text-fuchsia-300/40 shadow-xl backdrop-blur-xl lg:flex">
+          <BookOpen className="h-10 w-10" />
+        </div>
+        <div className="absolute bottom-[30%] left-[12%] hidden h-20 w-20 items-center justify-center rounded-3xl border border-indigo-500/15 bg-glass/50 text-indigo-300/40 shadow-xl backdrop-blur-xl lg:flex">
+          <Sparkles className="h-8 w-8" />
+        </div>
+      </div>
+
+      {/* ================= AUTH CARD ================= */}
+      <div className="relative z-10 w-full max-w-md overflow-visible rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-2xl shadow-indigo-950/10 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/85 sm:p-8">
+        {/* top hairline */}
+        <div
+          aria-hidden
+          className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
+        />
+
+        {/* BRAND */}
+        <div className="mb-8 flex items-center justify-center">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-600/30">
+              <BookOpen className="h-6 w-6" />
+            </div>
+            <div className="leading-tight">
+              <p className="brand-text text-xl font-bold">Fable</p>
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-muted">
+                Read · Imagine · Grow
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* HEADER */}
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-ink">
+            Create <span className="brand-text">Account</span>
+          </h1>
+
+          <p className="mt-2 text-sm text-muted">
+            Join the Fable community of readers and writers
+          </p>
+        </div>
 
         {/* GOOGLE ROLE STEP */}
         {googleMode && session?.user ? (
-          <div className="space-y-4">
+          <div className="space-y-5">
+            <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/5 p-4 text-center">
+              <p className="text-sm text-muted">
+                Welcome <b className="text-ink">{session.user.name}</b>
+              </p>
+              <p className="mt-1 text-xs text-faint">
+                Pick how you want to use Fable
+              </p>
+            </div>
 
-            <p className="text-center text-muted">
-              Welcome <b className="text-ink">{session.user.name}</b>
-            </p>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-ink">
+                Account Type
+              </label>
 
-            <select
-              className="input"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="user">User</option>
-              <option value="writer">Writer</option>
-            </select>
+              <SelectDropdown
+                icon={Users}
+                value={role}
+                onChange={setRole}
+                options={ROLE_OPTIONS}
+              />
+            </div>
 
             <Button
               onPress={saveGoogleRole}
-              className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-white font-semibold h-14"
+              className="h-14 w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 font-semibold text-white shadow-lg shadow-indigo-600/30 transition-all hover:shadow-xl hover:shadow-indigo-600/45 hover:brightness-110"
             >
               Complete Signup
             </Button>
-
           </div>
         ) : (
           <>
             {/* FORM */}
-            <form onSubmit={handleSignup} className="space-y-4">
+            <form onSubmit={handleSignup} className="space-y-5">
+              {/* FULL NAME */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-ink">
+                  Full Name
+                </label>
 
-              <input
-                type="text"
-                placeholder="Full Name"
-                className="input"
-                value={form.name}
-                onChange={(e) =>
-                  setForm({ ...form, name: e.target.value })
-                }
-              />
+                <div className="relative">
+                  <User className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
 
-              <input
-                type="email"
-                placeholder="abc@gmail.com"
-                className="input"
-                value={form.email}
-                onChange={(e) =>
-                  setForm({ ...form, email: e.target.value })
-                }
-                required
-              />
+                  <input
+                    type="text"
+                    placeholder="Jane Doe"
+                    className="input h-14 pl-12 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                    value={form.name}
+                    onChange={(e) =>
+                      setForm({ ...form, name: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
 
-              <input
-                type="password"
-                placeholder="Password"
-                className="input"
-                value={form.password}
-                onChange={(e) =>
-                  setForm({ ...form, password: e.target.value })
-                }
-              />
+              {/* EMAIL */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-ink">
+                  Email Address
+                </label>
 
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="input"
-                value={form.confirmPassword}
-                onChange={(e) =>
-                  setForm({ ...form, confirmPassword: e.target.value })
-                }
-              />
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
 
-              <select
-                className="input"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-              >
-                <option value="user">User</option>
-                <option value="writer">Writer</option>
-              </select>
+                  <input
+                    type="email"
+                    placeholder="example@gmail.com"
+                    className="input h-14 pl-12 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                    value={form.email}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* PASSWORD */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-ink">
+                  Password
+                </label>
+
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+
+                  <input
+                    type="password"
+                    placeholder="Choose a strong password"
+                    className="input h-14 pl-12 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                    value={form.password}
+                    onChange={(e) =>
+                      setForm({ ...form, password: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* CONFIRM PASSWORD */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-ink">
+                  Confirm Password
+                </label>
+
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+
+                  <input
+                    type="password"
+                    placeholder="Re-enter your password"
+                    className="input h-14 pl-12 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                    value={form.confirmPassword}
+                    onChange={(e) =>
+                      setForm({ ...form, confirmPassword: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* ROLE SELECTOR */}
+              <div>
+                <label className="mb-2 block text-sm font-medium text-ink">
+                  Account Type
+                </label>
+
+                <SelectDropdown
+                  icon={Users}
+                  value={role}
+                  onChange={setRole}
+                  options={ROLE_OPTIONS}
+                />
+              </div>
 
               <Button
                 type="submit"
                 isLoading={loading}
-                className="w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 text-white font-semibold h-14"
+                className="h-14 w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 font-semibold text-white shadow-lg shadow-indigo-600/30 transition-all hover:shadow-xl hover:shadow-indigo-600/45 hover:brightness-110"
               >
                 Create Account
               </Button>
-
             </form>
 
+            {/* DIVIDER */}
+            <div className="my-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-line"></div>
+              <span className="text-xs text-faint uppercase">OR</span>
+              <div className="h-px flex-1 bg-line"></div>
+            </div>
+
+            {/* GOOGLE SIGNUP */}
             <Button
               onPress={handleGoogleSignup}
               isLoading={googleLoading}
               variant="bordered"
-              className="w-full mt-3 h-14 rounded-xl border-line text-ink bg-glass"
+              className="flex h-14 w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white/70 text-ink backdrop-blur transition-all hover:border-indigo-400 hover:bg-indigo-50/70 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-slate-700 dark:bg-slate-900/60 dark:hover:bg-indigo-600/15"
             >
+              <FaGoogle className="h-4 w-4" />
               Continue with Google
             </Button>
           </>
         )}
 
+        {/* FOOTER */}
+        {!googleMode && (
+          <p className="mt-6 text-center text-sm text-muted">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="font-semibold text-indigo-500 hover:text-violet-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              Sign In
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );
