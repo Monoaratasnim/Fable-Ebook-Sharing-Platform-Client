@@ -43,7 +43,7 @@ export default function WriterStatsCard({ title, value, icon, color = "blue" }) 
         </span>
       </div>
 
-      <h2 className="relative mt-3 text-3xl font-bold text-ink break-words">
+      <h2 className="relative mt-3 text-2xl font-bold text-ink sm:text-3xl break-words">
         {value}
       </h2>
     </div>

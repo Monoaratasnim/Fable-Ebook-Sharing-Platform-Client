@@ -96,7 +96,7 @@ export default function DashboardSidebar({ open, setOpen, role }) {
         {/* decorative top glow */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-indigo-500/15 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-indigo-500/15 to-transparent"
         />
 
         {/* CLOSE BUTTON */}
@@ -110,40 +110,19 @@ export default function DashboardSidebar({ open, setOpen, role }) {
           </button>
         </div>
 
-        {/* LOGO */}
-        <div className="px-6 py-5 border-b border-line flex items-center gap-3 relative sticky top-0 bg-panel/95 backdrop-blur-xl">
-          <div className="relative">
-            <img
-              src="/images/logo.png"
-              alt="Fable"
-              className="h-11 w-11 object-contain drop-shadow-[0_0_12px_rgba(129,140,248,0.45)]"
-            />
-            <span
-              className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full ring-2 ring-panel ${meta.dot} shadow-[0_0_12px_rgba(129,140,248,0.7)]`}
-            />
-          </div>
-
-          <div>
-            <h1 className="brand-text text-lg font-bold leading-none">Fable</h1>
-            <p className="text-[10px] uppercase tracking-[0.25em] text-faint mt-1">
-              Dashboard
-            </p>
-          </div>
-        </div>
-
         {/* ROLE BADGE */}
-        <div className="px-6 py-4 border-b border-line">
+        <div className="px-6 pt-6 pb-5 border-b border-line">
           <span
             className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${meta.badge} px-3 py-1.5 text-xs font-semibold capitalize text-white shadow-lg ${meta.badge.split(" ")[2]}`}
           >
             {meta.icon}
             {role}
           </span>
-          <p className="mt-2 text-[11px] text-faint">Signed in as {meta.label}</p>
+          <p className="mt-2.5 text-[11px] text-faint">Signed in as {meta.label}</p>
         </div>
 
         {/* SECTION LABEL */}
-        <div className="px-6 pt-5 pb-2">
+        <div className="px-6 pt-6 pb-2">
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-faint">
             Menu
           </p>
@@ -189,32 +168,32 @@ export default function DashboardSidebar({ open, setOpen, role }) {
           })}
         </nav>
 
-        {/* FOOTER — USER + COPYRIGHT */}
-        <div className="p-4 border-t border-line space-y-3 mt-auto">
-          <div className="flex items-center gap-3 rounded-xl border border-line bg-gradient-to-br from-indigo-500/10 to-violet-500/5 p-3">
+        {/* FOOTER — COMPACT USER CARD */}
+        <div className="p-4 mt-auto border-t border-line space-y-3">
+          <div className="flex items-center gap-2.5 rounded-xl border border-line bg-gradient-to-br from-indigo-500/10 to-violet-500/5 p-2.5">
             {session?.user?.image ? (
               <img
                 src={session.user.image}
                 alt={session?.user?.name || "user"}
-                className="h-9 w-9 shrink-0 rounded-full border border-line object-cover"
+                className="h-8 w-8 shrink-0 rounded-full border border-line object-cover"
               />
             ) : (
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-sm font-bold text-white">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-xs font-bold text-white">
                 {session?.user?.name?.charAt(0) || "F"}
               </div>
             )}
 
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-ink">
+              <p className="truncate text-[13px] font-semibold text-ink">
                 {session?.user?.name || "Fable Reader"}
               </p>
-              <p className="truncate text-xs text-faint">
+              <p className="truncate text-[11px] text-faint">
                 {session?.user?.email || role}
               </p>
             </div>
           </div>
 
-          <p className="text-xs text-faint text-center">© {new Date().getFullYear()} Fable</p>
+          <p className="text-[10px] text-center text-faint">© {new Date().getFullYear()} Fable</p>
         </div>
       </aside>
     </>

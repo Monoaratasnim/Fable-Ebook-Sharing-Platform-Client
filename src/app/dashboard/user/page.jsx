@@ -100,7 +100,7 @@ export default function UserDashboardPage() {
       <div className="grid md:grid-cols-3 gap-4">
         <Link
           href="/dashboard/user/purchase-history"
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 p-5 text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-600/40"
+          className="group relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-blue-500 to-indigo-600 p-5 text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-600/40"
         >
           <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10 blur-xl transition-transform duration-500 group-hover:scale-150" />
           <History className="mb-3 h-6 w-6" />
@@ -111,7 +111,7 @@ export default function UserDashboardPage() {
 
         <Link
           href="/dashboard/user/purchased-ebooks"
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 p-5 text-white shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-600/40"
+          className="group relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-emerald-500 to-teal-600 p-5 text-white shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-emerald-600/40"
         >
           <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10 blur-xl transition-transform duration-500 group-hover:scale-150" />
           <BookOpen className="mb-3 h-6 w-6" />
@@ -122,7 +122,7 @@ export default function UserDashboardPage() {
 
         <Link
           href="/dashboard/user/bookmarks"
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-600 p-5 text-white shadow-lg shadow-violet-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-violet-600/40"
+          className="group relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-violet-500 to-fuchsia-600 p-5 text-white shadow-lg shadow-violet-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-violet-600/40"
         >
           <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/10 blur-xl transition-transform duration-500 group-hover:scale-150" />
           <Bookmark className="mb-3 h-6 w-6" />
