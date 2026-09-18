@@ -30,21 +30,23 @@ export default function FeaturedEbooks() {
   }, []);
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Heading */}
+    <section className="relative py-20 sm:py-24">
+      <div aria-hidden className="absolute -right-32 top-24 h-80 w-80 rounded-full bg-indigo-600/15 blur-[110px]" />
 
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="text-rose-500 font-semibold">
+            <span className="inline-flex items-center gap-2 font-semibold text-indigo-400">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-indigo-400 shadow-[0_0_12px_rgba(129,140,248,0.9)]" />
               Featured Collection
             </span>
 
-            <h2 className="text-3xl md:text-4xl font-bold mt-2">
+            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
               Featured Ebooks
             </h2>
 
-            <p className="text-gray-500 mt-3 max-w-2xl">
+            <p className="mt-3 max-w-2xl text-slate-400">
               Explore some of the most popular and recently published
               ebooks from talented writers around the world.
             </p>
@@ -52,39 +54,36 @@ export default function FeaturedEbooks() {
 
           <Link
             href="/browse"
-            className="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-black text-white hover:bg-gray-800 transition"
+            className="group inline-flex items-center gap-2 rounded-xl border border-slate-700/70 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition-all duration-300 hover:border-indigo-400/60 hover:bg-indigo-500/10 hover:shadow-[0_0_20px_rgba(129,140,248,0.2)]"
           >
             View All Ebooks
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         </div>
 
         {/* Loading */}
-
-       {loading && (
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    {Array.from({ length: 6 }).map((_, i) => (
-      <EbookSkeleton key={i} />
-    ))}
-  </div>
-)}
+        {loading && (
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <EbookSkeleton key={i} />
+            ))}
+          </div>
+        )}
 
         {/* Books */}
-
         {!loading && (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
             {ebooks.map((ebook) => (
-              <EbookCard
-                key={ebook._id}
-                ebook={ebook}
-              />
+              <EbookCard key={ebook._id} ebook={ebook} />
             ))}
           </div>
         )}
 
         {/* Empty State */}
-
         {!loading && ebooks.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
+          <div className="py-12 text-center text-slate-400">
             No featured ebooks found.
           </div>
         )}

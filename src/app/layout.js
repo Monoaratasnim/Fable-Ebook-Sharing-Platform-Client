@@ -26,11 +26,27 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${poppins.variable} ${merriweather.variable}`}
     >
-      <body>
+      <body className="bg-slate-950 text-slate-300 antialiased">
+        {/* Ambient gradient lighting */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+        >
+          <div className="absolute -left-48 -top-48 h-[44rem] w-[44rem] animate-glow rounded-full bg-indigo-600/25 blur-[130px]" />
+          <div
+            className="absolute -right-48 top-1/4 h-[38rem] w-[38rem] animate-glow rounded-full bg-purple-600/20 blur-[130px]"
+            style={{ animationDelay: "2.5s" }}
+          />
+          <div
+            className="absolute -bottom-48 left-1/3 h-[42rem] w-[42rem] animate-glow rounded-full bg-fuchsia-600/15 blur-[140px]"
+            style={{ animationDelay: "5s" }}
+          />
+        </div>
+
         <Providers>
           <Navbar />
           {children}
-           <Toaster position="top-right" reverseOrder={false} />
+          <Toaster position="top-right" reverseOrder={false} />
         </Providers>
       </body>
     </html>

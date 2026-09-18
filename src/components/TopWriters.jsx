@@ -29,94 +29,80 @@ export default function TopWriters() {
   }, []);
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="relative border-y border-slate-800/60 bg-slate-900/40 py-20 sm:py-24">
+      <div
+        aria-hidden
+        className="absolute -left-32 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-indigo-600/15 blur-[110px]"
+      />
 
-      <div className="max-w-7xl mx-auto px-4">
-
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-
-        <div className="text-center mb-14">
-
-          <span className="text-rose-500 font-semibold uppercase tracking-wider">
+        <div className="mb-14 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-indigo-300 backdrop-blur">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400" />
             Our Best Authors
           </span>
 
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">
             Top Writers
           </h2>
 
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
             Meet the writers whose ebooks have been
             loved the most by readers across Fable.
           </p>
-
         </div>
 
         {/* Loading */}
-
         {loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, index) => (
               <div
                 key={index}
-                className="bg-white rounded-3xl shadow p-6 animate-pulse"
+                className="animate-pulse rounded-3xl border border-slate-800/80 bg-slate-900/60 p-6 backdrop-blur"
               >
-                <div className="h-20 bg-gray-200 rounded-xl"></div>
+                <div className="h-20 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900" />
 
-                <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto -mt-12"></div>
+                <div className="mx-auto -mt-12 h-24 w-24 rounded-full border-4 border-slate-700 bg-slate-800"></div>
 
-                <div className="h-6 bg-gray-200 rounded mt-6"></div>
+                <div className="mt-6 h-6 rounded bg-slate-800"></div>
 
-                <div className="h-4 bg-gray-200 rounded mt-4"></div>
+                <div className="mt-4 h-4 rounded bg-slate-800"></div>
 
-                <div className="h-10 bg-gray-200 rounded-full mt-6"></div>
+                <div className="mt-6 h-10 rounded-full bg-slate-800"></div>
 
-                <div className="h-12 bg-gray-200 rounded mt-6"></div>
+                <div className="mt-6 h-12 rounded bg-slate-800"></div>
               </div>
             ))}
-
           </div>
         )}
 
         {/* Cards */}
-
         {!loading && writers.length > 0 && (
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-          {writers.map((writer, index) => (
-         <TopWriterCard
-         key={writer.writerEmail}
-         writer={writer}
-          index={index}
-         />
-))}
-
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {writers.map((writer, index) => (
+              <TopWriterCard
+                key={writer.writerEmail}
+                writer={writer}
+                index={index}
+              />
+            ))}
           </div>
-
         )}
 
         {/* Empty */}
-
         {!loading && writers.length === 0 && (
-
-          <div className="bg-white rounded-2xl border text-center py-14">
-
-            <h3 className="text-xl font-semibold">
+          <div className="rounded-2xl border border-slate-800/80 bg-slate-900/50 py-14 text-center backdrop-blur">
+            <h3 className="text-xl font-semibold text-white">
               No Top Writers Found
             </h3>
 
-            <p className="text-gray-500 mt-2">
+            <p className="mt-2 text-slate-400">
               Writers will appear here after ebook sales are recorded.
             </p>
-
           </div>
-
         )}
-
       </div>
-
     </section>
   );
 }

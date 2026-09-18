@@ -67,11 +67,11 @@ export default function BrowsePage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-3xl font-bold text-white">
           Browse Ebooks
         </h1>
 
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-slate-400">
           Discover and explore amazing ebooks.
         </p>
       </motion.div>
@@ -87,7 +87,7 @@ export default function BrowsePage() {
             setPage(1);
             setSearch(e.target.value);
           }}
-          className="rounded-xl border px-4 py-2"
+          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         />
 
         <select
@@ -96,7 +96,7 @@ export default function BrowsePage() {
             setPage(1);
             setGenre(e.target.value);
           }}
-          className="rounded-xl border px-4 py-2"
+          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         >
           <option value="all">All Genres</option>
           <option value="Fiction">Fiction</option>
@@ -119,7 +119,7 @@ export default function BrowsePage() {
             setPage(1);
             setSort(e.target.value);
           }}
-          className="rounded-xl border px-4 py-2"
+          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         >
           <option value="">Sort By</option>
           <option value="new">Newest</option>
@@ -135,7 +135,7 @@ export default function BrowsePage() {
             setPage(1);
             setMinPrice(e.target.value);
           }}
-          className="rounded-xl border px-4 py-2"
+          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         />
 
         <input
@@ -146,7 +146,7 @@ export default function BrowsePage() {
             setPage(1);
             setMaxPrice(e.target.value);
           }}
-          className="rounded-xl border px-4 py-2"
+          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         />
 
         <select
@@ -155,7 +155,7 @@ export default function BrowsePage() {
             setPage(1);
             setAvailability(e.target.value);
           }}
-          className="rounded-xl border px-4 py-2"
+          className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-4 py-2.5 text-sm text-white placeholder-slate-500 backdrop-blur transition focus:border-indigo-500/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         >
           <option value="all">All Status</option>
           <option value="available">Available</option>
@@ -164,7 +164,7 @@ export default function BrowsePage() {
       </div>
 
       {error && (
-        <div className="mt-6 rounded-xl border border-red-300 bg-red-50 p-4 text-red-500">
+        <div className="mt-6 rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-rose-300">
           {error}
         </div>
       )}
@@ -172,7 +172,7 @@ export default function BrowsePage() {
       {/* RESULTS */}
 
       {!loading && (
-        <p className="mt-6 text-sm text-gray-500">
+        <p className="mt-6 text-sm text-slate-400">
           {ebooks.length} ebooks found
         </p>
       )}
@@ -197,7 +197,7 @@ export default function BrowsePage() {
       {/* EMPTY */}
 
       {!loading && ebooks.length === 0 && (
-        <div className="mt-16 text-center text-gray-500">
+        <div className="mt-16 text-center text-slate-400">
           No ebooks found.
         </div>
       )}
@@ -209,7 +209,7 @@ export default function BrowsePage() {
           <button
             disabled={page === 1}
             onClick={() => setPage(page - 1)}
-            className="rounded-lg border px-4 py-2 disabled:opacity-40"
+            className="rounded-lg border border-slate-800/80 bg-white/5 px-4 py-2 text-slate-200 backdrop-blur transition hover:bg-white/10 disabled:opacity-40"
           >
             Prev
           </button>
@@ -218,10 +218,10 @@ export default function BrowsePage() {
             <button
               key={n}
               onClick={() => setPage(n + 1)}
-              className={`rounded-lg border px-4 py-2 ${
+              className={`rounded-lg border px-4 py-2 backdrop-blur transition ${
                 page === n + 1
-                  ? "bg-black text-white"
-                  : ""
+                  ? "border-transparent bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-[0_0_18px_rgba(129,140,248,0.4)]"
+                  : "border-slate-800/80 bg-white/5 text-slate-200 hover:bg-white/10"
               }`}
             >
               {n + 1}
@@ -231,7 +231,7 @@ export default function BrowsePage() {
           <button
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
-            className="rounded-lg border px-4 py-2 disabled:opacity-40"
+            className="rounded-lg border border-slate-800/80 bg-white/5 px-4 py-2 text-slate-200 backdrop-blur transition hover:bg-white/10 disabled:opacity-40"
           >
             Next
           </button>

@@ -1,5 +1,58 @@
 @import "tailwindcss";
-@import "@heroui/styles"; 
+@import "@heroui/styles";
+
+@theme {
+  --animate-glow: glow 9s ease-in-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1) translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.15) translateY(-2%);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
+
+@utility bg-grid-slate {
+  background-image: linear-gradient(
+      to right,
+      rgb(148 163 184 / 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(148 163 184 / 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
+html {
+  color-scheme: dark;
+}
+
 :root {
   --font-body: var(--font-poppins);
   --font-heading: var(--font-merriweather);
@@ -7,6 +60,9 @@
 
 body {
   font-family: var(--font-body);
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-300);
+  min-height: 100vh;
 }
 
 h1,
@@ -16,4 +72,28 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
+}
+
+::selection {
+  background-color: rgb(129 140 248 / 0.35);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 999px;
+  border: 2px solid #020617;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
 }

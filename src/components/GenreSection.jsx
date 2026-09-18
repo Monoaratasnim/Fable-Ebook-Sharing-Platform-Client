@@ -69,71 +69,59 @@ const genres = [
 
 export default function GenreSection() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="relative py-20 sm:py-24">
+      <div
+        aria-hidden
+        className="absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 rounded-full bg-purple-600/15 blur-[120px]"
+      />
 
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-
-        <div className="text-center mb-14">
-          <span className="text-rose-500 font-semibold uppercase tracking-wider">
+        <div className="mb-14 text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-indigo-300 backdrop-blur">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400" />
             Find Your Favorite
           </span>
 
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">
             Explore Ebook Genres
           </h2>
 
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
             Browse ebooks by category and discover stories,
-            knowledge, and adventures you'll love.
+            knowledge, and adventures you&apos;ll love.
           </p>
         </div>
 
         {/* Genre Grid */}
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-5">
           {genres.map((genre) => (
-
             <Link
               key={genre.name}
               href={`/browse?genre=${encodeURIComponent(genre.name)}`}
-              className="
-                group
-                rounded-3xl
-                overflow-hidden
-                shadow-sm
-                hover:shadow-xl
-                hover:-translate-y-2
-                transition-all
-                duration-300
-              "
+              className="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/50 p-6 text-center backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-500/50 hover:bg-slate-900/90 hover:shadow-2xl hover:shadow-indigo-600/20"
             >
-
+              {/* Hover glow */}
               <div
-                className={`bg-gradient-to-r ${genre.color} p-8 text-white text-center`}
+                aria-hidden
+                className="absolute inset-x-0 -top-16 h-24 bg-gradient-to-b from-indigo-500/20 to-transparent opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+              />
+
+              {/* Glowing icon container */}
+              <div
+                className={`relative mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${genre.color} text-2xl text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_28px_rgba(129,140,248,0.55)]`}
               >
-
-                <div className="text-5xl mb-5 group-hover:scale-110 transition">
-                  {genre.icon}
-                </div>
-
-                <h3 className="font-bold text-lg">
-                  {genre.name}
-                </h3>
-
-                <p className="mt-2 text-sm opacity-90">
-                  Explore →
-                </p>
-
+                {genre.icon}
               </div>
 
+              <h3 className="relative font-bold text-white">{genre.name}</h3>
+
+              <p className="relative mt-2 text-sm font-medium text-slate-400 transition-colors duration-300 group-hover:text-indigo-300">
+                Explore →
+              </p>
             </Link>
-
           ))}
-
         </div>
-
       </div>
     </section>
   );
