@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import EmptyState from "@/components/dashboard/shared/EmptyState";
 
 export default function BookmarkPage() {
   const { data: session } = authClient.useSession();
@@ -57,22 +58,12 @@ export default function BookmarkPage() {
         )}
 
         {!loading && ebooks.length === 0 && (
-          <div className="card p-10 text-center">
-            <h2 className="text-xl font-semibold text-ink">
-              No bookmarks found
-            </h2>
-
-            <p className="text-muted mt-2">
-              Start bookmarking your favorite ebooks.
-            </p>
-
-            <Link
-              href="/ebooks"
-              className="btn btn-primary mt-5"
-            >
-              Browse Ebooks
-            </Link>
-          </div>
+          <EmptyState
+            title="No bookmarks found"
+            description="Start bookmarking your favorite ebooks and they’ll show up here for quick access."
+            actionLabel="Browse Ebooks"
+            actionHref="/ebooks"
+          />
         )}
 
         {!loading && ebooks.length > 0 && (

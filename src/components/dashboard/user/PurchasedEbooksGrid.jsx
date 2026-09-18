@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import EmptyState from "@/components/dashboard/shared/EmptyState";
 
 export default function PurchasedEbooksGrid({ ebooks }) {
   if (!ebooks || ebooks.length === 0) {
     return (
-      <div className="card p-10 text-center text-muted">
-        No purchased ebooks found
-      </div>
+      <EmptyState
+        title="No purchased ebooks found"
+        description="Ebooks you buy will appear here. Head to the browse page to start your collection."
+        actionLabel="Browse Ebooks"
+        actionHref="/ebooks"
+      />
     );
   }
 

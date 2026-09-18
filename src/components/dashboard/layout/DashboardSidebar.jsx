@@ -2,10 +2,47 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, LayoutDashboard, Bookmark, History, BookOpen, User, PlusCircle, Library, BarChart3 } from "lucide-react";
+import {
+  X,
+  LayoutDashboard,
+  Bookmark,
+  History,
+  BookOpen,
+  User,
+  PlusCircle,
+  Library,
+  BarChart3,
+  ChevronRight,
+  GraduationCap,
+  Feather,
+  Crown,
+} from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+
+const roleMeta = {
+  admin: {
+    label: "Administrator",
+    badge: "from-rose-500 to-pink-500 shadow-rose-600/40",
+    icon: <Crown className="h-3.5 w-3.5" />,
+    dot: "bg-rose-400",
+  },
+  writer: {
+    label: "Writer",
+    badge: "from-indigo-500 to-violet-500 shadow-indigo-600/40",
+    icon: <Feather className="h-3.5 w-3.5" />,
+    dot: "bg-indigo-400",
+  },
+  user: {
+    label: "Reader",
+    badge: "from-emerald-500 to-teal-500 shadow-emerald-600/40",
+    icon: <GraduationCap className="h-3.5 w-3.5" />,
+    dot: "bg-emerald-400",
+  },
+};
 
 export default function DashboardSidebar({ open, setOpen, role }) {
   const pathname = usePathname();
+  const { data: session } = authClient.useSession();
 
   const userLinks = [
     { name: "Dashboard", href: "/dashboard/user", icon: <LayoutDashboard className="h-4 w-4" /> },
@@ -30,25 +67,16 @@ export default function DashboardSidebar({ open, setOpen, role }) {
     { name: "Transactions", href: "/dashboard/admin/transactions", icon: <History className="h-4 w-4" /> },
   ];
 
-  const links =
-    role === "admin"
-      ? adminLinks
-      : role === "writer"
-      ? writerLinks
-      : userLinks;
+  const links = role === "admin" ? adminLinks : role === "writer" ? writerLinks : userLinks;
 
-  const roleTint = {
-    admin: "from-rose-500/20 to-pink-500/10 text-rose-300 border-rose-500/30",
-    writer: "from-indigo-500/20 to-violet-500/10 text-indigo-300 border-indigo-500/30",
-    user: "from-emerald-500/20 to-teal-500/10 text-emerald-300 border-emerald-500/30",
-  };
+  const meta = roleMeta[role] || roleMeta.user;
 
   return (
     <>
       {/* BACKDROP */}
       {open && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          className="fixed inset-0 z-40 bg-black/60 md:hidden"
           onClick={() => setOpen(false)}
         />
       )}
@@ -58,52 +86,71 @@ export default function DashboardSidebar({ open, setOpen, role }) {
         className={`
           fixed md:sticky top-0 left-0 z-50
           h-screen w-72 md:w-64
-          bg-panel border-r border-line
+          bg-panel/95 backdrop-blur-xl border-r border-line
           shadow-xl md:shadow-none
           flex flex-col
           transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
+        {/* decorative top glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-indigo-600/15 to-transparent"
+        />
+
         {/* CLOSE BUTTON */}
-        <div className="md:hidden flex justify-end p-3">
+        <div className="md:hidden flex justify-end p-3 relative">
           <button
             onClick={() => setOpen(false)}
             className="p-2 rounded-lg hover:bg-soft text-muted transition"
+            aria-label="Close menu"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* LOGO */}
-        <div className="px-6 py-5 border-b border-line flex items-center gap-3">
-          <img
-            src="/images/logo.png"
-            alt="Fable"
-            className="h-11 w-11 object-contain drop-shadow-[0_0_12px_rgba(129,140,248,0.45)]"
-          />
+        <div className="px-6 py-5 border-b border-line flex items-center gap-3 relative">
+          <div className="relative">
+            <img
+              src="/images/logo.png"
+              alt="Fable"
+              className="h-11 w-11 object-contain drop-shadow-[0_0_12px_rgba(129,140,248,0.45)]"
+            />
+            <span
+              className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full ring-2 ring-panel ${meta.dot} shadow-[0_0_12px_rgba(129,140,248,0.7)]`}
+            />
+          </div>
 
           <div>
-            <h1 className="brand-text text-lg font-bold leading-none">
-              Fable
-            </h1>
+            <h1 className="brand-text text-lg font-bold leading-none">Fable</h1>
             <p className="text-[10px] uppercase tracking-[0.25em] text-faint mt-1">
               Dashboard
             </p>
           </div>
         </div>
 
-        {/* ROLE PILL */}
-        <div className="px-6 py-3">
+        {/* ROLE BADGE */}
+        <div className="px-6 py-4 border-b border-line">
           <span
-            className={`inline-flex items-center gap-2 rounded-full border bg-gradient-to-r px-3 py-1.5 text-xs font-semibold capitalize ${roleTint[role] || roleTint.user}`}
+            className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${meta.badge} px-3 py-1.5 text-xs font-semibold capitalize text-white shadow-lg ${meta.badge.split(" ")[2]}`}
           >
+            {meta.icon}
             {role}
           </span>
+          <p className="mt-2 text-[11px] text-faint">Signed in as {meta.label}</p>
+        </div>
+
+        {/* SECTION LABEL */}
+        <div className="px-6 pt-5 pb-2">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-faint">
+            Menu
+          </p>
         </div>
 
         {/* LINKS */}
-        <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+        <nav className="flex-1 overflow-y-auto px-4 py-2 space-y-1.5">
           {links.map((item) => {
             const active = pathname === item.href;
 
@@ -112,27 +159,62 @@ export default function DashboardSidebar({ open, setOpen, role }) {
                 key={item.href}
                 href={item.href}
                 className={`
-                  group flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium
+                  group relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium
                   transition-all duration-300
                   ${
                     active
-                      ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-[0_8px_22px_-10px_rgba(99,102,241,0.8)]"
+                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-600/40"
                       : "text-muted hover:bg-soft hover:text-ink hover:translate-x-0.5"
                   }
                 `}
               >
-                <span className={active ? "" : "text-faint group-hover:text-indigo-400 transition"}>
+                {/* left accent bar for active */}
+                <span
+                  className={`absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-white/80 transition-opacity duration-300 ${
+                    active ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
+                <span className={`shrink-0 transition ${active ? "text-white" : "text-faint group-hover:text-indigo-400"}`}>
                   {item.icon}
                 </span>
+
                 {item.name}
+
+                {active && (
+                  <ChevronRight className="ml-auto h-4 w-4 shrink-0 text-white/80" />
+                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* FOOTER */}
-        <div className="p-4 border-t border-line text-xs text-faint">
-          © {new Date().getFullYear()} Fable
+        {/* FOOTER — USER + COPYRIGHT */}
+        <div className="p-4 border-t border-line space-y-3">
+          <div className="flex items-center gap-3 rounded-xl bg-soft/60 p-3">
+            {session?.user?.image ? (
+              <img
+                src={session.user.image}
+                alt={session?.user?.name || "user"}
+                className="h-9 w-9 shrink-0 rounded-full border border-line object-cover"
+              />
+            ) : (
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-sm font-bold text-white">
+                {session?.user?.name?.charAt(0) || "F"}
+              </div>
+            )}
+
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-ink">
+                {session?.user?.name || "Fable Reader"}
+              </p>
+              <p className="truncate text-xs text-faint">
+                {session?.user?.email || role}
+              </p>
+            </div>
+          </div>
+
+          <p className="text-xs text-faint text-center">© {new Date().getFullYear()} Fable</p>
         </div>
       </aside>
     </>

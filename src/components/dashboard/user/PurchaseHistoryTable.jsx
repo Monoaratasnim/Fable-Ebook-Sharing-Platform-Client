@@ -1,11 +1,16 @@
 "use client";
 
+import EmptyState from "@/components/dashboard/shared/EmptyState";
+
 export default function PurchaseHistoryTable({ data = [] }) {
   if (!data.length) {
     return (
-      <div className="card p-10 text-center text-muted">
-        No purchase history found.
-      </div>
+      <EmptyState
+        title="No purchase history found"
+        description="Transactions from your purchases will show up here."
+        actionLabel="Browse Ebooks"
+        actionHref="/ebooks"
+      />
     );
   }
 

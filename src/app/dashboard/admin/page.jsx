@@ -76,15 +76,31 @@ export default function AdminDashboardPage() {
     <div className="space-y-8">
 
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-ink">
-          Admin Dashboard
-        </h1>
+      <div className="card relative overflow-hidden p-6 md:p-7">
+        <div
+          aria-hidden
+          className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute -right-16 -top-20 h-48 w-48 rounded-full bg-indigo-500/15 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="absolute -bottom-24 -left-10 h-40 w-40 rounded-full bg-fuchsia-500/10 blur-3xl"
+        />
 
-        <p className="text-muted mt-2">
-          Overview of users, writers, ebooks,
-          sales and revenue.
-        </p>
+        <div className="relative">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-400">
+            Admin Control Center
+          </p>
+          <h1 className="text-2xl md:text-3xl font-bold text-ink">
+            Admin <span className="brand-text">Dashboard</span>
+          </h1>
+          <p className="mt-2 text-sm text-muted">
+            Overview of users, writers, ebooks, sales and revenue.
+          </p>
+        </div>
       </div>
 
       {/* Analytics Cards */}

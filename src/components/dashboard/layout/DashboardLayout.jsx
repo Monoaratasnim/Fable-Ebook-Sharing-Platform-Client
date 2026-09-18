@@ -23,8 +23,16 @@ export default function DashboardLayout({ children }) {
   // prevent flicker
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-page">
-        <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-page">
+        <img
+          src="/images/logo.png"
+          alt="Fable"
+          className="h-16 w-16 object-contain drop-shadow-[0_0_18px_rgba(129,140,248,0.5)]"
+        />
+        <div className="flex items-center gap-2 text-sm text-muted">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+          Loading your dashboard…
+        </div>
       </div>
     );
   }
