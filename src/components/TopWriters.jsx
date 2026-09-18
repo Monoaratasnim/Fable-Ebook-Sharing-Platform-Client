@@ -29,7 +29,7 @@ export default function TopWriters() {
   }, []);
 
   return (
-    <section className="relative border-y border-line bg-soft/40 py-20 sm:py-24">
+    <section className="relative overflow-hidden border-y border-line bg-soft/40 py-20 sm:py-24">
       <div
         aria-hidden
         className="absolute -left-32 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-indigo-600/15 blur-[110px]"

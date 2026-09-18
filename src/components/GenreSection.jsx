@@ -69,7 +69,7 @@ const genres = [
 
 export default function GenreSection() {
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative overflow-hidden py-20 sm:py-24">
       <div
         aria-hidden
         className="absolute left-1/2 top-1/3 h-96 w-96 -translate-x-1/2 rounded-full bg-purple-600/15 blur-[120px]"

@@ -30,7 +30,7 @@ export default function FeaturedEbooks() {
   }, []);
 
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative overflow-hidden py-20 sm:py-24">
       <div aria-hidden className="absolute -right-32 top-24 h-80 w-80 rounded-full bg-indigo-600/15 blur-[110px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

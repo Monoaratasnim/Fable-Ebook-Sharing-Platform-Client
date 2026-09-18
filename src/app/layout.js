@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="bg-page text-body antialiased">
+      <body className="overflow-x-clip bg-page text-body antialiased">
         {/* Ambient gradient lighting */}
         <div
           aria-hidden

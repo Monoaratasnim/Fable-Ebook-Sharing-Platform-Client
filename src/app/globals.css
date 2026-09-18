@@ -130,6 +130,7 @@ html.light {
 /* ---------- Base ---------- */
 html {
   background-color: var(--bg-page);
+  overflow-x: clip;
 }
 
 body {
@@ -137,6 +138,7 @@ body {
   background-color: var(--bg-page);
   color: var(--text-body);
   min-height: 100vh;
+  overflow-x: clip;
   transition: background-color 0.45s ease, color 0.45s ease;
 }
 

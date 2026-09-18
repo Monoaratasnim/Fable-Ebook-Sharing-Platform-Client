@@ -101,7 +101,7 @@ export default function SignUpPage() {
   };
 
   return (
-  <div className="bg-page relative min-h-screen px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
+  <div className="bg-page relative min-h-screen overflow-x-clip px-4 pt-8 pb-8 md:flex md:items-center md:justify-center">
     <div
       aria-hidden
       className="pointer-events-none absolute -right-32 top-1/4 h-96 w-96 rounded-full bg-fuchsia-600/15 blur-[130px]"

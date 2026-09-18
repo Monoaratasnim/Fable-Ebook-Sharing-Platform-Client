@@ -33,7 +33,7 @@ const slides = [
 
 export default function HeroSwiper() {
   return (
-    <section className="relative w-full">
+    <section className="relative w-full overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{
@@ -43,7 +43,7 @@ export default function HeroSwiper() {
         pagination={{ clickable: true }}
         effect="fade"
         loop
-        className="h-[60vh] sm:h-[70vh] lg:h-screen"
+        className="h-[60vh] min-h-[540px] sm:h-[70vh] lg:h-screen"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={`slide-${index}`}>
@@ -67,13 +67,13 @@ export default function HeroSwiper() {
               <div className="absolute inset-0 bg-grid-slate opacity-60" />
 
               {/* Content */}
-              <div className="relative z-10 flex h-full items-center justify-center px-4 sm:px-8 lg:justify-start lg:px-16">
+              <div className="relative z-10 flex h-full w-full items-center justify-center px-4 sm:px-8 lg:justify-start lg:px-16">
                 {/* Animated Content Wrapper */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7 }}
-                  className="max-w-2xl text-center text-white lg:text-left"
+                  className="w-full min-w-0 max-w-2xl py-20 text-center text-white sm:py-24 lg:py-28 lg:text-left"
                 >
                   {/* Glowing Badge */}
                   <motion.p
@@ -91,7 +91,7 @@ export default function HeroSwiper() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.7 }}
-                    className="text-3xl font-bold leading-[1.12] [text-shadow:0_0_40px_rgba(129,140,248,0.45)] sm:text-5xl md:text-6xl xl:text-7xl"
+                    className="text-3xl font-bold leading-[1.12] [text-shadow:0_0_40px_rgba(129,140,248,0.45)] sm:text-5xl md:text-6xl"
                   >
                     {slide.title}
                   </motion.h1>
@@ -119,7 +119,7 @@ export default function HeroSwiper() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.7 }}
-                    className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
+                    className="mt-7 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
                   >
                     <Link
                       href="/browse"
@@ -138,30 +138,30 @@ export default function HeroSwiper() {
                   </motion.div>
 
                   {/* Stats */}
-                  <div className="mt-10 flex flex-wrap justify-center gap-4 sm:gap-6 lg:justify-start">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-center backdrop-blur-md lg:text-left">
-                      <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
+                  <div className="mx-auto mt-10 grid w-full max-w-md grid-cols-3 gap-3 sm:gap-4 lg:mx-0 lg:max-w-lg">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-2 py-3 text-center backdrop-blur-md sm:px-4 sm:py-4 lg:text-left">
+                      <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-xl font-bold text-transparent sm:text-2xl md:text-3xl">
                         10K+
                       </h3>
-                      <p className="mt-1 text-[10px] text-slate-400 sm:text-sm">
+                      <p className="mt-1 text-[10px] text-slate-400 sm:text-xs md:text-sm">
                         Ebooks
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-center backdrop-blur-md lg:text-left">
-                      <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-2 py-3 text-center backdrop-blur-md sm:px-4 sm:py-4 lg:text-left">
+                      <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-xl font-bold text-transparent sm:text-2xl md:text-3xl">
                         5K+
                       </h3>
-                      <p className="mt-1 text-[10px] text-slate-400 sm:text-sm">
+                      <p className="mt-1 text-[10px] text-slate-400 sm:text-xs md:text-sm">
                         Authors
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-center backdrop-blur-md lg:text-left">
-                      <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-2 py-3 text-center backdrop-blur-md sm:px-4 sm:py-4 lg:text-left">
+                      <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-xl font-bold text-transparent sm:text-2xl md:text-3xl">
                         50K+
                       </h3>
-                      <p className="mt-1 text-[10px] text-slate-400 sm:text-sm">
+                      <p className="mt-1 text-[10px] text-slate-400 sm:text-xs md:text-sm">
                         Readers
                       </p>
                     </div>
