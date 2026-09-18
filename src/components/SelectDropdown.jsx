@@ -82,7 +82,7 @@ export default function SelectDropdown({
             exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.14, ease: [0.16, 1, 0.3, 1] }}
             role="listbox"
-            className="absolute left-0 right-0 z-50 mt-2 max-h-72 overflow-y-auto rounded-xl border border-line bg-panel p-1.5 text-ink shadow-[0_24px_60px_-24px_rgba(2,6,23,0.6)]"
+            className="absolute top-full left-0 right-0 z-50 mt-2 max-h-72 overflow-y-auto rounded-xl border border-line bg-panel p-1.5 text-ink shadow-xl"
           >
             {options.map((opt) => {
               const isSelected = opt.value === value;

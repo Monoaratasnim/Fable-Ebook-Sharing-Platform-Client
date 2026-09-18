@@ -131,7 +131,7 @@ export default function BrowsePage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5 }}
-        className="mt-8 rounded-2xl border border-line bg-glass p-4 backdrop-blur-xl sm:p-5"
+        className="relative z-30 mt-8 rounded-2xl border border-line bg-glass p-4 backdrop-blur-xl sm:p-5"
       >
         <div className="mb-3 hidden items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted sm:flex">
           <SlidersHorizontal className="h-3.5 w-3.5" />
