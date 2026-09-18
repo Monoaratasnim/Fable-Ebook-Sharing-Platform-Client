@@ -43,11 +43,18 @@ export default function BookmarkPage() {
   }, [session?.user?.email]);
 
   return (
-    <div className="px-4 py-10">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold text-ink mb-6">
+    <div className="max-w-6xl">
+
+      {/* HEADER */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-ink">
           My Bookmarked Ebooks
         </h1>
+
+        <p className="text-muted mt-1">
+          Start bookmarking your favorites and read them anytime.
+        </p>
+      </div>
 
         {loading && (
           <div className="text-center py-10">
@@ -113,7 +120,6 @@ export default function BookmarkPage() {
             ))}
           </div>
         )}
-      </div>
     </div>
   );
 }

@@ -46,19 +46,18 @@ export default function WriterBookmarksPage() {
   }, [session?.user?.email]);
 
   return (
-    <div className="px-4 sm:px-6 lg:px-10 py-10">
-      <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl">
 
-        {/* HEADER */}
-        <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-ink">
-            My Bookmarked Ebooks
-          </h1>
+      {/* HEADER */}
+      <div className="mb-6">
+        <h1 className="text-2xl sm:text-3xl font-bold text-ink">
+          My Bookmarked Ebooks
+        </h1>
 
-          <p className="text-muted mt-1 text-sm sm:text-base">
-            All ebooks you saved for later reading
-          </p>
-        </div>
+        <p className="text-muted mt-1 text-sm sm:text-base">
+          All ebooks you saved for later reading
+        </p>
+      </div>
 
         {/* LOADING */}
         {loading && (
@@ -136,7 +135,6 @@ export default function WriterBookmarksPage() {
             ))}
           </div>
         )}
-      </div>
     </div>
   );
 }

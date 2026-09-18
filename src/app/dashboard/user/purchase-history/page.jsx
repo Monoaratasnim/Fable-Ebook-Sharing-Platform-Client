@@ -30,7 +30,7 @@ export default function PurchaseHistoryPage() {
 
   if (loading) {
     return (
-      <div className="p-6 space-y-3">
+      <div className="space-y-3">
         <div className="h-10 bg-soft animate-pulse rounded" />
         <div className="h-10 bg-soft animate-pulse rounded" />
         <div className="h-10 bg-soft animate-pulse rounded" />
@@ -39,8 +39,8 @@ export default function PurchaseHistoryPage() {
   }
 
   return (
-    <div className="p-4 md:p-6">
-      <h1 className="text-2xl font-bold text-ink mb-4">
+    <div className="space-y-5">
+      <h1 className="text-2xl md:text-3xl font-bold text-ink">
         Purchase History
       </h1>
 

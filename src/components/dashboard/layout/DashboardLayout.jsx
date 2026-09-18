@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import DashboardHeader from "./DashboardHeader";
+import { Menu } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 export default function DashboardLayout({ children }) {
@@ -38,7 +38,7 @@ export default function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-page flex">
+    <div className="relative min-h-screen bg-page flex">
 
       {/* SIDEBAR */}
       <DashboardSidebar
@@ -48,11 +48,20 @@ export default function DashboardLayout({ children }) {
       />
 
       {/* MAIN AREA */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
 
-        <DashboardHeader setOpen={setOpen} />
+        {/* Mobile floating menu toggle — only while the drawer is closed */}
+        {!open && (
+          <button
+            onClick={() => setOpen(true)}
+            className="absolute left-4 top-3 z-40 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-glass text-ink shadow-lg backdrop-blur transition-all duration-300 hover:bg-soft md:hidden"
+            aria-label="Open sidebar menu"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        )}
 
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
+        <main className="flex-1 px-4 pt-16 pb-8 md:px-6 md:pt-8 lg:px-8">
           {children}
         </main>
 

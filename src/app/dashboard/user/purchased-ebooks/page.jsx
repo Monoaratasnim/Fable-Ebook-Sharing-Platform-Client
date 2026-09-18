@@ -39,7 +39,7 @@ export default function PurchasedEbooksPage() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
@@ -51,8 +51,8 @@ export default function PurchasedEbooksPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 space-y-5">
-      <h1 className="text-2xl font-bold text-ink">
+    <div className="space-y-5">
+      <h1 className="text-2xl md:text-3xl font-bold text-ink">
         My Purchased Ebooks
       </h1>
 

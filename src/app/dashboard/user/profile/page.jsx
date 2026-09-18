@@ -37,8 +37,8 @@ export default function ProfilePage() {
   );
 
   return (
-    <div className="px-4 sm:px-6 md:px-10 py-6">
-      <div className="max-w-2xl mx-auto card p-5 sm:p-6 md:p-8">
+    <div className="space-y-6">
+      <div className="max-w-2xl card p-5 sm:p-6 md:p-8">
 
         {/* HEADER */}
         <h1 className="text-xl sm:text-2xl font-bold text-ink mb-6">
