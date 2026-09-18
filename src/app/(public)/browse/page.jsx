@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 import EbookCard from "@/components/EbookCard";
 import EbookSkeleton from "@/components/EbookSkeleton";
+import SelectDropdown from "@/components/SelectDropdown";
 
 import {
   Search,
@@ -16,14 +17,38 @@ import {
 } from "lucide-react";
 
 const FILTER_TRANSITION = "transition-all duration-250 ease-in-out";
-const FILTER_HOVER_SELECT =
-  "hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-700 hover:shadow-[0_10px_26px_-14px_rgba(99,102,241,0.45)] dark:hover:bg-indigo-600/20 dark:hover:border-indigo-500/50 dark:hover:text-indigo-300 dark:hover:shadow-[0_10px_30px_-12px_rgba(99,102,241,0.5)]";
 const FILTER_HOVER_INPUT =
   "hover:bg-indigo-50 hover:border-indigo-300 hover:shadow-[0_10px_26px_-14px_rgba(99,102,241,0.45)] dark:hover:bg-indigo-600/20 dark:hover:border-indigo-500/50 dark:hover:shadow-[0_10px_30px_-12px_rgba(99,102,241,0.5)]";
 const INPUT_ACTIVE =
   "border-indigo-500/60 shadow-[0_0_16px_rgba(99,102,241,0.18)] dark:shadow-[0_0_18px_rgba(99,102,241,0.22)]";
 const FILTER_ACTIVE =
   "border-transparent bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/25";
+
+const GENRE_OPTIONS = [
+  { value: "all", label: "All Genres" },
+  { value: "Fiction", label: "Fiction" },
+  { value: "Mystery", label: "Mystery" },
+  { value: "Horror", label: "Horror" },
+  { value: "Fantasy", label: "Fantasy" },
+  { value: "Romance", label: "Romance" },
+  { value: "Sci-Fi", label: "Sci-Fi" },
+  { value: "Thriller", label: "Thriller" },
+  { value: "Biography", label: "Biography" },
+  { value: "Self Development", label: "Self Development" },
+  { value: "Poetry", label: "Poetry" },
+];
+
+const SORT_OPTIONS = [
+  { value: "new", label: "Newest" },
+  { value: "low", label: "Price Low → High" },
+  { value: "high", label: "Price High → Low" },
+];
+
+const AVAILABILITY_OPTIONS = [
+  { value: "all", label: "All Status" },
+  { value: "available", label: "Available" },
+  { value: "sold", label: "Sold" },
+];
 
 export default function BrowsePage() {
   const [ebooks, setEbooks] = useState([]);
@@ -133,61 +158,30 @@ export default function BrowsePage() {
           </div>
 
           {/* GENRE */}
-          <div className="relative">
-            <BookOpen
-              className={`pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
-                genre !== "all" ? "text-white" : "text-faint"
-              }`}
-            />
-
-            <select
-              value={genre}
-              onChange={(e) => {
-                setPage(1);
-                setGenre(e.target.value);
-              }}
-              className={`input pl-10 ${FILTER_TRANSITION} ${
-                genre !== "all" ? "filter-active" : FILTER_HOVER_SELECT
-              }`}
-            >
-              <option value="all">All Genres</option>
-              <option value="Fiction">Fiction</option>
-              <option value="Mystery">Mystery</option>
-              <option value="Horror">Horror</option>
-              <option value="Fantasy">Fantasy</option>
-              <option value="Romance">Romance</option>
-              <option value="Sci-Fi">Sci-Fi</option>
-              <option value="Thriller">Thriller</option>
-              <option value="Biography">Biography</option>
-              <option value="Self Development">Self Development</option>
-              <option value="Poetry">Poetry</option>
-            </select>
-          </div>
+          <SelectDropdown
+            icon={BookOpen}
+            value={genre}
+            placeholder="All Genres"
+            active={genre !== "all"}
+            onChange={(v) => {
+              setPage(1);
+              setGenre(v);
+            }}
+            options={GENRE_OPTIONS}
+          />
 
           {/* SORT */}
-          <div className="relative">
-            <ArrowDownWideNarrow
-              className={`pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
-                sort !== "" ? "text-white" : "text-faint"
-              }`}
-            />
-
-            <select
-              value={sort}
-              onChange={(e) => {
-                setPage(1);
-                setSort(e.target.value);
-              }}
-              className={`input pl-10 ${FILTER_TRANSITION} ${
-                sort !== "" ? "filter-active" : FILTER_HOVER_SELECT
-              }`}
-            >
-              <option value="">Sort By</option>
-              <option value="new">Newest</option>
-              <option value="low">Price Low → High</option>
-              <option value="high">Price High → Low</option>
-            </select>
-          </div>
+          <SelectDropdown
+            icon={ArrowDownWideNarrow}
+            value={sort}
+            placeholder="Sort By"
+            active={sort !== ""}
+            onChange={(v) => {
+              setPage(1);
+              setSort(v);
+            }}
+            options={SORT_OPTIONS}
+          />
 
           {/* MIN PRICE */}
           <div className="relative">
@@ -226,28 +220,17 @@ export default function BrowsePage() {
           </div>
 
           {/* AVAILABILITY */}
-          <div className="relative">
-            <ShieldCheck
-              className={`pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
-                availability !== "all" ? "text-white" : "text-faint"
-              }`}
-            />
-
-            <select
-              value={availability}
-              onChange={(e) => {
-                setPage(1);
-                setAvailability(e.target.value);
-              }}
-              className={`input pl-10 ${FILTER_TRANSITION} ${
-                availability !== "all" ? "filter-active" : FILTER_HOVER_SELECT
-              }`}
-            >
-              <option value="all">All Status</option>
-              <option value="available">Available</option>
-              <option value="sold">Sold</option>
-            </select>
-          </div>
+          <SelectDropdown
+            icon={ShieldCheck}
+            value={availability}
+            placeholder="All Status"
+            active={availability !== "all"}
+            onChange={(v) => {
+              setPage(1);
+              setAvailability(v);
+            }}
+            options={AVAILABILITY_OPTIONS}
+          />
         </div>
       </motion.div>
 
