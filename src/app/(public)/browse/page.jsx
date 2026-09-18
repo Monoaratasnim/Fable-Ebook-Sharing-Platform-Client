@@ -16,6 +16,16 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+const FILTER_TRANSITION = "transition-all duration-250 ease-in-out";
+const FILTER_HOVER_SELECT =
+  "hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-700 hover:shadow-[0_10px_26px_-14px_rgba(99,102,241,0.45)] dark:hover:bg-indigo-600/20 dark:hover:border-indigo-500/50 dark:hover:text-indigo-300 dark:hover:shadow-[0_10px_30px_-12px_rgba(99,102,241,0.5)]";
+const FILTER_HOVER_INPUT =
+  "hover:bg-indigo-50 hover:border-indigo-300 hover:shadow-[0_10px_26px_-14px_rgba(99,102,241,0.45)] dark:hover:bg-indigo-600/20 dark:hover:border-indigo-500/50 dark:hover:shadow-[0_10px_30px_-12px_rgba(99,102,241,0.5)]";
+const INPUT_ACTIVE =
+  "border-indigo-500/60 shadow-[0_0_16px_rgba(99,102,241,0.18)] dark:shadow-[0_0_18px_rgba(99,102,241,0.22)]";
+const FILTER_ACTIVE =
+  "border-transparent bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/25";
+
 export default function BrowsePage() {
   const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -117,13 +127,19 @@ export default function BrowsePage() {
                 setPage(1);
                 setSearch(e.target.value);
               }}
-              className="input pl-10"
+              className={`input pl-10 ${FILTER_TRANSITION} ${FILTER_HOVER_INPUT} ${
+                search.trim() ? INPUT_ACTIVE : ""
+              }`}
             />
           </div>
 
           {/* GENRE */}
           <div className="relative">
-            <BookOpen className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+            <BookOpen
+              className={`pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
+                genre !== "all" ? "text-white" : "text-faint"
+              }`}
+            />
 
             <select
               value={genre}
@@ -131,7 +147,9 @@ export default function BrowsePage() {
                 setPage(1);
                 setGenre(e.target.value);
               }}
-              className="input appearance-none pl-10 pr-9"
+              className={`input appearance-none pl-10 pr-9 ${FILTER_TRANSITION} ${
+                genre !== "all" ? FILTER_ACTIVE : FILTER_HOVER_SELECT
+              }`}
             >
               <option value="all">All Genres</option>
               <option value="Fiction">Fiction</option>
@@ -146,12 +164,20 @@ export default function BrowsePage() {
               <option value="Poetry">Poetry</option>
             </select>
 
-            <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+            <ChevronDown
+              className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
+                genre !== "all" ? "text-white" : "text-faint"
+              }`}
+            />
           </div>
 
           {/* SORT */}
           <div className="relative">
-            <ArrowDownWideNarrow className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+            <ArrowDownWideNarrow
+              className={`pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
+                sort !== "" ? "text-white" : "text-faint"
+              }`}
+            />
 
             <select
               value={sort}
@@ -159,7 +185,9 @@ export default function BrowsePage() {
                 setPage(1);
                 setSort(e.target.value);
               }}
-              className="input appearance-none pl-10 pr-9"
+              className={`input appearance-none pl-10 pr-9 ${FILTER_TRANSITION} ${
+                sort !== "" ? FILTER_ACTIVE : FILTER_HOVER_SELECT
+              }`}
             >
               <option value="">Sort By</option>
               <option value="new">Newest</option>
@@ -167,7 +195,11 @@ export default function BrowsePage() {
               <option value="high">Price High → Low</option>
             </select>
 
-            <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+            <ChevronDown
+              className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
+                sort !== "" ? "text-white" : "text-faint"
+              }`}
+            />
           </div>
 
           {/* MIN PRICE */}
@@ -182,7 +214,9 @@ export default function BrowsePage() {
                 setPage(1);
                 setMinPrice(e.target.value);
               }}
-              className="input pl-10"
+              className={`input pl-10 ${FILTER_TRANSITION} ${FILTER_HOVER_INPUT} ${
+                minPrice !== "" ? INPUT_ACTIVE : ""
+              }`}
             />
           </div>
 
@@ -198,13 +232,19 @@ export default function BrowsePage() {
                 setPage(1);
                 setMaxPrice(e.target.value);
               }}
-              className="input pl-10"
+              className={`input pl-10 ${FILTER_TRANSITION} ${FILTER_HOVER_INPUT} ${
+                maxPrice !== "" ? INPUT_ACTIVE : ""
+              }`}
             />
           </div>
 
           {/* AVAILABILITY */}
           <div className="relative">
-            <ShieldCheck className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+            <ShieldCheck
+              className={`pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
+                availability !== "all" ? "text-white" : "text-faint"
+              }`}
+            />
 
             <select
               value={availability}
@@ -212,14 +252,20 @@ export default function BrowsePage() {
                 setPage(1);
                 setAvailability(e.target.value);
               }}
-              className="input appearance-none pl-10 pr-9"
+              className={`input appearance-none pl-10 pr-9 ${FILTER_TRANSITION} ${
+                availability !== "all" ? FILTER_ACTIVE : FILTER_HOVER_SELECT
+              }`}
             >
               <option value="all">All Status</option>
               <option value="available">Available</option>
               <option value="sold">Sold</option>
             </select>
 
-            <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+            <ChevronDown
+              className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-250 ${
+                availability !== "all" ? "text-white" : "text-faint"
+              }`}
+            />
           </div>
         </div>
       </motion.div>
@@ -276,9 +322,7 @@ export default function BrowsePage() {
               key={n}
               onClick={() => setPage(n + 1)}
               className={`btn btn-sm px-4 ${
-                page === n + 1
-                  ? "btn-primary"
-                  : "btn-outline"
+                page === n + 1 ? FILTER_ACTIVE : "btn-outline"
               }`}
             >
               {n + 1}

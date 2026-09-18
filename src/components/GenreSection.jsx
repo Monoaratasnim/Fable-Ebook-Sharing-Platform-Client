@@ -99,7 +99,7 @@ export default function GenreSection() {
             <Link
               key={genre.name}
               href={`/browse?genre=${encodeURIComponent(genre.name)}`}
-              className="group relative overflow-hidden rounded-2xl border border-line bg-glass p-6 text-center backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-indigo-500/50 hover:bg-panel/90 hover:shadow-[var(--shadow-hover)]"
+              className="group relative overflow-hidden rounded-2xl border border-line bg-glass p-6 text-center backdrop-blur-md transition-all duration-250 ease-in-out hover:-translate-y-1.5 hover:bg-indigo-50 hover:border-indigo-300 hover:shadow-[0_14px_36px_-16px_rgba(99,102,241,0.5)] dark:hover:bg-indigo-600/20 dark:hover:border-indigo-500/50 dark:hover:shadow-[0_0_28px_rgba(99,102,241,0.28)]"
             >
               {/* Hover glow */}
               <div
@@ -114,7 +114,7 @@ export default function GenreSection() {
                 {genre.icon}
               </div>
 
-              <h3 className="relative font-bold text-ink">{genre.name}</h3>
+              <h3 className="relative font-bold text-ink transition-colors duration-250 group-hover:text-indigo-700 dark:group-hover:text-indigo-300">{genre.name}</h3>
 
               <p className="relative mt-2 text-sm font-medium text-muted transition-colors duration-300 group-hover:text-indigo-400">
                 Explore →
