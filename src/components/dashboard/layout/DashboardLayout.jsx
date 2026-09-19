@@ -1,27 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import { Menu } from "lucide-react";
+import DashboardTopBar from "./DashboardTopBar";
 import { authClient } from "@/lib/auth-client";
 
 export default function DashboardLayout({ children }) {
   const [open, setOpen] = useState(false);
 
-  const { data: session } = authClient.useSession();
+  const { data: session, isLoading } = authClient.useSession();
 
-  const [role, setRole] = useState("user");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (session?.user) {
-      setRole(session.user.role || "user");
-      setLoading(false);
-    }
-  }, [session]);
-
-  // prevent flicker
-  if (loading) {
+  if (isLoading || !session?.user) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-page">
         <img
@@ -38,33 +27,17 @@ export default function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="relative min-h-screen bg-page flex">
-
+    <div className="relative min-h-screen bg-page md:flex">
       {/* SIDEBAR */}
-      <DashboardSidebar
-        open={open}
-        setOpen={setOpen}
-        role={role}
-      />
+      <DashboardSidebar open={open} setOpen={setOpen} />
 
-      {/* MAIN AREA */}
-      <div className="flex-1 flex flex-col min-w-0">
+      {/* MAIN COLUMN — top header + content */}
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
+        <DashboardTopBar setOpen={setOpen} />
 
-        {/* Mobile floating menu toggle — only while the drawer is closed */}
-        {!open && (
-          <button
-            onClick={() => setOpen(true)}
-            className="absolute left-4 top-3 z-40 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-glass text-ink shadow-lg backdrop-blur transition-all duration-300 hover:bg-soft md:hidden"
-            aria-label="Open sidebar menu"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
-        )}
-
-        <main className="flex-1 px-4 pt-16 pb-8 md:px-6 md:pt-8 lg:px-8">
+        <main className="flex-1 px-4 py-6 md:px-6 lg:px-8 lg:py-8">
           {children}
         </main>
-
       </div>
     </div>
   );

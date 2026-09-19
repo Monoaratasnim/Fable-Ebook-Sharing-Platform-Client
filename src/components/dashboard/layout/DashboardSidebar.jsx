@@ -40,9 +40,11 @@ const roleMeta = {
   },
 };
 
-export default function DashboardSidebar({ open, setOpen, role }) {
+export default function DashboardSidebar({ open, setOpen }) {
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
+
+  const role = session?.user?.role || "user";
 
   const userLinks = [
     { name: "Dashboard", href: "/dashboard/user", icon: <LayoutDashboard className="h-4 w-4" /> },
@@ -85,18 +87,26 @@ export default function DashboardSidebar({ open, setOpen, role }) {
       <aside
         className={`
           fixed inset-y-0 left-0 z-50
-          w-72 md:w-64 md:sticky md:top-[72px] md:h-[calc(100vh-72px)] md:shrink-0
+          w-72 md:sticky md:top-0 md:h-screen md:shrink-0
           flex flex-col overflow-y-auto
-          bg-panel/95 backdrop-blur-xl border-r border-line
+          bg-panel/95 backdrop-blur-2xl border-r border-line
           shadow-xl md:shadow-none
           transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
-        {/* decorative top glow */}
+        {/* decorative glow layers */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-indigo-500/15 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-violet-600/10 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-px bg-gradient-to-b from-indigo-500/20 via-transparent to-fuchsia-500/20"
         />
 
         {/* CLOSE BUTTON */}

@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Providers } from "./providers";
-import Navbar from "@/components/Navbar";
+import GlobalChrome from "@/components/GlobalChrome";
 import { Poppins, Merriweather } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 const poppins = Poppins({
@@ -52,8 +52,7 @@ export default function RootLayout({ children }) {
         </div>
 
         <Providers>
-          <Navbar />
-          {children}
+          <GlobalChrome>{children}</GlobalChrome>
           <Toaster position="top-right" reverseOrder={false} />
         </Providers>
       </body>
