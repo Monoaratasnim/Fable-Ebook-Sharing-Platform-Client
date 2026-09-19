@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Loader2 } from "lucide-react";
 
 export default function EditEbookForm({ ebook }) {
   const router = useRouter();
@@ -252,19 +252,24 @@ export default function EditEbookForm({ ebook }) {
           </div>
 
           {/* BUTTON */}
-          <div className="pt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="pt-5 flex flex-col items-center gap-4 border-t border-line-soft">
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full sm:w-auto sm:px-10"
+              className="btn btn-primary btn-lg w-full sm:w-fit sm:min-w-[260px]"
             >
-              {loading
-                ? "Updating Ebook..."
-                : "Update Ebook"}
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Updating Ebook...
+                </span>
+              ) : (
+                "Update Ebook"
+              )}
             </button>
 
-            <p className="flex items-center gap-1.5 text-xs text-faint">
-              <BookOpen className="h-3.5 w-3.5" />
+            <p className="flex items-center gap-1.5 text-center text-xs text-faint">
+              <BookOpen className="h-3.5 w-3.5 shrink-0" />
               Changes go live on the marketplace immediately.
             </p>
           </div>

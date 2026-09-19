@@ -4,7 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { BookOpen, Mail, User } from "lucide-react";
+import { BookOpen, Loader2, Mail, User } from "lucide-react";
 
 const genres = [
   "Fiction",
@@ -271,17 +271,24 @@ export default function AddEbookForm() {
         </div>
 
         {/* Submit */}
-        <div className="pt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="pt-5 flex flex-col items-center gap-4 border-t border-line-soft">
           <button
             type="submit"
             disabled={loading}
-            className="btn btn-primary w-full sm:w-auto sm:px-10"
+            className="btn btn-primary btn-lg w-full sm:w-fit sm:min-w-[260px]"
           >
-            {loading ? "Uploading..." : "Publish Ebook"}
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Uploading...
+              </span>
+            ) : (
+              "Publish Ebook"
+            )}
           </button>
 
-          <p className="flex items-center gap-1.5 text-xs text-faint">
-            <BookOpen className="h-3.5 w-3.5" />
+          <p className="flex items-center gap-1.5 text-center text-xs text-faint">
+            <BookOpen className="h-3.5 w-3.5 shrink-0" />
             Your ebook will appear on the marketplace once published.
           </p>
         </div>
