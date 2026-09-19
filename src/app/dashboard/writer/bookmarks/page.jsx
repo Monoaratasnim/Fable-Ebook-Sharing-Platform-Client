@@ -88,7 +88,7 @@ export default function WriterBookmarksPage() {
               <Link
                 key={ebook._id}
                 href={`/ebooks/${ebook._id}`}
-                className="group"
+                className="group block h-full w-full"
               >
                 <div className="card overflow-hidden hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] transition-all duration-300 h-full flex flex-col">
 
@@ -110,7 +110,7 @@ export default function WriterBookmarksPage() {
                       {ebook.title}
                     </h2>
 
-                    <p className="text-xs sm:text-sm text-muted mt-1">
+                    <p className="truncate text-xs sm:text-sm text-muted mt-1">
                       {ebook.writerEmail}
                     </p>
 

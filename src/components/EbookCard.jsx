@@ -4,15 +4,15 @@ import Link from "next/link";
 
 export default function EbookCard({ ebook }) {
   return (
-    <Link href={`/ebooks/${ebook._id}`}>
-      <div className="group relative overflow-hidden rounded-2xl border border-line bg-glass backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40 hover:shadow-[var(--shadow-hover)]">
+    <Link href={`/ebooks/${ebook._id}`} className="group block h-full w-full">
+      <div className="flex h-full w-full flex-col overflow-hidden rounded-2xl border border-line bg-glass backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:border-indigo-500/40 hover:shadow-[var(--shadow-hover)]">
 
-        {/* IMAGE */}
-        <div className="relative h-52 overflow-hidden sm:h-60">
+        {/* IMAGE — fixed 4/3 ratio so every cover geometry renders identically */}
+        <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden">
           <img
             src={ebook.coverImage}
             alt={ebook.title}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/10" />
@@ -34,17 +34,17 @@ export default function EbookCard({ ebook }) {
           </span>
         </div>
 
-        {/* CONTENT */}
-        <div className="p-4">
+        {/* CONTENT — grows to fill, footer pinned to the bottom */}
+        <div className="flex min-h-0 flex-1 flex-col p-4">
           <h3 className="line-clamp-1 text-sm font-bold text-ink sm:text-base">
             {ebook.title}
           </h3>
 
-          <p className="mt-1 line-clamp-1 text-sm text-muted">
+          <p className="mt-1 truncate text-sm text-muted">
             By {ebook.writerName}
           </p>
 
-          <div className="mt-4 flex items-center justify-between">
+          <div className="mt-auto flex items-center justify-between pt-4">
             <span className="bg-gradient-to-r from-indigo-400 to-fuchsia-400 bg-clip-text text-lg font-bold text-transparent">
               ${ebook.price}
             </span>

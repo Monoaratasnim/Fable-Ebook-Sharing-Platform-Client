@@ -79,41 +79,44 @@ export default function BookmarkPage() {
               <Link
                 key={ebook._id}
                 href={`/ebooks/${ebook._id}`}
+                className="group block h-full w-full"
               >
-                <div className="card overflow-hidden hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] transition">
+                <div className="card flex h-full w-full flex-col overflow-hidden hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] transition">
                   <img
                     src={
                       ebook.coverImage ||
                       "https://via.placeholder.com/400x600"
                     }
                     alt={ebook.title}
-                    className="w-full h-56 object-cover"
+                    className="aspect-[4/3] w-full shrink-0 object-cover transition-transform duration-300 group-hover:scale-105"
                   />
 
-                  <div className="p-4">
-                    <h2 className="font-semibold text-ink line-clamp-2">
+                  <div className="flex min-h-0 flex-1 flex-col p-4">
+                    <h2 className="line-clamp-2 font-semibold text-ink">
                       {ebook.title}
                     </h2>
 
-                    <p className="text-sm text-muted mt-1">
+                    <p className="mt-1 truncate text-sm text-muted">
                       {ebook.author}
                     </p>
 
-                    <p className="mt-2 font-medium text-ink">
-                      ${ebook.price}
-                    </p>
+                    <div className="mt-auto flex items-center justify-between gap-2 pt-3">
+                      <p className="font-medium text-ink">
+                        ${ebook.price}
+                      </p>
 
-                    <span
-                      className={`inline-block mt-2 text-xs px-2 py-1 rounded-full ring-1 ${
-                        ebook.sold
-                          ? "bg-rose-500/10 text-rose-400 ring-rose-500/30"
-                          : "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
-                      }`}
-                    >
-                      {ebook.sold
-                        ? "Sold Out"
-                        : "Available"}
-                    </span>
+                      <span
+                        className={`inline-block shrink-0 text-xs px-2 py-1 rounded-full ring-1 ${
+                          ebook.sold
+                            ? "bg-rose-500/10 text-rose-400 ring-rose-500/30"
+                            : "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30"
+                        }`}
+                      >
+                        {ebook.sold
+                          ? "Sold Out"
+                          : "Available"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </Link>

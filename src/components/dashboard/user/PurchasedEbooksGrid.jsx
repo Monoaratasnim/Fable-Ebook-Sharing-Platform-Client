@@ -21,7 +21,7 @@ export default function PurchasedEbooksGrid({ ebooks }) {
         <Link
           key={ebook._id}
           href={`/ebooks/${ebook._id}`}
-          className="group"
+          className="group block h-full w-full"
         >
           <div className="card overflow-hidden h-[300px] flex flex-col hover:-translate-y-1 hover:shadow-[var(--shadow-hover)] transition-all duration-300">
 
