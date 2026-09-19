@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
+  ArrowLeft,
   Search,
   Bell,
   ChevronDown,
@@ -62,6 +63,14 @@ export default function DashboardTopBar({ setOpen }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const user = session?.user;
   const role = user?.role || "user";
@@ -114,7 +123,13 @@ export default function DashboardTopBar({ setOpen }) {
     "relative inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-glass text-muted transition-all duration-300 hover:border-indigo-400/40 hover:text-ink hover:bg-soft active:scale-95";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-page/75 backdrop-blur-xl">
+    <header
+      className={`sticky top-0 z-40 transition-all duration-500 ${
+        scrolled
+          ? "border-b border-line bg-panel/85 shadow-sm backdrop-blur-2xl"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
       {/* gradient hairline */}
       <div
         aria-hidden
@@ -122,8 +137,8 @@ export default function DashboardTopBar({ setOpen }) {
       />
 
       <div className="flex h-16 md:h-[72px] items-center justify-between gap-3 px-4 md:px-6 lg:px-8">
-        {/* LEFT — hamburger + breadcrumb */}
-        <div className="flex min-w-0 items-center gap-3">
+        {/* LEFT — mobile menu + back to home + breadcrumb */}
+        <div className="flex min-w-0 items-center gap-2.5">
           <button
             onClick={() => setOpen(true)}
             className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-glass text-ink transition-all duration-300 hover:bg-soft md:hidden"
@@ -135,9 +150,39 @@ export default function DashboardTopBar({ setOpen }) {
             </svg>
           </button>
 
+          {/* back to home */}
+          <Link
+            href="/"
+            aria-label="Back to Home"
+            className="group relative hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-glass text-muted transition-all duration-300 hover:border-indigo-400/40 hover:bg-soft hover:text-ink active:scale-95 sm:flex"
+          >
+            <ArrowLeft className="h-[18px] w-[18px]" />
+            <span className="pointer-events-none absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-line bg-panel px-2.5 py-1 text-[10px] font-medium text-muted opacity-0 shadow-xl transition-opacity duration-300 group-hover:opacity-100">
+              Back to Home
+            </span>
+          </Link>
+
+          {/* fable logo → home */}
+          <Link
+            href="/"
+            aria-label="Fable home"
+            className="flex shrink-0 items-center gap-2 rounded-xl p-0.5 transition-all duration-300 hover:bg-soft"
+          >
+            <img
+              src="/images/logo.png"
+              alt="Fable"
+              className="h-8 w-8 object-contain"
+            />
+            <span className="brand-text hidden text-lg font-semibold leading-none lg:block">
+              Fable
+            </span>
+          </Link>
+
+          <span className="hidden h-6 w-px bg-line sm:block" aria-hidden />
+
           <div className="min-w-0">
             <p className="hidden text-[10px] font-semibold uppercase tracking-[0.22em] text-faint sm:block">
-              Fable <span className="mx-1 opacity-50">/</span> {role} Panel
+              {role} Panel
             </p>
             <h1 className="truncate text-lg font-bold leading-tight text-ink md:text-xl">
               {pageTitle}

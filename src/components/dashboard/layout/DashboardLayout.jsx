@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }) {
       <DashboardSidebar open={open} setOpen={setOpen} />
 
       {/* MAIN COLUMN — top header + content */}
-      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col bg-slate-100/70 dark:bg-slate-950">
         <DashboardTopBar setOpen={setOpen} />
 
         <main className="flex-1 px-4 py-6 md:px-6 lg:px-8 lg:py-8">
