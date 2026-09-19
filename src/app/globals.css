@@ -141,7 +141,37 @@ body {
   color: var(--text-body);
   min-height: 100vh;
   overflow-x: clip;
-  transition: background-color 0.45s ease, color 0.45s ease;
+  transition:
+    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Global theme cross-fade ----------
+   Colour-only smoothing for every element so light/dark
+   toggling never "pops", flashes, or causes reflows.
+   Layout-heavy properties (transform, width, height,
+   top/left, opacity in animations…) are intentionally
+   excluded, so heavy layout animations stay fast.
+   Elements with their own explicit `transition` (e.g.
+   Tailwind `transition-all`, `.btn`, motion components)
+   automatically override this low-specificity default. */
+*,
+::before,
+::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Respect users who prefer reduced motion by skipping
+   the decorative cross-fade entirely. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    transition-property: none;
+    transition-duration: 0ms;
+  }
 }
 
 h1,

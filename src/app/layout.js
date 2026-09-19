@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("fable-theme")||"dark";var el=document.documentElement;el.classList.remove("dark","light");el.classList.add(t);el.setAttribute("data-theme",t);}catch(e){}}());`,
+            __html: `(function(){try{var stored=localStorage.getItem("fable-theme");var t=stored||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");var el=document.documentElement;el.classList.remove("dark","light");el.classList.add(t);el.setAttribute("data-theme",t);}catch(e){}}());`,
           }}
         />
       </head>
