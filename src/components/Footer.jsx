@@ -35,7 +35,7 @@ export default function Footer() {
               <img
                 src="/images/logo.jpg"
                 alt="Fable Logo"
-                className="h-12 w-auto object-contain drop-shadow-[0_0_14px_rgba(129,140,248,0.5)]"
+                className="h-10 w-auto object-contain mix-blend-multiply dark:invert dark:mix-blend-screen sm:h-11"
               />
 
               <div>

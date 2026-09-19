@@ -181,9 +181,11 @@ export default function SignUpPage() {
         <div className="relative p-6 sm:p-8 lg:p-10">
           {/* mobile-only compact brand */}
           <div className="mb-6 flex items-center justify-center gap-2.5 md:hidden">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-indigo-600/30">
-              <BookOpen className="h-5 w-5" />
-            </div>
+            <img
+              src="/images/logo.jpg"
+              alt="Fable Logo"
+              className="h-8 w-auto object-contain mix-blend-multiply dark:invert dark:mix-blend-screen"
+            />
             <span className="brand-text text-lg font-bold">Fable</span>
           </div>
 

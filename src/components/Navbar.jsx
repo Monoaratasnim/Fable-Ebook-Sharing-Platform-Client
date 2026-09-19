@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowLeft } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
@@ -91,13 +91,11 @@ export default function Navbar() {
           {/* LOGO */}
           <Link href="/" className="group flex items-center gap-3 sm:gap-4">
             {/* Logo Image */}
-            <div className="flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16 md:h-18 md:w-18 lg:h-20 lg:w-20 drop-shadow-[0_0_18px_rgba(129,140,248,0.35)]">
-              <img
-                src="/images/logo.jpg"
-                alt="Fable Logo"
-                className="h-full w-auto scale-110 object-contain transition-transform duration-500 group-hover:scale-125 sm:scale-125"
-              />
-            </div>
+            <img
+              src="/images/logo.jpg"
+              alt="Fable Logo"
+              className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110 sm:h-9 dark:invert dark:mix-blend-screen"
+            />
 
             {/* Brand Text */}
             <div className="flex flex-col justify-center leading-none">
@@ -221,6 +219,39 @@ export default function Navbar() {
           }`}
         >
           <div className="mx-4 mb-4 rounded-2xl border border-line bg-panel/95 p-5 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:mx-6">
+            {/* Brand */}
+            <div className="mb-5 flex items-center justify-between border-b border-line pb-4">
+              <Link
+                href="/"
+                onClick={() => setMobileOpen(false)}
+                className="group flex items-center gap-2.5"
+              >
+                <img
+                  src="/images/logo.jpg"
+                  alt="Fable Logo"
+                  className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110 dark:invert dark:mix-blend-screen"
+                />
+
+                <div className="flex flex-col leading-none">
+                  <span className="brand-text text-lg font-semibold">
+                    Fable
+                  </span>
+                  <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.25em] text-faint">
+                    Discover Stories
+                  </span>
+                </div>
+              </Link>
+
+              <Link
+                href="/"
+                onClick={() => setMobileOpen(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-glass text-muted transition-all duration-300 hover:text-ink"
+                aria-label="Back to Home"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </div>
+
             {/* User Info */}
             {isLoggedIn && (
               <div className="mb-5 flex items-center gap-3 border-b border-line pb-5">

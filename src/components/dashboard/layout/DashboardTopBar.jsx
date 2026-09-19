@@ -160,7 +160,7 @@ export default function DashboardTopBar({ setOpen }) {
             <img
               src="/images/logo.jpg"
               alt="Fable Logo"
-              className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-110 md:h-10"
+              className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110 sm:h-9 dark:invert dark:mix-blend-screen"
             />
             <span className="brand-text hidden text-xl font-semibold leading-none md:block">
               Fable
