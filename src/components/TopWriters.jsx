@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import TopWriterCard from "./TopWriterCard";
+import Reveal from "./Reveal";
 
 export default function TopWriters() {
   const [writers, setWriters] = useState([]);
@@ -59,19 +60,17 @@ export default function TopWriters() {
             {Array.from({ length: 3 }).map((_, index) => (
               <div
                 key={index}
-                className="animate-pulse rounded-3xl border border-line bg-glass p-6 backdrop-blur"
+                className="card animate-pulse rounded-3xl p-6"
               >
-                <div className="h-20 rounded-xl bg-gradient-to-br from-soft to-line" />
+                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-soft to-line" />
 
-                <div className="mx-auto -mt-12 h-24 w-24 rounded-full border-4 border-panel bg-soft"></div>
+                <div className="mx-auto mt-5 h-6 w-2/3 rounded bg-soft"></div>
 
-                <div className="mt-6 h-6 rounded bg-soft"></div>
+                <div className="mx-auto mt-3 h-4 w-1/2 rounded bg-soft"></div>
 
-                <div className="mt-4 h-4 rounded bg-soft"></div>
+                <div className="mt-6 h-20 rounded-2xl bg-soft"></div>
 
-                <div className="mt-6 h-10 rounded-full bg-soft"></div>
-
-                <div className="mt-6 h-12 rounded bg-soft"></div>
+                <div className="mt-5 h-4 rounded bg-soft"></div>
               </div>
             ))}
           </div>
@@ -81,11 +80,12 @@ export default function TopWriters() {
         {!loading && writers.length > 0 && (
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {writers.map((writer, index) => (
-              <TopWriterCard
-                key={writer.writerEmail}
-                writer={writer}
-                index={index}
-              />
+              <Reveal key={writer.writerEmail} delay={index * 0.1}>
+                <TopWriterCard
+                  writer={writer}
+                  index={index}
+                />
+              </Reveal>
             ))}
           </div>
         )}
