@@ -158,9 +158,9 @@ export default function DashboardTopBar({ setOpen }) {
             className="group flex shrink-0 items-center gap-2.5 rounded-xl px-1 py-0.5 transition-all duration-300 hover:bg-soft"
           >
             <img
-              src="/images/logo.jpg"
+              src="/images/logo.png"
               alt="Fable Logo"
-              className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110 sm:h-9 dark:invert dark:mix-blend-screen"
+              className="h-8 w-auto bg-transparent object-contain transition-transform duration-300 group-hover:scale-110 sm:h-9"
             />
             <span className="brand-text hidden text-xl font-semibold leading-none md:block">
               Fable

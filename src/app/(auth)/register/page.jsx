@@ -182,9 +182,9 @@ export default function SignUpPage() {
           {/* mobile-only compact brand */}
           <div className="mb-6 flex items-center justify-center gap-2.5 md:hidden">
             <img
-              src="/images/logo.jpg"
+              src="/images/logo.png"
               alt="Fable Logo"
-              className="h-8 w-auto object-contain mix-blend-multiply dark:invert dark:mix-blend-screen"
+              className="h-8 w-auto bg-transparent object-contain"
             />
             <span className="brand-text text-lg font-bold">Fable</span>
           </div>

@@ -20,6 +20,9 @@ export default function Navbar() {
 
   const isLanding = pathname === "/";
 
+  // True only when the transparent navbar sits over the hero section.
+  const atTop = isLanding && !scrolled;
+
   // ================= SCROLL BLUR =================
   useEffect(() => {
     const getThreshold = () => {
@@ -60,8 +63,12 @@ export default function Navbar() {
   const navLinkClass = (path) =>
     `rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
       isActive(path)
-        ? "bg-indigo-500/15 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(129,140,248,0.28)]"
-        : "text-muted hover:bg-glass hover:text-ink"
+        ? atTop
+          ? "bg-white/10 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.25)]"
+          : "bg-indigo-500/15 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_1px_rgba(129,140,248,0.28)]"
+        : atTop
+          ? "text-white/90 hover:bg-white/10 hover:text-white"
+          : "text-muted hover:bg-glass hover:text-ink"
     }`;
 
   const mobileNavLinkClass = (path) =>
@@ -96,7 +103,7 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-line bg-page/80 shadow-lg shadow-indigo-950/30 backdrop-blur-2xl"
+          ? "border-b border-slate-200/50 bg-white/80 shadow-sm backdrop-blur-md dark:border-slate-800/50 dark:bg-slate-900/80"
           : isLanding
             ? "border-transparent bg-transparent shadow-none"
             : "border-b border-transparent bg-page/40 backdrop-blur-md"
@@ -109,9 +116,9 @@ export default function Navbar() {
           <Link href="/" className="group flex items-center gap-3 sm:gap-4">
             {/* Logo Image */}
             <img
-              src="/images/logo.jpg"
+              src="/images/logo.png"
               alt="Fable Logo"
-              className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110 sm:h-9 dark:invert dark:mix-blend-screen"
+              className="h-8 w-auto bg-transparent object-contain transition-transform duration-500 group-hover:scale-110 sm:h-9"
             />
 
             {/* Brand Text */}
@@ -119,7 +126,11 @@ export default function Navbar() {
               <span className="brand-text text-lg font-semibold sm:text-xl">
                 Fable
               </span>
-              <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-faint sm:text-xs">
+              <span
+                className={`mt-1 text-[10px] font-medium uppercase tracking-[0.25em] transition-colors duration-300 sm:text-xs ${
+                  atTop ? "text-white/70" : "text-faint"
+                }`}
+              >
                 Discover Stories
               </span>
             </div>
@@ -160,7 +171,11 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="rounded-full px-4 py-2 text-sm font-medium text-body transition-all duration-300 hover:bg-glass hover:text-ink"
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                    atTop
+                      ? "text-white/90 hover:bg-white/10 hover:text-white"
+                      : "text-body hover:bg-glass hover:text-ink"
+                  }`}
                 >
                   Login
                 </Link>
@@ -189,11 +204,19 @@ export default function Navbar() {
                   )}
 
                   <div className="hidden lg:block">
-                    <p className="text-sm font-semibold text-ink">
+                    <p
+                      className={`text-sm font-semibold ${
+                        atTop ? "text-white" : "text-ink"
+                      }`}
+                    >
                       {user?.name}
                     </p>
 
-                    <p className="text-xs capitalize text-muted">
+                    <p
+                      className={`text-xs capitalize ${
+                        atTop ? "text-white/70" : "text-muted"
+                      }`}
+                    >
                       {user?.role || ""}
                     </p>
                   </div>
@@ -201,7 +224,7 @@ export default function Navbar() {
 
                 <button
                   onClick={handleLogout}
-                  className="btn btn-ghost btn-sm border border-line text-rose-400 hover:border-rose-500/60 hover:bg-rose-500/10"
+                  className="rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-1.5 font-medium text-white shadow-md transition-all duration-300 hover:opacity-90"
                 >
                   Logout
                 </button>
@@ -244,9 +267,9 @@ export default function Navbar() {
                 className="group flex items-center gap-2.5"
               >
                 <img
-                  src="/images/logo.jpg"
+                  src="/images/logo.png"
                   alt="Fable Logo"
-                  className="h-8 w-auto object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-110 dark:invert dark:mix-blend-screen"
+                  className="h-8 w-auto bg-transparent object-contain transition-transform duration-300 group-hover:scale-110"
                 />
 
                 <div className="flex flex-col leading-none">

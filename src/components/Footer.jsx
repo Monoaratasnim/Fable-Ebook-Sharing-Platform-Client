@@ -33,9 +33,9 @@ export default function Footer() {
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center gap-3 sm:justify-start">
               <img
-                src="/images/logo.jpg"
+                src="/images/logo.png"
                 alt="Fable Logo"
-                className="h-10 w-auto object-contain mix-blend-multiply dark:invert dark:mix-blend-screen sm:h-11"
+                className="h-10 w-auto bg-transparent object-contain sm:h-11"
               />
 
               <div>
