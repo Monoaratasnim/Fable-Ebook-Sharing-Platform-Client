@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  ArrowLeft,
   Search,
   Bell,
   ChevronDown,
@@ -16,6 +15,7 @@ import {
   ShoppingBag,
   Star,
   Sparkles,
+  Globe,
 } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { authClient, signOut } from "@/lib/auth-client";
@@ -150,30 +150,19 @@ export default function DashboardTopBar({ setOpen }) {
             </svg>
           </button>
 
-          {/* back to home */}
+          {/* fable logo + title → home */}
           <Link
             href="/"
             aria-label="Back to Home"
-            className="group relative hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-glass text-muted transition-all duration-300 hover:border-indigo-400/40 hover:bg-soft hover:text-ink active:scale-95 sm:flex"
-          >
-            <ArrowLeft className="h-[18px] w-[18px]" />
-            <span className="pointer-events-none absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-line bg-panel px-2.5 py-1 text-[10px] font-medium text-muted opacity-0 shadow-xl transition-opacity duration-300 group-hover:opacity-100">
-              Back to Home
-            </span>
-          </Link>
-
-          {/* fable logo → home */}
-          <Link
-            href="/"
-            aria-label="Fable home"
-            className="flex shrink-0 items-center gap-2 rounded-xl p-0.5 transition-all duration-300 hover:bg-soft"
+            title="Back to Home"
+            className="group flex shrink-0 items-center gap-2.5 rounded-xl px-1 py-0.5 transition-all duration-300 hover:bg-soft"
           >
             <img
               src="/images/logo.png"
               alt="Fable"
-              className="h-8 w-8 object-contain"
+              className="h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-110 md:h-10 md:w-10"
             />
-            <span className="brand-text hidden text-lg font-semibold leading-none lg:block">
+            <span className="brand-text hidden text-xl font-semibold leading-none md:block">
               Fable
             </span>
           </Link>
@@ -357,14 +346,18 @@ export default function DashboardTopBar({ setOpen }) {
                     </span>
 
                     <Link
-                      href={profileHref}
+                      href={role === "user" ? profileHref : "/"}
                       onClick={closeAll}
                       className="mt-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted transition-colors hover:bg-indigo-50 dark:hover:bg-indigo-600/15 hover:text-ink"
                     >
                       <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-400 ring-1 ring-indigo-500/15">
-                        <ShieldCheck className="h-4 w-4" />
+                        {role === "user" ? (
+                          <ShieldCheck className="h-4 w-4" />
+                        ) : (
+                          <Globe className="h-4 w-4" />
+                        )}
                       </span>
-                      {role === "user" ? "View Profile" : "Back to Dashboard"}
+                      {role === "user" ? "View Profile" : "Back to Home"}
                     </Link>
                   </div>
 
