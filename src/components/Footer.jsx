@@ -2,19 +2,19 @@
 
 import Link from "next/link";
 import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
+  MessageCircle,
+  Send,
+  Camera,
+  Briefcase,
+  Play,
+} from "lucide-react";
 
 const socials = [
-  { icon: <FaFacebookF />, label: "Facebook" },
-  { icon: <FaTwitter />, label: "Twitter" },
-  { icon: <FaInstagram />, label: "Instagram" },
-  { icon: <FaLinkedinIn />, label: "LinkedIn" },
-  { icon: <FaYoutube />, label: "YouTube" },
+  { icon: <MessageCircle className="h-[18px] w-[18px]" />, label: "Facebook" },
+  { icon: <Send className="h-[18px] w-[18px]" />, label: "Twitter" },
+  { icon: <Camera className="h-[18px] w-[18px]" />, label: "Instagram" },
+  { icon: <Briefcase className="h-[18px] w-[18px]" />, label: "LinkedIn" },
+  { icon: <Play className="h-[18px] w-[18px]" />, label: "YouTube" },
 ];
 
 export default function Footer() {

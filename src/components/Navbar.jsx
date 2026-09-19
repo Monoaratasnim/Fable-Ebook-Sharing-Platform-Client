@@ -111,12 +111,18 @@ export default function Navbar() {
           </Link>
 
           {/* NAV */}
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             <Link href="/" className={navLinkClass("/")}>
               Home
             </Link>
             <Link href="/browse" className={navLinkClass("/browse")}>
               Browse Ebooks
+            </Link>
+            <Link href="/about" className={navLinkClass("/about")}>
+              About Us
+            </Link>
+            <Link href="/privacy" className={navLinkClass("/privacy")}>
+              Privacy Policy
             </Link>
 
             {/* show only real logged-in users */}
@@ -255,6 +261,22 @@ export default function Navbar() {
                 className={mobileNavLinkClass("/browse")}
               >
                 Browse Ebooks
+              </Link>
+
+              <Link
+                href="/about"
+                onClick={() => setMobileOpen(false)}
+                className={mobileNavLinkClass("/about")}
+              >
+                About Us
+              </Link>
+
+              <Link
+                href="/privacy"
+                onClick={() => setMobileOpen(false)}
+                className={mobileNavLinkClass("/privacy")}
+              >
+                Privacy Policy
               </Link>
 
               {isLoggedIn ? (

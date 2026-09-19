@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FaAward, FaBookOpen, FaMedal } from "react-icons/fa";
+import { Award, BookOpen, Medal } from "lucide-react";
 import { authorAvatar } from "@/lib/authorAvatar";
 
 export default function TopWriterCard({ writer, index }) {
@@ -68,7 +68,7 @@ export default function TopWriterCard({ writer, index }) {
         <div
           className={`mt-5 inline-flex items-center gap-2 rounded-full border border-line-soft bg-soft/70 px-4 py-2 backdrop-blur ${rank.text}`}
         >
-          <FaAward />
+          <Award className="h-4 w-4" />
 
           <span className="font-semibold">
             {rank.badge}
@@ -79,7 +79,7 @@ export default function TopWriterCard({ writer, index }) {
         <div className="mt-8 flex justify-center">
           <div className="flex items-center gap-4 rounded-2xl border border-line bg-soft/60 px-6 py-4 backdrop-blur">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500/30 to-fuchsia-500/30 text-indigo-300 ring-1 ring-indigo-500/30">
-              <FaBookOpen className="text-xl" />
+              <BookOpen className="h-6 w-6" />
             </div>
 
             <div className="text-left">
@@ -97,7 +97,7 @@ export default function TopWriterCard({ writer, index }) {
         {/* Footer */}
         <div className="mt-6 flex justify-center">
           <div className="flex items-center gap-2 text-amber-400/90">
-            <FaMedal />
+            <Medal className="h-4 w-4" />
             <span className="text-sm font-medium">
               Featured Writer
             </span>

@@ -2,67 +2,67 @@
 
 import Link from "next/link";
 import {
-  FaBookOpen,
-  FaUserSecret,
-  FaHeart,
-  FaRocket,
-  FaDragon,
-  FaGhost,
-  FaBolt,
-  FaFeatherAlt,
-  FaBrain,
-  FaMask,
-} from "react-icons/fa";
+  BookOpen,
+  Search,
+  Heart,
+  Rocket,
+  Sparkles,
+  Ghost,
+  Zap,
+  Feather,
+  Brain,
+  PenTool,
+} from "lucide-react";
 
 const genres = [
   {
     name: "Fiction",
-    icon: <FaBookOpen />,
+    icon: <BookOpen className="h-7 w-7" />,
     color: "from-pink-500 to-rose-500",
   },
   {
     name: "Mystery",
-    icon: <FaUserSecret />,
+    icon: <Search className="h-7 w-7" />,
     color: "from-indigo-500 to-purple-500",
   },
   {
     name: "Romance",
-    icon: <FaHeart />,
+    icon: <Heart className="h-7 w-7" />,
     color: "from-red-500 to-pink-500",
   },
   {
     name: "Sci-Fi",
-    icon: <FaRocket />,
+    icon: <Rocket className="h-7 w-7" />,
     color: "from-cyan-500 to-blue-500",
   },
   {
     name: "Fantasy",
-    icon: <FaDragon />,
+    icon: <Sparkles className="h-7 w-7" />,
     color: "from-purple-500 to-fuchsia-500",
   },
   {
     name: "Horror",
-    icon: <FaGhost />,
-    color: "from-gray-700 to-black",
+    icon: <Ghost className="h-7 w-7" />,
+    color: "from-gray-600 to-slate-800",
   },
   {
     name: "Thriller",
-    icon: <FaBolt />,
+    icon: <Zap className="h-7 w-7" />,
     color: "from-yellow-500 to-orange-500",
   },
   {
     name: "Biography",
-    icon: <FaFeatherAlt />,
+    icon: <Feather className="h-7 w-7" />,
     color: "from-green-500 to-emerald-500",
   },
   {
     name: "Self Development",
-    icon: <FaBrain />,
+    icon: <Brain className="h-7 w-7" />,
     color: "from-blue-500 to-indigo-500",
   },
   {
     name: "Poetry",
-    icon: <FaMask />,
+    icon: <PenTool className="h-7 w-7" />,
     color: "from-violet-500 to-purple-500",
   },
 ];
