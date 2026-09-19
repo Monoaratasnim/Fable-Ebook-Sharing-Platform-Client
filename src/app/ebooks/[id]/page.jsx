@@ -1,4 +1,5 @@
 import EbookDetails from "@/components/EbookDetails";
+import Footer from "@/components/Footer";
 
 async function getEbook(id) {
   const res = await fetch(
@@ -26,5 +27,10 @@ export default async function Page({ params }) {
     );
   }
 
-  return <EbookDetails ebook={ebook} />;
+  return (
+    <>
+      <EbookDetails ebook={ebook} />
+      <Footer />
+    </>
+  );
 }

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 import EbookCard from "@/components/EbookCard";
 import EbookSkeleton from "@/components/EbookSkeleton";
+import Footer from "@/components/Footer";
 import SelectDropdown from "@/components/SelectDropdown";
 
 import {
@@ -106,7 +107,8 @@ export default function BrowsePage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10">
+    <>
+      <div className="mx-auto max-w-7xl px-4 py-10">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -302,6 +304,8 @@ export default function BrowsePage() {
           </button>
         </div>
       )}
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }

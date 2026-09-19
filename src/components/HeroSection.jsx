@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-import { Users, Flame, Star, BookOpen } from "lucide-react";
+import { Users, BadgeCheck, Star, BookOpen, TrendingUp } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -120,7 +120,7 @@ function HeroArt() {
       >
         <div className="flex items-center gap-2.5">
           <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-orange-500/20 text-orange-300 ring-1 ring-orange-400/30">
-            <Flame className="h-4 w-4" />
+            <TrendingUp className="h-4 w-4" />
           </span>
           <div>
             <p className="text-sm font-bold leading-none text-white">#1 Trending</p>
@@ -210,7 +210,7 @@ export default function HeroSwiper() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.7 }}
-                        className="text-3xl font-bold leading-[1.12] [text-shadow:0_0_40px_rgba(129,140,248,0.45)] sm:text-5xl md:text-6xl"
+                        className="text-3xl font-extrabold leading-[1.12] tracking-tight text-white [text-shadow:0_2px_14px_rgba(2,6,23,0.6)] sm:text-5xl md:text-6xl"
                       >
                         {slide.title}
                       </motion.h1>
@@ -228,7 +228,7 @@ export default function HeroSwiper() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.7 }}
-                        className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base md:text-lg lg:mx-0"
+                        className="mx-auto mt-5 max-w-xl text-sm font-medium leading-relaxed text-slate-200 [text-shadow:0_1px_10px_rgba(2,6,23,0.6)] sm:text-base md:text-lg lg:mx-0"
                       >
                         {slide.desc}
                       </motion.p>
