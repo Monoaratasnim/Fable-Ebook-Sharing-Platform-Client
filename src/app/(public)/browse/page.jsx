@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
 import EbookCard from "@/components/EbookCard";
@@ -51,12 +52,14 @@ const AVAILABILITY_OPTIONS = [
   { value: "sold", label: "Sold" },
 ];
 
-export default function BrowsePage() {
+function BrowseContent() {
+  const searchParams = useSearchParams();
+
   const [ebooks, setEbooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(searchParams?.get("search") || "");
   const [genre, setGenre] = useState("all");
   const [sort, setSort] = useState("");
 
@@ -307,5 +310,13 @@ export default function BrowsePage() {
       </div>
       <Footer />
     </>
+  );
+}
+
+export default function BrowsePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen" />}>
+      <BrowseContent />
+    </Suspense>
   );
 }

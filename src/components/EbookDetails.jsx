@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { addNotification } from "@/lib/notifications";
 import toast from "react-hot-toast";
 
 export default function EbookDetails({ ebook }) {
@@ -145,6 +146,15 @@ export default function EbookDetails({ ebook }) {
       }
 
       setBookmarked(data.bookmarked);
+
+      // ================= BOOKMARK NOTIFICATION =================
+      if (data.bookmarked) {
+        addNotification({
+          email: userEmail,
+          type: "bookmark",
+          message: `Successfully bookmarked "${ebook.title}"`,
+        });
+      }
     } catch (err) {
       console.log(err);
       toast.error("Something went wrong");
@@ -211,6 +221,23 @@ export default function EbookDetails({ ebook }) {
       setBuyLoading(false);
     }
   };
+
+  // ================= PURCHASE CONFIRMATION NOTIFICATION =================
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!userEmail || !ebook?._id) return;
+
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("success") !== "true") return;
+
+    addNotification({
+      email: userEmail,
+      type: "purchase",
+      message: `New purchase recorded: "${ebook.title}" - $${ebook.price}`,
+      dedupeKey: `purchase:${ebook._id}`,
+    });
+  }, [userEmail, ebook?._id, ebook?.title, ebook?.price]);
 
   return (
   <div className="min-h-screen bg-page py-6 md:py-10 px-4">
