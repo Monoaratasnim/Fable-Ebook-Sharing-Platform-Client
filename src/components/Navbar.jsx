@@ -93,9 +93,9 @@ export default function Navbar() {
             {/* Logo Image */}
             <div className="flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16 md:h-18 md:w-18 lg:h-20 lg:w-20 drop-shadow-[0_0_18px_rgba(129,140,248,0.35)]">
               <img
-                src="/images/logo.png"
-                alt="Fable"
-                className="h-full w-full scale-110 object-contain transition-transform duration-500 group-hover:scale-125 sm:scale-125"
+                src="/images/logo.jpg"
+                alt="Fable Logo"
+                className="h-full w-auto scale-110 object-contain transition-transform duration-500 group-hover:scale-125 sm:scale-125"
               />
             </div>
 

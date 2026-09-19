@@ -33,9 +33,9 @@ export default function Footer() {
           <div className="text-center sm:text-left">
             <div className="flex items-center justify-center gap-3 sm:justify-start">
               <img
-                src="/images/logo.png"
-                alt="Fable"
-                className="h-12 w-12 object-contain drop-shadow-[0_0_14px_rgba(129,140,248,0.5)]"
+                src="/images/logo.jpg"
+                alt="Fable Logo"
+                className="h-12 w-auto object-contain drop-shadow-[0_0_14px_rgba(129,140,248,0.5)]"
               />
 
               <div>

@@ -14,9 +14,9 @@ export default function DashboardLayout({ children }) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-page">
         <img
-          src="/images/logo.png"
-          alt="Fable"
-          className="h-16 w-16 object-contain drop-shadow-[0_0_18px_rgba(129,140,248,0.5)]"
+          src="/images/logo.jpg"
+          alt="Fable Logo"
+          className="h-16 w-auto object-contain drop-shadow-[0_0_18px_rgba(129,140,248,0.5)]"
         />
         <div className="flex items-center gap-2 text-sm text-muted">
           <span className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
