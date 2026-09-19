@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { BookOpen, Mail, User } from "lucide-react";
 
 const genres = [
   "Fiction",
@@ -119,16 +120,33 @@ export default function AddEbookForm() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="mx-auto max-w-5xl pb-8 mb-12">
       {/* Header */}
-      <div className="card p-6 mb-6">
-        <h1 className="text-3xl font-bold text-ink">
-          Add New Ebook
-        </h1>
+      <div className="card relative overflow-hidden p-6 mb-6">
+        <div
+          aria-hidden
+          className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute -right-16 -top-20 h-48 w-48 rounded-full bg-indigo-500/15 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="absolute -bottom-24 -left-10 h-40 w-40 rounded-full bg-fuchsia-500/10 blur-3xl"
+        />
 
-        <p className="text-muted mt-2">
-          Upload and publish your ebook for readers around the world.
-        </p>
+        <div className="relative">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-400">
+            Writer Studio
+          </p>
+          <h1 className="text-2xl md:text-3xl font-bold text-ink">
+            Add New <span className="brand-text">Ebook</span>
+          </h1>
+          <p className="mt-2 text-sm text-muted">
+            Upload and publish your ebook for readers around the world.
+          </p>
+        </div>
       </div>
 
       {/* Form */}
@@ -200,7 +218,7 @@ export default function AddEbookForm() {
             name="cover"
             required
             accept="image/*"
-            className="input file:mr-3 file:rounded-lg file:border-0 file:bg-blue-500/10 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-blue-400"
+            className="input file:mr-3 file:rounded-lg file:border-0 file:bg-indigo-500/15 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-indigo-400 dark:file:bg-indigo-500/20 dark:file:text-indigo-300"
           />
         </div>
 
@@ -221,35 +239,52 @@ export default function AddEbookForm() {
 
         {/* Writer Info */}
         <div className="grid md:grid-cols-2 gap-5">
-          <div className="rounded-xl border border-line bg-soft/60 p-4">
-            <p className="text-sm text-muted">
-              Writer Name
-            </p>
+          <div className="flex items-start gap-3 rounded-xl border border-indigo-500/15 bg-gradient-to-br from-indigo-500/10 to-violet-500/5 p-4">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-400 ring-1 ring-indigo-500/25">
+              <User className="h-4 w-4" />
+            </span>
 
-            <p className="font-semibold text-ink">
-              {session?.user?.name}
-            </p>
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-faint">
+                Writer Name
+              </p>
+              <p className="mt-1 truncate font-semibold text-ink">
+                {session?.user?.name}
+              </p>
+            </div>
           </div>
 
-          <div className="rounded-xl border border-line bg-soft/60 p-4">
-            <p className="text-sm text-muted">
-              Writer Email
-            </p>
+          <div className="flex items-start gap-3 rounded-xl border border-indigo-500/15 bg-gradient-to-br from-indigo-500/10 to-violet-500/5 p-4">
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-indigo-500/15 text-indigo-400 ring-1 ring-indigo-500/25">
+              <Mail className="h-4 w-4" />
+            </span>
 
-            <p className="font-semibold text-ink break-all">
-              {session?.user?.email}
-            </p>
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-faint">
+                Writer Email
+              </p>
+              <p className="mt-1 truncate font-semibold text-ink break-all">
+                {session?.user?.email}
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn btn-primary w-full md:w-auto"
-        >
-          {loading ? "Uploading..." : "Publish Ebook"}
-        </button>
+        <div className="pt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary w-full sm:w-auto sm:px-10"
+          >
+            {loading ? "Uploading..." : "Publish Ebook"}
+          </button>
+
+          <p className="flex items-center gap-1.5 text-xs text-faint">
+            <BookOpen className="h-3.5 w-3.5" />
+            Your ebook will appear on the marketplace once published.
+          </p>
+        </div>
       </form>
     </div>
   );

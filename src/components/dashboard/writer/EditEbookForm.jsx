@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { BookOpen } from "lucide-react";
 
 export default function EditEbookForm({ ebook }) {
   const router = useRouter();
@@ -79,15 +80,25 @@ export default function EditEbookForm({ ebook }) {
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="card p-4 md:p-6 lg:p-8">
+    <div className="mx-auto max-w-5xl pb-8 mb-12">
+      <div className="card relative overflow-hidden p-6 md:p-8">
+        {/* top hairline + glow */}
+        <div
+          aria-hidden
+          className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/70 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute -right-16 -top-20 h-48 w-48 rounded-full bg-indigo-500/15 blur-3xl"
+        />
+
         <form
           onSubmit={handleSubmit}
-          className="space-y-6"
+          className="relative space-y-6"
         >
           {/* TITLE */}
           <div>
-            <label className="block font-medium text-ink mb-2">
+            <label className="block text-sm font-semibold text-ink mb-2">
               Ebook Title
             </label>
 
@@ -105,7 +116,7 @@ export default function EditEbookForm({ ebook }) {
 
           {/* COVER IMAGE */}
           <div>
-            <label className="block font-medium text-ink mb-2">
+            <label className="block text-sm font-semibold text-ink mb-2">
               Cover Image URL
             </label>
 
@@ -124,7 +135,7 @@ export default function EditEbookForm({ ebook }) {
           {/* PREVIEW */}
           {coverImage && (
             <div>
-              <p className="font-medium text-ink mb-3">
+              <p className="mb-3 text-sm font-semibold text-ink">
                 Cover Preview
               </p>
 
@@ -146,7 +157,7 @@ export default function EditEbookForm({ ebook }) {
           {/* GENRE + PRICE */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block font-medium text-ink mb-2">
+              <label className="block text-sm font-semibold text-ink mb-2">
                 Genre
               </label>
 
@@ -204,7 +215,7 @@ export default function EditEbookForm({ ebook }) {
             </div>
 
             <div>
-              <label className="block font-medium text-ink mb-2">
+              <label className="block text-sm font-semibold text-ink mb-2">
                 Price ($)
               </label>
 
@@ -224,7 +235,7 @@ export default function EditEbookForm({ ebook }) {
 
           {/* DESCRIPTION */}
           <div>
-            <label className="block font-medium text-ink mb-2">
+            <label className="block text-sm font-semibold text-ink mb-2">
               Description / Full Content
             </label>
 
@@ -241,15 +252,22 @@ export default function EditEbookForm({ ebook }) {
           </div>
 
           {/* BUTTON */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn btn-primary w-full"
-          >
-            {loading
-              ? "Updating Ebook..."
-              : "Update Ebook"}
-          </button>
+          <div className="pt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-primary w-full sm:w-auto sm:px-10"
+            >
+              {loading
+                ? "Updating Ebook..."
+                : "Update Ebook"}
+            </button>
+
+            <p className="flex items-center gap-1.5 text-xs text-faint">
+              <BookOpen className="h-3.5 w-3.5" />
+              Changes go live on the marketplace immediately.
+            </p>
+          </div>
         </form>
       </div>
     </div>
