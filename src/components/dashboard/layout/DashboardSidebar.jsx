@@ -16,6 +16,7 @@ import {
   GraduationCap,
   Feather,
   Crown,
+  Home,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
@@ -178,8 +179,18 @@ export default function DashboardSidebar({ open, setOpen }) {
           })}
         </nav>
 
-        {/* FOOTER — COMPACT USER CARD */}
+        {/* FOOTER — BACK TO HOME + COMPACT USER CARD */}
         <div className="p-4 mt-auto border-t border-line space-y-3">
+          {/* Back to Home */}
+          <Link
+            href="/"
+            aria-label="Back to Home"
+            className="group flex items-center justify-center gap-2 rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-4 py-2.5 text-sm font-medium text-indigo-400 transition-all duration-300 hover:border-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 hover:shadow-[0_0_20px_rgba(99,102,241,0.25)]"
+          >
+            <Home className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
+            Back to Home
+          </Link>
+
           <div className="flex items-center gap-2.5 rounded-xl border border-line bg-gradient-to-br from-indigo-500/10 to-violet-500/5 p-2.5">
             {session?.user?.image ? (
               <img

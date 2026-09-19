@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { Menu, X, ArrowLeft } from "lucide-react";
+import { Menu, X, ArrowLeft, Home } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
@@ -18,13 +18,28 @@ export default function Navbar() {
 
   const user = session?.user;
 
+  const isLanding = pathname === "/";
+
   // ================= SCROLL BLUR =================
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const getThreshold = () => {
+      if (isLanding) {
+        const hero = document.getElementById("home-hero");
+        if (hero) return Math.max(hero.offsetHeight - 80, 120);
+      }
+      return 24;
+    };
+
+    const update = () => setScrolled(window.scrollY > getThreshold());
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [isLanding]);
 
   // ================= GOOGLE SIGNUP DETECTION =================
   // ONLY hide user when:
@@ -82,7 +97,9 @@ export default function Navbar() {
       className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
           ? "border-b border-line bg-page/80 shadow-lg shadow-indigo-950/30 backdrop-blur-2xl"
-          : "border-b border-transparent bg-page/40 backdrop-blur-md"
+          : isLanding
+            ? "border-transparent bg-transparent shadow-none"
+            : "border-b border-transparent bg-page/40 backdrop-blur-md"
       }`}
     >
       <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

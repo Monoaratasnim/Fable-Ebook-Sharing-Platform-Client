@@ -149,7 +149,7 @@ function HeroArt() {
 
 export default function HeroSwiper() {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section id="home-hero" className="relative w-full -mt-18 overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{
