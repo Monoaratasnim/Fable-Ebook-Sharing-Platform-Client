@@ -82,7 +82,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-page relative flex min-h-screen items-center justify-center overflow-x-clip px-4 pb-12 pt-24 md:px-6 md:pb-16 md:pt-28">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-page px-4 py-4">
       {/* ============ BACKGROUND ============ */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
@@ -101,21 +101,21 @@ export default function LoginPage() {
       {/* ============ CARD ============ */}
       <div className="relative z-10 w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-200/80 bg-white/90 shadow-2xl shadow-indigo-950/20 backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-900/90 md:grid md:grid-cols-2">
         {/* ============ LEFT PANEL — BRAND (hidden mobile) ============ */}
-        <div className="relative hidden overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 md:flex md:flex-col md:justify-between p-10 lg:p-12">
+        <div className="relative hidden overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 md:flex md:flex-col md:justify-between p-8 lg:p-10">
           {/* decorative glows */}
           <div aria-hidden className="pointer-events-none absolute -left-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-2xl" />
           <div aria-hidden className="pointer-events-none absolute -bottom-20 -right-10 h-72 w-72 rounded-full bg-fuchsia-400/20 blur-3xl" />
 
           {/* top brand */}
           <div className="relative z-10">
-            <div className="mb-10 flex items-center gap-3">
+            <div className="mb-8 flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 shadow-lg shadow-indigo-800/30">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
               <span className="text-xl font-bold text-white">Fable</span>
             </div>
 
-            <h2 className="mb-3 text-3xl font-bold leading-snug tracking-tight text-white lg:text-4xl">
+            <h2 className="mb-3 text-2xl font-bold leading-snug tracking-tight text-white lg:text-3xl">
               Welcome Back
             </h2>
             <p className="max-w-xs text-sm leading-relaxed text-indigo-100/80">
@@ -124,7 +124,7 @@ export default function LoginPage() {
           </div>
 
           {/* features */}
-          <div className="relative z-10 space-y-3">
+          <div className="relative z-10 space-y-2.5">
             {[
               "Thousands of curated ebooks",
               "Sync across all your devices",
@@ -138,7 +138,7 @@ export default function LoginPage() {
           </div>
 
           {/* bottom decorative stats */}
-          <div className="relative z-10 mt-10 grid grid-cols-3 gap-3">
+          <div className="relative z-10 mt-8 grid grid-cols-3 gap-3">
             {[
               { label: "Readers", value: "12k+" },
               { label: "Ebooks", value: "500+" },
@@ -146,9 +146,9 @@ export default function LoginPage() {
             ].map((s) => (
               <div
                 key={s.label}
-                className="rounded-xl border border-white/15 bg-white/10 p-3 text-center backdrop-blur-sm"
+                className="rounded-xl border border-white/15 bg-white/10 p-2.5 text-center backdrop-blur-sm"
               >
-                <p className="text-lg font-bold text-white">{s.value}</p>
+                <p className="text-base font-bold text-white">{s.value}</p>
                 <p className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-indigo-200/70">
                   {s.label}
                 </p>
@@ -158,9 +158,9 @@ export default function LoginPage() {
         </div>
 
         {/* ============ RIGHT PANEL — FORM ============ */}
-        <div className="relative p-6 sm:p-8 lg:p-10">
+        <div className="relative p-6 sm:p-7 lg:p-8">
           {/* mobile-only compact brand */}
-          <div className="mb-6 flex items-center justify-center gap-2.5 md:hidden">
+          <div className="mb-4 flex items-center justify-center gap-2.5 md:hidden">
             <img
               src="/images/logo.png"
               alt="Fable Logo"
@@ -169,24 +169,24 @@ export default function LoginPage() {
             <span className="brand-text text-lg font-bold">Fable</span>
           </div>
 
-          <div className="mb-6 text-center">
+          <div className="mb-4 text-center">
             <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
               Sign in to <span className="brand-text">Fable</span>
             </h1>
-            <p className="mt-2 text-sm text-muted">
+            <p className="mt-1 text-sm text-muted">
               Enter your credentials to access your account
             </p>
           </div>
 
           {error && (
-            <div className="mb-5 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-sm text-rose-400">
+            <div className="mb-4 rounded-xl border border-rose-500/30 bg-rose-500/10 p-2.5 text-sm text-rose-400">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-3">
             <div>
-              <label className="mb-2 block text-sm font-medium text-ink">
+              <label className="mb-1.5 block text-sm font-medium text-ink">
                 Email Address
               </label>
               <div className="relative">
@@ -197,13 +197,13 @@ export default function LoginPage() {
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="you@example.com"
-                  className="input h-13 pl-12 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                  className="input h-12 pl-11 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-ink">
+              <label className="mb-1.5 block text-sm font-medium text-ink">
                 Password
               </label>
               <div className="relative">
@@ -214,7 +214,7 @@ export default function LoginPage() {
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
                   placeholder="••••••••"
-                  className="input h-13 pl-12 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+                  className="input h-12 pl-11 shadow-inner focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
             </div>
@@ -222,13 +222,13 @@ export default function LoginPage() {
             <Button
               type="submit"
               isLoading={loading}
-              className="h-13 w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 font-semibold text-white shadow-lg shadow-indigo-600/30 transition-all hover:shadow-xl hover:shadow-indigo-600/45 hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]"
+              className="h-12 w-full rounded-xl bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 font-semibold text-white shadow-lg shadow-indigo-600/30 transition-all hover:shadow-xl hover:shadow-indigo-600/45 hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]"
             >
               Sign In
             </Button>
           </form>
 
-          <div className="my-5 flex items-center gap-3">
+          <div className="my-4 flex items-center gap-3">
             <div className="h-px flex-1 bg-line" />
             <span className="text-xs font-medium uppercase text-faint">OR</span>
             <div className="h-px flex-1 bg-line" />
@@ -238,13 +238,13 @@ export default function LoginPage() {
             variant="bordered"
             isLoading={googleLoading}
             onClick={handleGoogleLogin}
-            className="flex h-13 w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white/70 text-ink backdrop-blur transition-all hover:border-indigo-400 hover:bg-indigo-50/70 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-slate-700 dark:bg-slate-900/60 dark:hover:bg-indigo-600/15"
+            className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white/70 text-ink backdrop-blur transition-all hover:border-indigo-400 hover:bg-indigo-50/70 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-slate-700 dark:bg-slate-900/60 dark:hover:bg-indigo-600/15"
           >
             <FaGoogle className="h-4 w-4" />
             Continue with Google
           </Button>
 
-          <p className="mt-6 text-center text-sm text-muted">
+          <p className="mt-4 text-center text-sm text-muted">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
