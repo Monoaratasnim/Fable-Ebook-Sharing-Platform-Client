@@ -336,35 +336,14 @@ export default function Navbar() {
               : "pointer-events-none max-h-0 opacity-0"
           }`}
         >
-          <div className="mx-3 mb-4 rounded-2xl border border-line bg-panel/95 p-4 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:mx-6 sm:p-5">
-            {/* Brand — the X in the bar above already closes the drawer,
-                so no redundant back/home button lives here. */}
-            <div className="mb-5 flex items-center gap-3 border-b border-line pb-4">
-              <Link
-                href="/"
-                onClick={closeMobile}
-                className="group flex min-w-0 items-center gap-2.5"
-              >
-                <img
-                  src="/images/logo.png"
-                  alt="Fable Logo"
-                  className="h-8 w-auto shrink-0 bg-transparent object-contain transition-transform duration-300 group-hover:scale-110"
-                />
-
-                <div className="flex min-w-0 flex-col leading-none">
-                  <span className="brand-text text-lg font-semibold">
-                    Fable
-                  </span>
-                  <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.25em] text-faint">
-                    Discover Stories
-                  </span>
-                </div>
-              </Link>
-            </div>
+          <div className="mx-3 mb-4 rounded-2xl border border-line bg-panel/95 p-3 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:mx-6 sm:p-4">
+            {/* No brand block here: the navbar directly above already shows
+                the logo, name and tagline, and the X already closes the
+                drawer — repeating them inside was pure redundancy. */}
 
             {/* User Info */}
             {isLoggedIn && (
-              <div className="mb-5 flex items-center gap-3 border-b border-line pb-5">
+              <div className="mb-4 flex items-center gap-3 border-b border-line pb-4">
                 {user?.image ? (
                   <img
                     src={user.image}
@@ -456,14 +435,10 @@ export default function Navbar() {
                     Login
                   </Link>
 
-                  {/* Primary CTA — centred and contained so it reads as a
-                      deliberate button rather than a stretched banner.
-                      Explicit `py-3.5` because `.btn` alone carries no
-                      padding (only the btn-sm/md/lg modifiers do). */}
                   <Link
                     href="/register"
                     onClick={closeMobile}
-                    className="btn btn-primary mx-auto mt-2.5 w-fit rounded-2xl px-8 py-3.5 text-sm"
+                    className={mobileNavLinkClass("/register")}
                   >
                     Sign Up
                   </Link>
