@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { Menu, X, ArrowLeft, Home } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Navbar() {
@@ -121,9 +121,9 @@ export default function Navbar() {
     }`;
 
   const mobileNavLinkClass = (path) =>
-    `rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 ${
+    `flex w-full items-center rounded-xl px-4 py-3 text-left text-sm font-medium transition-all duration-300 ${
       isActive(path)
-        ? "bg-indigo-500/15 text-ink"
+        ? "bg-indigo-500/15 text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
         : "text-muted hover:bg-glass hover:text-ink"
     }`;
 
@@ -337,8 +337,9 @@ export default function Navbar() {
           }`}
         >
           <div className="mx-3 mb-4 rounded-2xl border border-line bg-panel/95 p-4 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:mx-6 sm:p-5">
-            {/* Brand */}
-            <div className="mb-5 flex items-center justify-between gap-3 border-b border-line pb-4">
+            {/* Brand — the X in the bar above already closes the drawer,
+                so no redundant back/home button lives here. */}
+            <div className="mb-5 flex items-center gap-3 border-b border-line pb-4">
               <Link
                 href="/"
                 onClick={closeMobile}
@@ -359,15 +360,6 @@ export default function Navbar() {
                   </span>
                 </div>
               </Link>
-
-              <Link
-                href="/"
-                onClick={closeMobile}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-glass text-muted transition-all duration-300 hover:text-ink"
-                aria-label="Back to Home"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </Link>
             </div>
 
             {/* User Info */}
@@ -377,10 +369,10 @@ export default function Navbar() {
                   <img
                     src={user.image}
                     alt={user.name}
-                    className="h-12 w-12 rounded-full border border-line object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
+                    className="h-12 w-12 shrink-0 rounded-full border border-line object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
                   />
                 ) : (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 font-bold text-white">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 font-bold text-white">
                     {user?.name?.charAt(0)}
                   </div>
                 )}
@@ -395,7 +387,7 @@ export default function Navbar() {
               </div>
             )}
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <Link
                 href="/"
                 onClick={closeMobile}
@@ -427,7 +419,12 @@ export default function Navbar() {
               >
                 Privacy Policy
               </Link>
+            </div>
 
+            {/* Divider — separates navigation from the account actions */}
+            <div className="my-4 h-px w-full bg-line" role="separator" />
+
+            <div className="flex flex-col gap-1.5">
               {isLoggedIn ? (
                 <>
                   <Link
@@ -443,8 +440,9 @@ export default function Navbar() {
                       closeMobile();
                       handleLogout();
                     }}
-                    className="mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-left font-medium text-rose-400 transition-all duration-300 hover:bg-rose-500/20"
+                    className="mt-2 flex w-full items-center gap-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-left text-sm font-medium text-rose-400 transition-all duration-300 hover:bg-rose-500/20"
                   >
+                    <LogOut className="h-4 w-4 shrink-0" />
                     Logout
                   </button>
                 </>
@@ -453,15 +451,19 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={closeMobile}
-                    className="rounded-xl px-4 py-3 text-sm font-medium text-muted transition-all duration-300 hover:bg-glass hover:text-ink"
+                    className={mobileNavLinkClass("/login")}
                   >
                     Login
                   </Link>
 
+                  {/* Primary CTA — centred and contained so it reads as a
+                      deliberate button rather than a stretched banner.
+                      Explicit `py-3.5` because `.btn` alone carries no
+                      padding (only the btn-sm/md/lg modifiers do). */}
                   <Link
                     href="/register"
                     onClick={closeMobile}
-                    className="btn btn-primary mt-2 w-full rounded-xl"
+                    className="btn btn-primary mx-auto mt-2.5 w-fit rounded-2xl px-8 py-3.5 text-sm"
                   >
                     Sign Up
                   </Link>
