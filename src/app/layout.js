@@ -20,6 +20,20 @@ export const metadata = {
   description: "Ebook Sharing Platform",
 };
 
+// Explicit viewport: guarantees `1rem === 16px` on mobile (no
+// browser font inflation), honours notched devices via `viewportFit`,
+// and lets the address bar collapse on scroll so 100svh is honest.
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0b1120" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f3ee" },
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html

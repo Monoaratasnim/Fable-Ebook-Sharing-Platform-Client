@@ -90,6 +90,59 @@
   mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
 }
 
+/* ============================================================
+   HERO CAROUSEL — layout resets
+   Swiper ships `position: relative; z-index: 1` plus a fixed
+   height on `.swiper`/`.swiper-wrapper`/`.swiper-slide`. Both
+   cause bugs here:
+     1. z-index:1 competes with the sticky header instead of
+        sitting safely beneath it.
+     2. The fixed height CLIPS the hero copy on short viewports,
+        pushing the headline up behind the navbar.
+   We let the slides size to their content and keep the navbar
+   as the only elevated layer.
+   ============================================================ */
+.hero-swiper,
+.hero-swiper .swiper-wrapper,
+.hero-swiper .swiper-slide {
+  height: auto !important;
+  min-height: 0;
+}
+
+.hero-swiper {
+  z-index: 0 !important;
+}
+
+/* Pagination bullets — sized for touch and kept clear of the fold. */
+.hero-swiper .swiper-pagination {
+  bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+  width: 22px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.35);
+  opacity: 1;
+  margin: 0 4px !important;
+  transition: all 0.3s ease;
+}
+
+.hero-swiper .swiper-pagination-bullet-active {
+  width: 38px;
+  background: linear-gradient(90deg, #6366f1, #c026d3);
+  box-shadow: 0 0 14px rgba(129, 140, 248, 0.8);
+}
+
+/* Respect users who ask for less motion — kill decorative loops. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-glow,
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
 /* ---------- Themed CSS variables ---------- */
 :root {
   --font-body: var(--font-poppins);
@@ -129,10 +182,28 @@ html.light {
   color-scheme: light;
 }
 
+/* ============================================================
+   HEADER HEIGHT TOKEN — single source of truth
+   The navbar is `sticky` (so it occupies real flow space) and the
+   hero is pulled up by exactly this amount to sit beneath it.
+   Because both read the SAME variable, they can never drift apart
+   and content can never slide underneath the bar.
+   ============================================================ */
+:root {
+  --nav-h: 4rem; /* 64px — phones */
+}
+@media (min-width: 640px) {
+  :root {
+    --nav-h: 4.5rem; /* 72px — sm and up */
+  }
+}
+
 /* ---------- Base ---------- */
 html {
   background-color: var(--bg-page);
   overflow-x: clip;
+  /* Anchor links / scroll-into-view land below the sticky navbar. */
+  scroll-padding-top: var(--nav-h);
 }
 
 body {

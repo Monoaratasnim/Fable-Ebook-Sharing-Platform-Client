@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -47,6 +48,39 @@ export default function DashboardSidebar({ open, setOpen }) {
 
   const role = session?.user?.role || "user";
 
+  // Lock the page behind the mobile drawer, and close it on navigation.
+  // The scrollbar width is replaced with padding so nothing shifts.
+  useEffect(() => {
+    if (!open) return;
+
+    const { body } = document;
+    const prevOverflow = body.style.overflow;
+    const prevPaddingRight = body.style.paddingRight;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      body.style.overflow = prevOverflow;
+      body.style.paddingRight = prevPaddingRight;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, setOpen]);
+
+  // Close on navigation (setState on a parent prop is fine here).
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname, setOpen]);
+
   const userLinks = [
     { name: "Dashboard", href: "/dashboard/user", icon: <LayoutDashboard className="h-4 w-4" /> },
     { name: "Bookmarks", href: "/dashboard/user/bookmarks", icon: <Bookmark className="h-4 w-4" /> },
@@ -88,12 +122,13 @@ export default function DashboardSidebar({ open, setOpen }) {
       <aside
         className={`
           fixed inset-y-0 left-0 z-50
-          w-72 md:sticky md:top-0 md:h-screen md:shrink-0
-          flex flex-col overflow-y-auto
+          w-[min(18rem,85vw)] md:sticky md:top-0 md:h-screen md:shrink-0 md:w-72
+          flex flex-col overflow-y-auto overscroll-contain
           bg-panel/95 backdrop-blur-2xl border-r border-line
           shadow-xl md:shadow-none
           transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+          ${open ? "max-md:visible max-md:pointer-events-auto" : "max-md:invisible max-md:pointer-events-none"}
         `}
       >
         {/* decorative glow layers */}

@@ -98,7 +98,7 @@ function HeroArt() {
 
       {/* LIVE READERS BADGE */}
       <div
-        className="absolute -left-8 top-10 animate-float rounded-2xl border border-white/20 bg-white/10 px-4 py-3 shadow-xl shadow-indigo-950/60 backdrop-blur-xl"
+        className="absolute -left-4 top-10 animate-float rounded-2xl border border-white/20 bg-white/10 px-4 py-3 shadow-xl shadow-indigo-950/60 backdrop-blur-xl xl:-left-8"
         style={{ animationDelay: "1.2s" }}
       >
         <div className="flex items-center gap-2.5">
@@ -115,7 +115,7 @@ function HeroArt() {
 
       {/* TRENDING BADGE */}
       <div
-        className="absolute -right-4 top-1/3 z-10 animate-float rounded-2xl border border-white/20 bg-white/10 px-4 py-3 shadow-xl shadow-indigo-950/60 backdrop-blur-xl"
+        className="absolute -right-2 top-1/3 z-10 animate-float rounded-2xl border border-white/20 bg-white/10 px-4 py-3 shadow-xl shadow-indigo-950/60 backdrop-blur-xl xl:-right-4"
         style={{ animationDelay: "2.1s" }}
       >
         <div className="flex items-center gap-2.5">
@@ -149,7 +149,13 @@ function HeroArt() {
 
 export default function HeroSwiper() {
   return (
-    <section id="home-hero" className="relative w-full -mt-18 overflow-hidden">
+    // Pulled up by EXACTLY the navbar height (single source of truth =
+    // --nav-h in globals.css), so the hero always starts flush with the
+    // top of the viewport and can never drift away from the header.
+    <section
+      id="home-hero"
+      className="relative -mt-[var(--nav-h)] w-full overflow-hidden"
+    >
       <Swiper
         modules={[Autoplay, Pagination, EffectFade]}
         autoplay={{
@@ -159,11 +165,11 @@ export default function HeroSwiper() {
         pagination={{ clickable: true }}
         effect="fade"
         loop
-        className="h-[70vh] min-h-[560px] sm:h-[75vh] lg:h-screen"
+        className="hero-swiper"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={`slide-${index}`}>
-            <div className="relative h-full w-full">
+            <div className="relative w-full">
               {/* Background Image */}
               <Image
                 src={slide.image}
@@ -182,10 +188,14 @@ export default function HeroSwiper() {
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(192,38,211,0.16),transparent_50%)]" />
               <div className="absolute inset-0 bg-grid-slate opacity-60" />
 
-              {/* Content */}
-              <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl items-center justify-center px-4 sm:px-8 lg:px-12">
+              {/* Content — height is driven by the copy, never by a fixed
+                  pixel value, so nothing is clipped on short screens.
+                  `min-h` keeps it filling the fold on tall ones.
+                  `pt-[var(--nav-h)]` guarantees clearance beneath the
+                  sticky navbar on every breakpoint. */}
+              <div className="relative z-10 mx-auto flex min-h-[calc(100svh-1rem)] w-full max-w-7xl flex-col justify-center px-4 pb-20 pt-[calc(var(--nav-h)+2rem)] sm:px-6 sm:pb-24 sm:pt-[calc(var(--nav-h)+3rem)] lg:px-12 lg:pb-28 lg:pt-[calc(var(--nav-h)+4rem)]">
                 {/* two-column split */}
-                <div className="grid w-full items-center gap-10 py-20 sm:py-24 lg:grid-cols-12 lg:py-28">
+                <div className="grid w-full items-center gap-10 lg:grid-cols-12 lg:gap-8">
                   {/* LEFT — text */}
                   <div className="flex flex-col items-center text-center lg:col-span-7 lg:items-start lg:text-left">
                     <motion.div
@@ -199,7 +209,7 @@ export default function HeroSwiper() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.1, duration: 0.6 }}
-                        className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/10 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-indigo-200 shadow-[0_0_20px_rgba(99,102,241,0.25)] backdrop-blur-md sm:text-xs"
+                        className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/10 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.2em] text-indigo-200 shadow-[0_0_20px_rgba(99,102,241,0.25)] backdrop-blur-md sm:px-4 sm:text-[10px] sm:tracking-[0.3em] sm:text-xs"
                       >
                         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400" />
                         Discover • Read • Publish
@@ -210,7 +220,7 @@ export default function HeroSwiper() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.7 }}
-                        className="text-3xl font-extrabold leading-[1.12] tracking-tight text-white [text-shadow:0_2px_14px_rgba(2,6,23,0.6)] sm:text-5xl md:text-6xl"
+                        className="text-[1.75rem] font-extrabold leading-[1.12] tracking-tight text-white [text-shadow:0_2px_14px_rgba(2,6,23,0.6)] sm:text-5xl md:text-6xl lg:text-[4.25rem]"
                       >
                         {slide.title}
                       </motion.h1>
@@ -238,11 +248,11 @@ export default function HeroSwiper() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.7 }}
-                        className="mt-7 flex flex-col flex-wrap items-center justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
+                        className="mt-6 flex w-full flex-col flex-wrap items-center justify-center gap-3 sm:mt-7 sm:w-auto sm:flex-row sm:gap-4 lg:justify-start"
                       >
                         <Link
                           href="/browse"
-                          className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-8 py-3.5 font-semibold text-white shadow-[0_0_30px_rgba(129,140,248,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(129,140,248,0.8)]"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-6 py-3.5 text-center font-semibold text-white shadow-[0_0_30px_rgba(129,140,248,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_44px_rgba(129,140,248,0.8)] sm:w-auto sm:px-8"
                         >
                           Browse Ebooks
                           <span aria-hidden>→</span>
@@ -250,14 +260,14 @@ export default function HeroSwiper() {
 
                         <Link
                           href="/register"
-                          className="inline-flex items-center gap-2 rounded-2xl border border-slate-400/30 bg-white/5 px-8 py-3.5 font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-400/60 hover:bg-white/10"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-400/30 bg-white/5 px-6 py-3.5 text-center font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-400/60 hover:bg-white/10 sm:w-auto sm:px-8"
                         >
                           Become a Writer
                         </Link>
                       </motion.div>
 
                       {/* Stats */}
-                      <div className="mx-auto mt-10 grid w-full max-w-md grid-cols-3 gap-3 sm:gap-4 lg:mx-0 lg:max-w-lg">
+                      <div className="mx-auto mt-8 grid w-full max-w-md grid-cols-3 gap-2 sm:mt-10 sm:gap-4 lg:mx-0 lg:max-w-lg">
                         <div className="rounded-2xl border border-white/10 bg-white/5 px-2 py-3 text-center backdrop-blur-md sm:px-4 sm:py-4 lg:text-left">
                           <h3 className="bg-gradient-to-r from-indigo-300 to-fuchsia-300 bg-clip-text text-xl font-bold text-transparent sm:text-2xl md:text-3xl">
                             10K+
@@ -298,29 +308,6 @@ export default function HeroSwiper() {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      {/* Pagination */}
-      <style jsx global>{`
-        .swiper-pagination {
-          bottom: 18px !important;
-        }
-
-        .swiper-pagination-bullet {
-          width: 24px;
-          height: 6px;
-          border-radius: 999px;
-          background: rgb(255 255 255 / 0.3);
-          opacity: 1;
-          margin: 0 4px !important;
-          transition: all 0.3s ease;
-        }
-
-        .swiper-pagination-bullet-active {
-          width: 38px;
-          background: linear-gradient(90deg, #6366f1, #c026d3);
-          box-shadow: 0 0 14px rgba(129, 140, 248, 0.8);
-        }
-      `}</style>
     </section>
   );
 }

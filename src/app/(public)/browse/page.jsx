@@ -111,7 +111,7 @@ function BrowseContent() {
 
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -253,7 +253,7 @@ function BrowseContent() {
       )}
 
       {/* GRID */}
-      <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 md:grid-cols-3 md:gap-5 lg:grid-cols-4 lg:gap-6">
         {loading &&
           Array.from({ length: 8 }).map((_, i) => (
             <EbookSkeleton key={i} />

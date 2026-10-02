@@ -62,7 +62,7 @@ export default function FeaturedEbooks() {
 
         {/* Loading */}
         {loading && (
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 min-[380px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 6 }).map((_, i) => (
               <EbookSkeleton key={i} />
             ))}
@@ -71,7 +71,7 @@ export default function FeaturedEbooks() {
 
         {/* Books */}
         {!loading && (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 min-[380px]:grid-cols-2 md:grid-cols-3 lg:gap-6 xl:grid-cols-3">
             {ebooks.map((ebook) => (
               <EbookCard key={ebook._id} ebook={ebook} />
             ))}

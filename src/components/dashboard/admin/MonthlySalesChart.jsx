@@ -25,17 +25,21 @@ export default function MonthlySalesChart({
   const tooltipText = isDark ? "#eef2ff" : "#0f172a";
 
   return (
-    <div className="card p-6">
-      <h2 className="text-xl font-bold text-ink mb-5">
+    <div className="card p-4 sm:p-6">
+      <h2 className="mb-5 text-lg font-bold text-ink sm:text-xl">
         Monthly Revenue
       </h2>
 
-      <div className="h-[350px]">
+      {/* Tall enough for the axis labels on a phone, capped on desktop. */}
+      <div className="h-[280px] sm:h-[350px]">
         <ResponsiveContainer
           width="100%"
           height="100%"
         >
-          <BarChart data={data}>
+          <BarChart
+            data={data}
+            margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+          >
             <CartesianGrid
               strokeDasharray="3 3"
               stroke={gridColor}
@@ -44,16 +48,18 @@ export default function MonthlySalesChart({
 
             <XAxis
               dataKey="month"
-              tick={{ fill: axisColor, fontSize: 12 }}
+              tick={{ fill: axisColor, fontSize: 11 }}
               axisLine={{ stroke: gridColor }}
               tickLine={false}
+              interval="preserveStartEnd"
+              minTickGap={4}
             />
 
             <YAxis
-              tick={{ fill: axisColor, fontSize: 12 }}
+              tick={{ fill: axisColor, fontSize: 11 }}
               axisLine={false}
               tickLine={false}
-              width={48}
+              width={44}
             />
 
             <Tooltip

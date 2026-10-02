@@ -34,29 +34,33 @@ export default function GenrePieChart({
   const tooltipBorder = isDark ? "#242f52" : "#e8e2d6";
   const tooltipText = isDark ? "#eef2ff" : "#0f172a";
   const legendColor = isDark ? "#8f9db8" : "#65718a";
-  const labelColor = isDark ? "#8f9db8" : "#65718a";
 
   return (
-    <div className="card p-6">
-      <h2 className="text-xl font-bold text-ink mb-5">
+    <div className="card p-4 sm:p-6">
+      <h2 className="mb-5 text-lg font-bold text-ink sm:text-xl">
         Ebooks By Genre
       </h2>
 
-      <div className="h-[350px]">
+      <div className="h-[300px] sm:h-[350px]">
         <ResponsiveContainer
           width="100%"
           height="100%"
         >
-          <PieChart>
+          <PieChart
+            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+          >
+            {/* Radius is a % of the smaller chart dimension, so the pie
+                scales with the card instead of overflowing a 320px
+                viewport (previously a hardcoded 110px radius). */}
             <Pie
               data={data}
               dataKey="value"
               nameKey="genre"
-              outerRadius={110}
-              label={{
-                fontSize: 11,
-                fill: labelColor,
-              }}
+              outerRadius="78%"
+              innerRadius="42%"
+              label={false}
+              labelLine={false}
+              paddingAngle={2}
             >
               {data.map((_, index) => (
                 <Cell
@@ -77,9 +81,13 @@ export default function GenrePieChart({
             />
 
             <Legend
+              iconType="circle"
+              iconSize={8}
+              layout="horizontal"
               wrapperStyle={{
                 color: legendColor,
-                fontSize: 12,
+                fontSize: 11,
+                paddingTop: 8,
               }}
             />
           </PieChart>

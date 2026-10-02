@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
@@ -13,28 +13,43 @@ export default function Navbar() {
   const router = useRouter();
   const { data: session, isLoading } = useSession();
 
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [nav, setNav] = useState({ open: false, path: pathname });
   const [scrolled, setScrolled] = useState(false);
 
   const user = session?.user;
 
   const isLanding = pathname === "/";
 
-  // True only when the transparent navbar sits over the hero section.
+  // The drawer is tied to the route it was opened on, so navigating
+  // always closes it. Adjusting state during render (rather than in an
+  // effect) is the pattern React recommends — no extra render pass and
+  // no flash of an open drawer on the new page.
+  if (nav.path !== pathname) {
+    setNav({ open: false, path: pathname });
+  }
+
+  const mobileOpen = nav.open;
+
+  const toggleMobile = useCallback(
+    () => setNav({ open: !nav.open, path: pathname }),
+    [nav.open, pathname],
+  );
+
+  const closeMobile = useCallback(
+    () => setNav((prev) => (prev.open ? { open: false, path: pathname } : prev)),
+    [pathname],
+  );
+
+  // Transparent (hero-showing-through) state ONLY at rest.
+  // The old logic kept the bar transparent for the entire height of
+  // the hero, so hero copy scrolled up behind a see-through bar and
+  // collided with the logo/nav links. Now we flip to a solid,
+  // blurred surface as soon as the page moves at all.
   const atTop = isLanding && !scrolled;
 
   // ================= SCROLL BLUR =================
   useEffect(() => {
-    const getThreshold = () => {
-      if (isLanding) {
-        const hero = document.getElementById("home-hero");
-        if (hero) return Math.max(hero.offsetHeight - 80, 120);
-      }
-      return 24;
-    };
-
-    const update = () => setScrolled(window.scrollY > getThreshold());
-
+    const update = () => setScrolled(window.scrollY > 8);
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
@@ -42,7 +57,41 @@ export default function Navbar() {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [isLanding]);
+  }, []);
+
+  // ================= MOBILE DRAWER: SCROLL LOCK =================
+  // Locks the page behind the open drawer without a layout shift:
+  // the scrollbar's width is replaced with padding so the page
+  // content does not jump sideways when the bar disappears.
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const { body } = document;
+    const prevOverflow = body.style.overflow;
+    const prevPaddingRight = body.style.paddingRight;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      body.style.overflow = prevOverflow;
+      body.style.paddingRight = prevPaddingRight;
+    };
+  }, [mobileOpen]);
+
+  // ================= MOBILE DRAWER: ESCAPE TO CLOSE =================
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") closeMobile();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen, closeMobile]);
 
   // ================= GOOGLE SIGNUP DETECTION =================
   // ONLY hide user when:
@@ -91,7 +140,7 @@ export default function Navbar() {
       await signOut();
       toast.success("Logged out successfully 👋");
 
-      setMobileOpen(false);
+      closeMobile();
       router.replace("/login");
       router.refresh();
     } catch (error) {
@@ -101,28 +150,40 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`sticky top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ${
         scrolled
-          ? "border-b border-slate-200/50 bg-white/80 shadow-sm backdrop-blur-md dark:border-slate-800/50 dark:bg-slate-900/80"
+          ? "border-b border-slate-200/50 bg-white/85 shadow-sm backdrop-blur-xl supports-[backdrop-filter]:bg-white/70 dark:border-slate-800/60 dark:bg-slate-950/80 dark:supports-[backdrop-filter]:bg-slate-950/65"
           : isLanding
-            ? "border-transparent bg-transparent shadow-none"
-            : "border-b border-transparent bg-page/40 backdrop-blur-md"
+            ? "border-b border-transparent bg-transparent shadow-none"
+            : "border-b border-transparent bg-page/70 backdrop-blur-xl"
       }`}
     >
+      {/* Scrim: guarantees contrast for the logo + links even while the
+          bar is transparent over the hero. Fades away once solid. */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-slate-950/75 via-slate-950/35 to-transparent transition-opacity duration-300 ${
+          atTop ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
       <nav className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* ================= DESKTOP ================= */}
-        <div className="flex h-18 items-center justify-between">
+        <div className="flex h-[var(--nav-h)] items-center justify-between gap-3">
           {/* LOGO */}
-          <Link href="/" className="group flex items-center gap-3 sm:gap-4">
+          <Link
+            href="/"
+            className="group flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-4"
+          >
             {/* Logo Image */}
             <img
               src="/images/logo.png"
               alt="Fable Logo"
-              className="h-8 w-auto bg-transparent object-contain transition-transform duration-500 group-hover:scale-110 sm:h-9"
+              className="h-8 w-auto shrink-0 bg-transparent object-contain transition-transform duration-500 group-hover:scale-110 sm:h-9"
             />
 
             {/* Brand Text */}
-            <div className="flex flex-col justify-center leading-none">
+            <div className="flex min-w-0 flex-col justify-center leading-none">
               <span className="brand-text text-lg font-semibold sm:text-xl">
                 Fable
               </span>
@@ -162,8 +223,9 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="hidden items-center gap-4 md:flex">
+          {/* RIGHT SIDE — shares the `lg` breakpoint with the nav links so the
+              bar never has to fit both clusters at 1024px. */}
+          <div className="hidden shrink-0 items-center gap-2 sm:gap-3 lg:flex">
             <ThemeToggle />
 
             {/* HIDE ONLY DURING GOOGLE SIGNUP ROLE SETUP */}
@@ -190,22 +252,22 @@ export default function Navbar() {
             ) : (
               <>
                 {/* USER INFO */}
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                   {user?.image ? (
                     <img
                       src={user.image}
-                      className="h-11 w-11 rounded-full border border-line object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)]"
+                      className="h-10 w-10 shrink-0 rounded-full border border-line object-cover shadow-[0_0_0_2px_rgba(129,140,248,0.35)] sm:h-11 sm:w-11"
                       alt="user"
                     />
                   ) : (
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-sm font-bold text-white shadow-[0_0_18px_rgba(129,140,248,0.4)]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-sm font-bold text-white shadow-[0_0_18px_rgba(129,140,248,0.4)] sm:h-11 sm:w-11">
                       {user?.name?.charAt(0)}
                     </div>
                   )}
 
-                  <div className="hidden lg:block">
+                  <div className="hidden min-w-0 lg:block">
                     <p
-                      className={`text-sm font-semibold ${
+                      className={`truncate text-sm font-semibold ${
                         atTop ? "text-white" : "text-ink"
                       }`}
                     >
@@ -213,7 +275,7 @@ export default function Navbar() {
                     </p>
 
                     <p
-                      className={`text-xs capitalize ${
+                      className={`truncate text-xs capitalize ${
                         atTop ? "text-white/70" : "text-muted"
                       }`}
                     >
@@ -224,7 +286,7 @@ export default function Navbar() {
 
                 <button
                   onClick={handleLogout}
-                  className="rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-1.5 font-medium text-white shadow-md transition-all duration-300 hover:opacity-90"
+                  className="shrink-0 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-1.5 font-medium text-white shadow-md transition-all duration-300 hover:opacity-90"
                 >
                   Logout
                 </button>
@@ -233,13 +295,15 @@ export default function Navbar() {
           </div>
 
           {/* MOBILE MENU BUTTON */}
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:hidden">
             <ThemeToggle />
 
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-glass text-ink backdrop-blur transition-all duration-300 hover:bg-soft"
-              aria-label="Toggle Menu"
+              onClick={toggleMobile}
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-glass text-ink backdrop-blur transition-all duration-300 hover:bg-soft sm:h-11 sm:w-11"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="fable-mobile-drawer"
             >
               {mobileOpen ? (
                 <X className="h-6 w-6" />
@@ -250,29 +314,43 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* MOBILE MENU DRAWER */}
+        {/* SCRIM — dims only the page BELOW the bar so the navbar stays
+            visible and interactive; tap it to dismiss. */}
+        {mobileOpen && (
+          <div
+            aria-hidden
+            onClick={closeMobile}
+            className="fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-10 bg-slate-950/60 backdrop-blur-sm lg:hidden"
+          />
+        )}
+
+        {/* MOBILE MENU DRAWER
+            Height is viewport-derived (dvh) and the panel scrolls
+            internally, so on short/landscape phones nothing is ever
+            clipped or pushed off-screen. */}
         <div
-          className={`absolute left-0 right-0 top-full overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
+          id="fable-mobile-drawer"
+          className={`absolute left-0 right-0 top-full z-20 overflow-y-auto overscroll-contain transition-[max-height,opacity] duration-300 ease-out lg:hidden ${
             mobileOpen
-              ? "max-h-[560px] opacity-100"
+              ? "max-h-[calc(100dvh-var(--nav-h)-1rem)] opacity-100"
               : "pointer-events-none max-h-0 opacity-0"
           }`}
         >
-          <div className="mx-4 mb-4 rounded-2xl border border-line bg-panel/95 p-5 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:mx-6">
+          <div className="mx-3 mb-4 rounded-2xl border border-line bg-panel/95 p-4 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:mx-6 sm:p-5">
             {/* Brand */}
-            <div className="mb-5 flex items-center justify-between border-b border-line pb-4">
+            <div className="mb-5 flex items-center justify-between gap-3 border-b border-line pb-4">
               <Link
                 href="/"
-                onClick={() => setMobileOpen(false)}
-                className="group flex items-center gap-2.5"
+                onClick={closeMobile}
+                className="group flex min-w-0 items-center gap-2.5"
               >
                 <img
                   src="/images/logo.png"
                   alt="Fable Logo"
-                  className="h-8 w-auto bg-transparent object-contain transition-transform duration-300 group-hover:scale-110"
+                  className="h-8 w-auto shrink-0 bg-transparent object-contain transition-transform duration-300 group-hover:scale-110"
                 />
 
-                <div className="flex flex-col leading-none">
+                <div className="flex min-w-0 flex-col leading-none">
                   <span className="brand-text text-lg font-semibold">
                     Fable
                   </span>
@@ -284,8 +362,8 @@ export default function Navbar() {
 
               <Link
                 href="/"
-                onClick={() => setMobileOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-glass text-muted transition-all duration-300 hover:text-ink"
+                onClick={closeMobile}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-glass text-muted transition-all duration-300 hover:text-ink"
                 aria-label="Back to Home"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -307,10 +385,10 @@ export default function Navbar() {
                   </div>
                 )}
 
-                <div>
-                  <p className="font-semibold text-ink">{user?.name}</p>
+                <div className="min-w-0">
+                  <p className="truncate font-semibold text-ink">{user?.name}</p>
 
-                  <p className="text-sm capitalize text-muted">
+                  <p className="truncate text-sm capitalize text-muted">
                     {user?.role}
                   </p>
                 </div>
@@ -320,7 +398,7 @@ export default function Navbar() {
             <div className="flex flex-col gap-2">
               <Link
                 href="/"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMobile}
                 className={mobileNavLinkClass("/")}
               >
                 Home
@@ -328,7 +406,7 @@ export default function Navbar() {
 
               <Link
                 href="/browse"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMobile}
                 className={mobileNavLinkClass("/browse")}
               >
                 Browse Ebooks
@@ -336,7 +414,7 @@ export default function Navbar() {
 
               <Link
                 href="/about"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMobile}
                 className={mobileNavLinkClass("/about")}
               >
                 About Us
@@ -344,7 +422,7 @@ export default function Navbar() {
 
               <Link
                 href="/privacy"
-                onClick={() => setMobileOpen(false)}
+                onClick={closeMobile}
                 className={mobileNavLinkClass("/privacy")}
               >
                 Privacy Policy
@@ -354,7 +432,7 @@ export default function Navbar() {
                 <>
                   <Link
                     href={getDashboardLink()}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={closeMobile}
                     className={mobileNavLinkClass("/dashboard")}
                   >
                     Dashboard
@@ -362,7 +440,7 @@ export default function Navbar() {
 
                   <button
                     onClick={() => {
-                      setMobileOpen(false);
+                      closeMobile();
                       handleLogout();
                     }}
                     className="mt-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-left font-medium text-rose-400 transition-all duration-300 hover:bg-rose-500/20"
@@ -374,7 +452,7 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/login"
-                    onClick={() => setMobileOpen(false)}
+                    onClick={closeMobile}
                     className="rounded-xl px-4 py-3 text-sm font-medium text-muted transition-all duration-300 hover:bg-glass hover:text-ink"
                   >
                     Login
@@ -382,7 +460,7 @@ export default function Navbar() {
 
                   <Link
                     href="/register"
-                    onClick={() => setMobileOpen(false)}
+                    onClick={closeMobile}
                     className="btn btn-primary mt-2 w-full rounded-xl"
                   >
                     Sign Up
